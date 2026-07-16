@@ -453,13 +453,13 @@ function renderLogs() {
   fetchLogs().then(() => {
     if (logData.length === 0) {
       document.getElementById('log-filters').innerHTML = '';
-      document.getElementById('log-list').innerHTML = `
+      document.getElementById('log-sidebar').innerHTML = `
         <div class="empty-state" style="padding:30px">
           <div class="empty-icon">📋</div>
           <p>暂无运行日志</p>
           <p style="font-size:0.75rem;margin-top:4px">自动化运行后日志会自动生成</p>
         </div>`;
-      document.getElementById('log-detail').innerHTML = '<div class="log-empty-hint">点击左侧日志条目查看详细执行过程</div>';
+      document.getElementById('log-content').innerHTML = '<div class="log-empty-hint">← 点击左侧日志条目查看详细执行过程</div>';
       return;
     }
 
@@ -475,7 +475,7 @@ function renderLogs() {
       chip.addEventListener('click', () => {
         logTypeFilter = chip.dataset.type;
         activeLogIdx = -1;
-        document.getElementById('log-detail').innerHTML = '<div class="log-empty-hint">点击左侧日志条目查看详细执行过程</div>';
+        document.getElementById('log-content').innerHTML = '<div class="log-empty-hint">← 点击左侧日志条目查看详细执行过程</div>';
         renderLogs();
       });
     });
@@ -484,7 +484,7 @@ function renderLogs() {
     const filtered = logTypeFilter === 'all' ? logData : logData.filter(l => l.type === logTypeFilter);
 
     // List
-    document.getElementById('log-list').innerHTML = filtered.map((l, i) => {
+    document.getElementById('log-sidebar').innerHTML = filtered.map((l, i) => {
       const stCls = l.status || 'success';
       const typeLabel = TYPE_LABELS[l.type] || l.type;
       const s = l.summary_stats || l.summary || {};
@@ -514,10 +514,12 @@ function renderLogs() {
         if (activeLogIdx === idx) {
           activeLogIdx = -1;
           entry.classList.remove('active');
-          document.getElementById('log-detail').innerHTML = '<div class="log-empty-hint">点击左侧日志条目查看详细执行过程</div>';
+          document.getElementById('log-content').innerHTML = '<div class="log-empty-hint">← 点击左侧日志条目查看详细执行过程</div>';
+          document.getElementById('log-content').classList.remove('show');
           return;
         }
         activeLogIdx = idx;
+        document.getElementById('log-content').classList.add('show');
         document.querySelectorAll('.log-entry').forEach(e => e.classList.remove('active'));
         entry.classList.add('active');
         renderLogDetail(filtered[idx]);
@@ -533,7 +535,7 @@ function renderLogDetail(l) {
   const s = l.summary_stats || l.summary || {};
   const typeLabel = TYPE_LABELS[l.type] || l.type;
 
-  document.getElementById('log-detail').innerHTML = `
+  document.getElementById('log-content').innerHTML = `
     <div class="log-run-header">
       <div>
         <span class="log-run-title">${l.date} · ${typeLabel}</span>
@@ -589,7 +591,9 @@ function renderLogDetail(l) {
 function closeLogDetail() {
   activeLogIdx = -1;
   document.querySelectorAll('.log-entry').forEach(e => e.classList.remove('active'));
-  document.getElementById('log-detail').innerHTML = '<div class="log-empty-hint">点击左侧日志条目查看详细执行过程</div>';
+  document.getElementById('log-content').innerHTML = '<div class="log-empty-hint">← 点击左侧日志条目查看详细执行过程</div>';
+  // Hide on mobile
+  document.getElementById('log-content').classList.remove('show');
 }
 window.closeLogDetail = closeLogDetail;
 
