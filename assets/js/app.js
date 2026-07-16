@@ -33,8 +33,8 @@ async function loadManifest() {
   try {
     state.manifest = await fetchJSON('manifest.json');
   } catch (e) {
-    console.warn('Failed to load manifest:', e);
-    state.manifest = { briefings: [] };
+    console.info('fetch manifest failed, using embedded fallback:', e.message);
+    state.manifest = window.__SAMPLE_MANIFEST__ || { briefings: [] };
   }
   return state.manifest;
 }
@@ -43,8 +43,8 @@ async function loadBriefing(date) {
   try {
     state.currentBriefing = await fetchJSON(`daily/${date}.json`);
   } catch (e) {
-    console.warn('Failed to load briefing:', e);
-    state.currentBriefing = null;
+    console.info('fetch briefing failed, using embedded fallback:', e.message);
+    state.currentBriefing = window.__SAMPLE_BRIEFING__ || null;
   }
   return state.currentBriefing;
 }
