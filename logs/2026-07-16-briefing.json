@@ -1,0 +1,109 @@
+{
+  "date": "2026-07-16",
+  "type": "morning_briefing",
+  "timestamp": "2026-07-16T09:00:00+08:00",
+  "status": "success",
+  "steps": [
+    {
+      "step": 1,
+      "name": "查询上海金 AU9999",
+      "tool": "neodata-financial-search",
+      "query": "上海金AU9999最新价格和涨跌幅",
+      "status": "success",
+      "duration_ms": 1230,
+      "result_summary": "AU9999: ¥877.20, -0.09%，昨收 ¥877.99",
+      "source": "上海金交所",
+      "raw_preview": "黄金现货-上海金 | AU9999.SHG | 877.20 | -0.09 | 2026-07-16 15:22:00"
+    },
+    {
+      "step": 2,
+      "name": "查询伦敦金 XAUUSD",
+      "tool": "neodata-financial-search",
+      "query": "伦敦金现货价格XAUUSD最新价和涨跌幅",
+      "status": "success",
+      "duration_ms": 980,
+      "result_summary": "XAUUSD: $4033.70, -0.45%，昨收 $4051.80",
+      "source": "Kitco 国际金价",
+      "raw_preview": "黄金现货-伦敦金 | AUUSDO.LIFFE | 4033.70 | -0.45 | 2026-07-16 15:13:00"
+    },
+    {
+      "step": 3,
+      "name": "查询美元人民币汇率",
+      "tool": "neodata-financial-search",
+      "query": "美元人民币中间价最新汇率",
+      "status": "success",
+      "duration_ms": 760,
+      "result_summary": "USD/CNY: 6.7909, -1.0基点",
+      "source": "中国外汇交易中心",
+      "raw_preview": "20260716 | USD/CNY | 6.7909 | -1.0bp"
+    },
+    {
+      "step": 4,
+      "name": "搜索黄金相关新闻",
+      "tool": "FinanceMCP",
+      "query": "黄金 金价 美联储 降息 最新新闻",
+      "status": "success",
+      "duration_ms": 2100,
+      "result_summary": "获取 10 条新闻，筛选 3 条入库",
+      "source": "百度财经 / 东方财富 / 央视财经",
+      "raw_preview": "金价年内跌超20% | 星展银行不再预期降息 | 中东局势边打边谈"
+    },
+    {
+      "step": 5,
+      "name": "计算招行积存金估算价",
+      "tool": "LLM 计算",
+      "query": "伦敦金 4033.70 × 汇率 6.7909 ÷ 31.1035",
+      "status": "success",
+      "duration_ms": 50,
+      "result_summary": "积存金估算: ¥880.6/克",
+      "source": "模型计算"
+    },
+    {
+      "step": 6,
+      "name": "生成每日早报 JSON",
+      "tool": "LLM 生成",
+      "query": "基于数据生成 daily/2026-07-16.json",
+      "status": "success",
+      "duration_ms": 3200,
+      "result_summary": "JSON 生成完成，含 4 个价格点、3 条新闻、2 个知识卡片",
+      "source": "模型生成"
+    },
+    {
+      "step": 7,
+      "name": "更新 manifest.json",
+      "tool": "文件操作",
+      "query": "追加 2026-07-16 到 briefings 数组",
+      "status": "success",
+      "duration_ms": 80,
+      "result_summary": "manifest 已更新"
+    },
+    {
+      "step": 8,
+      "name": "Git 提交和推送",
+      "tool": "Git CLI",
+      "query": "git add && git commit && git push",
+      "status": "success",
+      "duration_ms": 1800,
+      "result_summary": "已推送到 GitHub: 43ff33b"
+    },
+    {
+      "step": 9,
+      "name": "发送邮件到 2132049351@qq.com",
+      "tool": "QQ Mail MCP",
+      "query": "主题: 每日金价早报 7月16日",
+      "status": "success",
+      "duration_ms": 1200,
+      "result_summary": "邮件发送成功",
+      "source": "QQ邮箱"
+    }
+  ],
+  "summary": {
+    "total_steps": 9,
+    "success_steps": 9,
+    "failed_steps": 0,
+    "total_duration_ms": 11400,
+    "briefing_generated": true,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}

@@ -382,8 +382,157 @@ function renderArchive() {
   });
 }
 
+// ===== Render: Logs =====
+let logData = [];
+let activeLogIdx = -1;
+
+async function fetchLogs() {
+  logData = [];
+  // Try to load sample log
+  try {
+    const resp = await fetch('logs/2026-07-16-briefing.json');
+    if (resp.ok) logData.push(await resp.json());
+  } catch (e) {}
+
+  // Check for logs in manifest
+  const briefings = (state.manifest && state.manifest.briefings) || [];
+  for (const b of briefings) {
+    if (logData.find(l => l.date === b.date)) continue;
+    try {
+      const resp = await fetch(`logs/${b.date}-briefing.json`);
+      if (resp.ok) logData.push(await resp.json());
+    } catch (e) {}
+  }
+
+  // Sort by date descending
+  logData.sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function renderLogs() {
+  fetchLogs().then(() => {
+    if (logData.length === 0) {
+      document.getElementById('log-filters').innerHTML = '';
+      document.getElementById('log-list').innerHTML = `
+        <div class="empty-state" style="padding:30px">
+          <div class="empty-icon">📋</div>
+          <p>暂无运行日志</p>
+          <p style="font-size:0.75rem;margin-top:4px">自动化运行后日志会自动生成</p>
+        </div>`;
+      document.getElementById('log-detail').innerHTML = '<div class="log-empty-hint">点击左侧日志条目查看详细执行过程</div>';
+      return;
+    }
+
+    // Filters
+    const types = [...new Set(logData.map(l => l.type))];
+    document.getElementById('log-filters').innerHTML = types.map(t => {
+      const label = { 'morning_briefing': '早报', 'inspection': '巡检' }[t] || t;
+      return `<button class="kb-chip active" data-type="${t}">${label}</button>`;
+    }).join('');
+
+    // List
+    document.getElementById('log-list').innerHTML = logData.map((l, i) => {
+      const stCls = l.status || 'success';
+      const typeLabel = { 'morning_briefing': '早报', 'inspection': '巡检' }[l.type] || l.type;
+      const s = l.summary || {};
+      return `
+        <div class="log-entry ${i === activeLogIdx ? 'active' : ''}" data-idx="${i}">
+          <div class="log-left">
+            <span class="log-status ${stCls}"></span>
+            <div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span class="log-date">${l.date}</span>
+                <span class="log-type">${typeLabel}</span>
+              </div>
+              <div class="log-summary">${s.success_steps}/${s.total_steps} 步成功 · ${(s.total_duration_ms / 1000).toFixed(1)}s</div>
+            </div>
+          </div>
+          <span class="log-arrow">›</span>
+        </div>`;
+    }).join('');
+
+    // Click handler
+    document.querySelectorAll('.log-entry').forEach(entry => {
+      entry.addEventListener('click', () => {
+        const idx = parseInt(entry.dataset.idx);
+        activeLogIdx = idx;
+        renderLogDetail(idx);
+        document.querySelectorAll('.log-entry').forEach(e => e.classList.remove('active'));
+        entry.classList.add('active');
+      });
+    });
+
+    // Show first log detail
+    if (activeLogIdx < 0 && logData.length > 0) {
+      activeLogIdx = 0;
+      renderLogDetail(0);
+      const first = document.querySelector('.log-entry');
+      if (first) first.classList.add('active');
+    }
+  });
+}
+
+function renderLogDetail(idx) {
+  const l = logData[idx];
+  if (!l) return;
+
+  const stCls = l.status || 'success';
+  const stLabel = { 'success': '完成', 'partial': '部分完成', 'failed': '失败' }[l.status] || l.status;
+  const s = l.summary || {};
+
+  document.getElementById('log-detail').innerHTML = `
+    <div class="log-run-header">
+      <div>
+        <span class="log-run-title">${l.date} · ${l.type === 'morning_briefing' ? '早报' : '巡检'}</span>
+        <span style="margin-left:8px;font-size:0.68rem;color:var(--fg-subtle)">${stLabel}</span>
+      </div>
+      <div class="log-run-time">${l.timestamp || ''}</div>
+    </div>
+    <div class="step-list">
+      ${(l.steps || []).map((step, i) => `
+        <div class="step-item ${step.status}">
+          <div class="step-num">${step.step}</div>
+          <div class="step-info">
+            <div class="step-header">
+              <span class="step-name">${step.name}</span>
+              <span class="step-duration">${(step.duration_ms / 1000).toFixed(1)}s</span>
+            </div>
+            <div class="step-meta">
+              <span>🔧 ${step.tool || '—'}</span>
+              ${step.source ? `<span>📡 ${step.source}</span>` : ''}
+            </div>
+            <div class="step-result">${step.result_summary || step.result || ''}</div>
+            ${step.source || step.query ? `<div class="step-source">查询: ${step.query || ''}</div>` : ''}
+            ${step.raw_preview ? `
+              <div class="step-raw" style="display:none" id="raw-${idx}-${i}">${step.raw_preview}</div>
+              <span class="step-toggle" onclick="toggleRaw('raw-${idx}-${i}', this)">查看原始数据 ▾</span>
+            ` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="log-summary-box">
+      <div class="log-summary-item">总计 <strong>${s.total_steps || 0}</strong> 步</div>
+      <div class="log-summary-item" style="color:var(--down)">成功 <strong>${s.success_steps || 0}</strong></div>
+      ${s.failed_steps > 0 ? `<div class="log-summary-item" style="color:var(--up)">失败 <strong>${s.failed_steps}</strong></div>` : ''}
+      <div class="log-summary-item">耗时 <strong>${((s.total_duration_ms || 0) / 1000).toFixed(1)}s</strong></div>
+      ${s.email_sent ? '<div class="log-summary-item">📧 邮件已发</div>' : ''}
+      ${s.git_pushed ? '<div class="log-summary-item">🚀 已推送</div>' : ''}
+    </div>
+  `;
+}
+
+// Helper for raw data toggle
+function toggleRaw(id, el) {
+  const raw = document.getElementById(id);
+  if (!raw) return;
+  const show = raw.style.display === 'none';
+  raw.style.display = show ? 'block' : 'none';
+  el.textContent = show ? '收起原始数据 ▴' : '查看原始数据 ▾';
+}
+window.toggleRaw = toggleRaw;
+
 // ===== Navigation =====
-const pages = ['home', 'knowledge', 'chart', 'about', 'archive'];
+const pages = ['home', 'knowledge', 'chart', 'about', 'archive', 'logs'];
 let chartRendered = false;
 
 function showPage(name) {
@@ -401,6 +550,7 @@ function showPage(name) {
     requestAnimationFrame(() => { renderChart(); chartRendered = true; });
   }
   if (name === 'archive') renderArchive();
+  if (name === 'logs') renderLogs();
 
   window.scrollTo(0, 0);
 }

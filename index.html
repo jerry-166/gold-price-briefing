@@ -161,6 +161,19 @@
       </div>
     </main>
 
+    <!-- Page: Logs -->
+    <main id="page-logs" class="page">
+      <div class="page-head">
+        <div class="page-title">运行日志</div>
+        <div class="page-sub">每次自动化运行的完整审计记录 · 数据源·过程·结果</div>
+      </div>
+      <div class="log-filter-bar" id="log-filters"></div>
+      <div class="log-list" id="log-list"></div>
+      <div class="log-detail-wrap" id="log-detail">
+        <div class="log-empty-hint">点击左侧日志条目查看详细执行过程</div>
+      </div>
+    </main>
+
     <!-- Bottom Nav -->
     <nav class="bottom-nav">
       <div class="nav-inner">
@@ -179,6 +192,10 @@
         <button class="nav-btn" data-page="archive">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
           往期
+        </button>
+        <button class="nav-btn" data-page="logs">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/></svg>
+          日志
         </button>
       </div>
     </nav>
