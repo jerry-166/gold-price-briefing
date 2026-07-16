@@ -386,27 +386,68 @@ function renderArchive() {
 let logData = [];
 let activeLogIdx = -1;
 
+const TYPE_LABELS = {
+  'morning_briefing': '早报',
+  'inspection_am': '巡检·上午',
+  'inspection_pm': '巡检·下午',
+  'inspection_night': '巡检·晚间',
+  'inspection': '巡检'
+};
+
+const STATUS_LABELS = {
+  'success': '✓ 成功',
+  'partial': '⚠ 部分',
+  'failed': '✗ 失败',
+  'no_action': '○ 无动作'
+};
+
 async function fetchLogs() {
   logData = [];
-  // Try to load sample log
-  try {
-    const resp = await fetch('logs/2026-07-16-briefing.json');
-    if (resp.ok) logData.push(await resp.json());
-  } catch (e) {}
-
-  // Check for logs in manifest
-  const briefings = (state.manifest && state.manifest.briefings) || [];
-  for (const b of briefings) {
-    if (logData.find(l => l.date === b.date)) continue;
+  const logFiles = [
+    'logs/2026-07-16-briefing.json',
+    'logs/2026-07-16-inspection-pm.json',
+    'logs/2026-07-15-inspection-pm.json'
+  ];
+  for (const file of logFiles) {
     try {
-      const resp = await fetch(`logs/${b.date}-briefing.json`);
-      if (resp.ok) logData.push(await resp.json());
+      const resp = await fetch(file);
+      if (resp.ok) {
+        const log = await resp.json();
+        log._filename = file;
+        if (!logData.find(l => l.date === log.date && l.type === log.type)) {
+          logData.push(log);
+        }
+      }
     } catch (e) {}
   }
 
-  // Sort by date descending
-  logData.sort((a, b) => b.date.localeCompare(a.date));
+  // Try logs/manifest.json for any additional logs
+  try {
+    const resp = await fetch('logs/manifest.json');
+    if (resp.ok) {
+      const m = await resp.json();
+      for (const entry of (m.logs || [])) {
+        if (logData.find(l => l.date === entry.date && l.type === entry.type)) continue;
+        try {
+          const r = await fetch(`logs/${entry.date}-${entry.type}.json`);
+          if (r.ok) {
+            const l = await r.json();
+            l._filename = `logs/${entry.date}-${entry.type}.json`;
+            logData.push(l);
+          }
+        } catch (e) {}
+      }
+    }
+  } catch (e) {}
+
+  // Sort by date desc, then by type
+  logData.sort((a, b) => {
+    if (a.date !== b.date) return b.date.localeCompare(a.date);
+    return (a.timestamp || '').localeCompare(b.timestamp || '');
+  });
 }
+
+let logTypeFilter = 'all';
 
 function renderLogs() {
   fetchLogs().then(() => {
@@ -423,17 +464,31 @@ function renderLogs() {
     }
 
     // Filters
-    const types = [...new Set(logData.map(l => l.type))];
+    const types = ['all', ...new Set(logData.map(l => l.type))];
     document.getElementById('log-filters').innerHTML = types.map(t => {
-      const label = { 'morning_briefing': '早报', 'inspection': '巡检' }[t] || t;
-      return `<button class="kb-chip active" data-type="${t}">${label}</button>`;
+      const label = t === 'all' ? '全部' : (TYPE_LABELS[t] || t);
+      const active = t === logTypeFilter;
+      return `<button class="kb-chip ${active ? 'active' : ''}" data-type="${t}">${label}</button>`;
     }).join('');
 
+    document.querySelectorAll('#log-filters .kb-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        logTypeFilter = chip.dataset.type;
+        activeLogIdx = -1;
+        document.getElementById('log-detail').innerHTML = '<div class="log-empty-hint">点击左侧日志条目查看详细执行过程</div>';
+        renderLogs();
+      });
+    });
+
+    // Filter
+    const filtered = logTypeFilter === 'all' ? logData : logData.filter(l => l.type === logTypeFilter);
+
     // List
-    document.getElementById('log-list').innerHTML = logData.map((l, i) => {
+    document.getElementById('log-list').innerHTML = filtered.map((l, i) => {
       const stCls = l.status || 'success';
-      const typeLabel = { 'morning_briefing': '早报', 'inspection': '巡检' }[l.type] || l.type;
-      const s = l.summary || {};
+      const typeLabel = TYPE_LABELS[l.type] || l.type;
+      const s = l.summary_stats || l.summary || {};
+      const stLabel = STATUS_LABELS[stCls] || stCls;
       return `
         <div class="log-entry ${i === activeLogIdx ? 'active' : ''}" data-idx="${i}">
           <div class="log-left">
@@ -442,8 +497,9 @@ function renderLogs() {
               <div style="display:flex;align-items:center;gap:6px">
                 <span class="log-date">${l.date}</span>
                 <span class="log-type">${typeLabel}</span>
+                <span style="font-size:0.65rem;color:var(--fg-subtle)">${stLabel}</span>
               </div>
-              <div class="log-summary">${s.success_steps}/${s.total_steps} 步成功 · ${(s.total_duration_ms / 1000).toFixed(1)}s</div>
+              <div class="log-summary">${l.summary || ''}</div>
             </div>
           </div>
           <span class="log-arrow">›</span>
@@ -454,41 +510,99 @@ function renderLogs() {
     document.querySelectorAll('.log-entry').forEach(entry => {
       entry.addEventListener('click', () => {
         const idx = parseInt(entry.dataset.idx);
+        // Toggle: click same to close
+        if (activeLogIdx === idx) {
+          activeLogIdx = -1;
+          entry.classList.remove('active');
+          document.getElementById('log-detail').innerHTML = '<div class="log-empty-hint">点击左侧日志条目查看详细执行过程</div>';
+          return;
+        }
         activeLogIdx = idx;
-        renderLogDetail(idx);
         document.querySelectorAll('.log-entry').forEach(e => e.classList.remove('active'));
         entry.classList.add('active');
+        renderLogDetail(filtered[idx]);
       });
     });
-
-    // Show first log detail
-    if (activeLogIdx < 0 && logData.length > 0) {
-      activeLogIdx = 0;
-      renderLogDetail(0);
-      const first = document.querySelector('.log-entry');
-      if (first) first.classList.add('active');
-    }
   });
 }
 
-function renderLogDetail(idx) {
-  const l = logData[idx];
+function renderLogDetail(l) {
   if (!l) return;
-
   const stCls = l.status || 'success';
-  const stLabel = { 'success': '完成', 'partial': '部分完成', 'failed': '失败' }[l.status] || l.status;
-  const s = l.summary || {};
+  const stLabel = STATUS_LABELS[stCls] || l.status;
+  const s = l.summary_stats || l.summary || {};
+  const typeLabel = TYPE_LABELS[l.type] || l.type;
+  const outputs = l.outputs || {};
+
+  // Build outputs HTML
+  let outputsHtml = '';
+  if (Object.keys(outputs).length > 0) {
+    let blocks = [];
+    if (outputs.briefing_json) {
+      blocks.push(`
+        <div class="output-block">
+          <div class="output-block-header">
+            <span>📄 早报 JSON</span>
+            <span class="output-block-meta">daily/2026-07-16.json</span>
+          </div>
+          <div class="output-block-body">${JSON.stringify(outputs.briefing_json, null, 2)}</div>
+        </div>`);
+    }
+    if (outputs.email) {
+      const e = outputs.email;
+      blocks.push(`
+        <div class="output-block">
+          <div class="output-block-header">
+            <span>📧 邮件内容</span>
+            <span class="output-block-meta">${e.to || ''} · ${(e.body || '').length} 字符</span>
+          </div>
+          <div class="output-block-body">主题: ${e.subject || ''}
+${'─'.repeat(40)}
+${e.body || ''}</div>
+        </div>`);
+    }
+    if (outputs.triggered !== undefined) {
+      blocks.push(`
+        <div class="output-block">
+          <div class="output-block-header">
+            <span>${outputs.triggered ? '🚨 预警已触发' : '✅ 无需预警'}</span>
+            <span class="output-block-meta">${outputs.reason || ''}</span>
+          </div>
+          <div class="output-block-body">triggered: ${outputs.triggered}
+reason: ${outputs.reason || '—'}
+email_sent: ${outputs.email_sent !== false}</div>
+        </div>`);
+    }
+    if (outputs.git_commit) {
+      blocks.push(`
+        <div class="output-block">
+          <div class="output-block-header">
+            <span>🚀 Git 提交</span>
+            <span class="output-block-meta">${outputs.git_commit}</span>
+          </div>
+          <div class="output-block-body">commit: ${outputs.git_commit}
+branch: master
+status: pushed</div>
+        </div>`);
+    }
+    if (blocks.length) {
+      outputsHtml = `<div class="outputs-section"><div class="outputs-title">📦 产物 / Outputs</div>${blocks.join('')}</div>`;
+    }
+  }
 
   document.getElementById('log-detail').innerHTML = `
     <div class="log-run-header">
       <div>
-        <span class="log-run-title">${l.date} · ${l.type === 'morning_briefing' ? '早报' : '巡检'}</span>
+        <span class="log-run-title">${l.date} · ${typeLabel}</span>
         <span style="margin-left:8px;font-size:0.68rem;color:var(--fg-subtle)">${stLabel}</span>
       </div>
-      <div class="log-run-time">${l.timestamp || ''}</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="log-run-time">${l.timestamp || ''}</div>
+        <button class="log-close-btn" onclick="closeLogDetail()">收起 ✕</button>
+      </div>
     </div>
     <div class="step-list">
-      ${(l.steps || []).map((step, i) => `
+      ${(l.steps || []).map((step) => `
         <div class="step-item ${step.status}">
           <div class="step-num">${step.step}</div>
           <div class="step-info">
@@ -500,11 +614,11 @@ function renderLogDetail(idx) {
               <span>🔧 ${step.tool || '—'}</span>
               ${step.source ? `<span>📡 ${step.source}</span>` : ''}
             </div>
-            <div class="step-result">${step.result_summary || step.result || ''}</div>
-            ${step.source || step.query ? `<div class="step-source">查询: ${step.query || ''}</div>` : ''}
+            <div class="step-result">${step.result_summary || ''}</div>
+            ${step.query ? `<div class="step-source">查询: ${step.query}</div>` : ''}
             ${step.raw_preview ? `
-              <div class="step-raw" style="display:none" id="raw-${idx}-${i}">${step.raw_preview}</div>
-              <span class="step-toggle" onclick="toggleRaw('raw-${idx}-${i}', this)">查看原始数据 ▾</span>
+              <div class="step-raw" style="display:none" id="raw-${step.step}">${step.raw_preview}</div>
+              <span class="step-toggle" onclick="toggleRaw('raw-${step.step}', this)">查看原始数据 ▾</span>
             ` : ''}
           </div>
         </div>
@@ -517,19 +631,18 @@ function renderLogDetail(idx) {
       <div class="log-summary-item">耗时 <strong>${((s.total_duration_ms || 0) / 1000).toFixed(1)}s</strong></div>
       ${s.email_sent ? '<div class="log-summary-item">📧 邮件已发</div>' : ''}
       ${s.git_pushed ? '<div class="log-summary-item">🚀 已推送</div>' : ''}
+      ${outputs.triggered ? '<div class="log-summary-item" style="color:var(--warn)">🚨 触发预警</div>' : ''}
     </div>
+    ${outputsHtml}
   `;
 }
 
-// Helper for raw data toggle
-function toggleRaw(id, el) {
-  const raw = document.getElementById(id);
-  if (!raw) return;
-  const show = raw.style.display === 'none';
-  raw.style.display = show ? 'block' : 'none';
-  el.textContent = show ? '收起原始数据 ▴' : '查看原始数据 ▾';
+function closeLogDetail() {
+  activeLogIdx = -1;
+  document.querySelectorAll('.log-entry').forEach(e => e.classList.remove('active'));
+  document.getElementById('log-detail').innerHTML = '<div class="log-empty-hint">点击左侧日志条目查看详细执行过程</div>';
 }
-window.toggleRaw = toggleRaw;
+window.closeLogDetail = closeLogDetail;
 
 // ===== Navigation =====
 const pages = ['home', 'knowledge', 'chart', 'about', 'archive', 'logs'];
