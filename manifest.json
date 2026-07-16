@@ -1,3 +1,9 @@
 {
-  "briefings": []
+  "briefings": [
+    {
+      "date": "2026-07-16",
+      "title": "今日金价早报",
+      "weekday": "周四"
+    }
+  ]
 }

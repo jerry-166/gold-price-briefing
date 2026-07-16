@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="每日金价早报 - 大白话读懂金价变动，辅助招行黄金积存金决策">
+  <title>每日金价早报</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-row">
+        <div class="header-title">
+          <span class="logo-dot"></span>
+          每日金价早报
+        </div>
+        <div class="header-date" id="header-date">—</div>
+      </div>
+    </header>
+
+    <!-- Page: Home -->
+    <main id="page-home" class="page active">
+      <section class="section">
+        <div class="section-head">
+          <span class="section-label">今日金价</span>
+          <span class="section-hint" id="snapshot-time">更新于 09:00</span>
+        </div>
+        <div id="price-hero"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <span class="section-label">昨夜大事</span>
+          <span class="section-hint">大白话解读</span>
+        </div>
+        <div id="news-list" class="news-list"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <span class="section-label">趋势建议</span>
+          <span class="section-hint">仅供参考</span>
+        </div>
+        <div id="trend-grid" class="trend-grid"></div>
+        <div id="advice-box"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <span class="section-label">今日学一招</span>
+          <span class="section-hint">3句话讲明白</span>
+        </div>
+        <div id="teach-box"></div>
+      </section>
+
+      <p class="footer-note">数据仅供参考 · 不构成投资建议</p>
+    </main>
+
+    <!-- Page: Knowledge -->
+    <main id="page-knowledge" class="page">
+      <div class="page-head">
+        <div class="page-title">知识库</div>
+        <div class="page-sub">按主题学懂金价背后的逻辑</div>
+      </div>
+      <div class="kb-filters" id="kb-filters"></div>
+      <div class="kb-list" id="kb-list"></div>
+    </main>
+
+    <!-- Page: Chart -->
+    <main id="page-chart" class="page">
+      <div class="page-head">
+        <div class="page-title">金价走势</div>
+        <div class="page-sub">近 30 天国内金价 · 标注关键事件</div>
+      </div>
+      <div class="chart-card" id="chart-wrap">
+        <div class="chart-meta">
+          <div>
+            <div class="cm-label">区间涨跌</div>
+            <div class="cm-val" id="chart-range-chg">—</div>
+          </div>
+          <div style="text-align:right">
+            <div class="cm-label">最新价</div>
+            <div class="cm-val" id="chart-latest">—</div>
+          </div>
+        </div>
+        <div class="chart-box">
+          <canvas id="gold-chart"></canvas>
+        </div>
+      </div>
+      <div class="section-head">
+        <span class="section-label">关键事件</span>
+      </div>
+      <div class="event-list" id="event-list"></div>
+    </main>
+
+    <!-- Page: Archive -->
+    <main id="page-archive" class="page">
+      <div class="page-head">
+        <div class="page-title">历史早报</div>
+        <div class="page-sub">点击查看往期内容</div>
+      </div>
+      <div class="archive-list" id="archive-list"></div>
+    </main>
+
+    <!-- Page: About -->
+    <main id="page-about" class="page">
+      <div class="page-head">
+        <div class="page-title">关于</div>
+        <div class="page-sub">给银行黄金积存金散户的轻量资讯</div>
+      </div>
+
+      <div class="about-card">
+        <h3>系统说明</h3>
+        <p>本站面向买卖银行黄金积存金的普通用户，用大白话把国际金价、汇率、国内金价和重大新闻讲清楚，并附上趋势判断与知识点卡片。界面手机优先，信息优先，不做复杂交易功能。</p>
+      </div>
+
+      <div class="about-card">
+        <h3>数据来源</h3>
+        <div>
+          <span class="data-tag">上海金交所 AU99.99</span>
+          <span class="data-tag">国际金价 XAU/USD</span>
+          <span class="data-tag">美元兑人民币汇率</span>
+          <span class="data-tag">招商银行官网</span>
+          <span class="data-tag">公开财经资讯</span>
+        </div>
+      </div>
+
+      <div class="about-card">
+        <h3>颜色约定</h3>
+        <p>涨跌色遵循中国股市惯例：<span class="text-up" style="font-weight:600">红色 = 上涨</span>，<span class="text-down" style="font-weight:600">绿色 = 下跌</span>。</p>
+      </div>
+
+      <div class="about-card">
+        <h3>更新时间</h3>
+        <ul>
+          <li>每日早报：早上 9:00 自动发布</li>
+          <li>午间巡检：14:00 检查是否有大事</li>
+          <li>晚间巡检：22:00 检查是否有大事</li>
+        </ul>
+      </div>
+
+      <div class="disclaimer">
+        <h3>免责声明</h3>
+        <p>本站内容仅为信息整理与知识科普，不构成任何投资建议、买卖推荐或收益承诺。黄金价格受多种因素影响，可能大幅波动。投资有风险，决策请结合自身情况，必要时咨询持牌专业人士。</p>
+      </div>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+      <div class="nav-inner">
+        <button class="nav-btn active" data-page="home">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"/></svg>
+          首页
+        </button>
+        <button class="nav-btn" data-page="knowledge">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13zM13 4h5.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H13V4z"/></svg>
+          知识库
+        </button>
+        <button class="nav-btn" data-page="chart">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M6 16l4-5 3.5 3.5L18 8"/><circle cx="18" cy="8" r="1.2" fill="currentColor" stroke="none"/></svg>
+          走势图
+        </button>
+        <button class="nav-btn" data-page="archive">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+          往期
+        </button>
+      </div>
+    </nav>
+  </div>
+</body>
+</html>
