@@ -187,23 +187,31 @@
   <!-- Embedded fallback data (used when fetch fails, e.g. file:// protocol) -->
   <script>
     window.__SAMPLE_BRIEFING__ = {
+      _meta: { updated: "2026-07-16 15:22 CST", dataSources: [
+        { name: "上海金交所", url: "https://www.sge.com.cn/" },
+        { name: "Kitco 国际金价", url: "https://www.kitco.com/" },
+        { name: "中国外汇交易中心", url: "https://www.chinamoney.com.cn/" }
+      ]},
       date: "2026-07-16",
       weekday: "周四",
       title: "今日金价早报",
-      updateTime: "09:00",
+      updateTime: "15:22",
       prices: [
-        { label: "招行积存金买入价", value: "578.2", unit: "¥/克", change: 0.71, hero: true },
-        { label: "国际金价", value: "2456", unit: "$/盎司", change: 0.82 },
-        { label: "美元汇率", value: "7.25", unit: "", change: 0.05 },
-        { label: "国内金价", value: "576.0", unit: "¥/克", change: 0.74 }
+        { label: "招行积存金买入价", value: "880.0", unit: "¥/克", change: -0.12, hero: true, source: "估算：伦敦金×汇率÷31.1035", note: "实际以银行挂牌为准" },
+        { label: "上海金 AU9999", value: "877.20", unit: "¥/克", change: -0.09, source: "上海金交所" },
+        { label: "美元汇率", value: "6.79", unit: "USD/CNY", change: 0.01, source: "中国外汇交易中心" },
+        { label: "伦敦金 XAUUSD", value: "4033.7", unit: "$/盎司", change: -0.45, source: "国际金价实时行情" }
       ],
       news: [
-        { tag: "美联储", tagType: "fed", title: "美联储官员暗示年内或再降息一次",
-          explain: "美联储暗示降息 <span class=\"arrow\">→</span> 存银行利息变少 <span class=\"arrow\">→</span> 大家更爱买黄金保值 <span class=\"arrow\">→</span> 金价容易涨" },
-        { tag: "地缘", tagType: "geo", title: "中东局势紧张，避险资金回流黄金",
-          explain: "国际局势不稳 <span class=\"arrow\">→</span> 股票债券心里没底 <span class=\"arrow\">→</span> 钱往黄金里躲 <span class=\"arrow\">→</span> 金价被推高" },
-        { tag: "汇率", tagType: "fx", title: "美元指数小幅回落，人民币相对走强",
-          explain: "美元变弱一点 <span class=\"arrow\">→</span> 同样的国际金价换成人民币更贵 <span class=\"arrow\">→</span> 国内金价跟着抬升" }
+        { tag: "美联储", tagType: "fed", title: "星展银行：不再预期美联储今年降息",
+          explain: "加息预期 <span class=\"arrow\">→</span> 美债收益率走高 <span class=\"arrow\">→</span> 美元强 <span class=\"arrow\">→</span> 金价承压",
+          source: "百度财经 / 星展银行", url: "https://baijiahao.baidu.com/s?id=1870786179059808530" },
+        { tag: "地缘", tagType: "geo", title: "中东局势边打边谈，避险情绪反复拉扯金价",
+          explain: "停火脆弱 <span class=\"arrow\">→</span> 扰动弹跳频繁 <span class=\"arrow\">→</span> 短期金价在 3900-4200 反复",
+          source: "东方财富研报", url: "https://data.eastmoney.com/report/zw_industry.jshtml?infocode=AP202606051823272281" },
+        { tag: "市场", tagType: "data", title: "国际金价年内跌超20%，央行却在加仓",
+          explain: "高位回落 <span class=\"arrow\">→</span> 短期承压 <span class=\"arrow\">→</span> 但央行还在买 <span class=\"arrow\">→</span> 长期逻辑未破",
+          source: "央视财经", url: "https://content-static.cctvnews.cctv.com/snow-book/index.html?item_id=1093179774525515169" }
       ],
       trend: {
         short: "偏强震荡", shortVal: 1,
@@ -213,16 +221,19 @@
         advice: "短期有事件扰动，但中期逻辑仍偏多。已持有积存金的用户可继续持有；暂无仓位的不必急着追高，可等回调再分批定投。"
       },
       teach: {
-        title: "什么是「黄金积存金」？",
-        body: "<ol><li><strong>银行按「克」记账</strong>的黄金账户，不提实物，买卖像余额宝一样方便。</li><li>价格跟国际金价和汇率挂钩，银行挂牌价通常略有点差。</li><li>适合想参与金价波动、又不想存金条的普通人做长期配置。</li></ol>"
+        title: "为什么央行买金金价还跌？",
+        body: "<ol><li><strong>两条线没对上</strong>：央行买金看的是 5-10 年战略安全，短期金价受利率和美元牵着走。</li><li><strong>市场在交易\"加息\"</strong>：通胀推高后，市场预期美联储要加息 → 美元走强 → 金价短线受压。</li><li><strong>但长期逻辑没变</strong>：全球央行连续 3 年净购金超 1000 吨，黄金占全球储备从 13% 升至 30%，这是金价的\"硬底\"。</li></ol>",
+        source: "世界黄金协会 2026 年年中展望"
       },
       knowledge: [
-        { cat: "美联储与金价", title: "利率和金价，为什么总是「跷跷板」？",
-          summary: "利息高时，放银行更香；利息低时，黄金更香。",
-          detail: "黄金本身不付利息。当美联储加息、存款利率升高时，把钱放银行更划算，买黄金的吸引力下降，金价容易承压。反过来，降息时存款收益变薄，黄金的「保值」属性更突出，资金会回流黄金。所以看金价，先看美联储说话的风向。" },
-        { cat: "美联储与金价", title: "什么是「实际利率」？",
-          summary: "名义利率减去通胀，才是钱真正的「购买力利息」。",
-          detail: "名义利率是银行写在纸上的利息；实际利率 = 名义利率 − 通胀。实际利率越低，现金越「烫手」，黄金越受欢迎。很多时候金价不是跟着「加息/降息」字面走，而是跟着实际利率走。" },
+        { cat: "金价趋势", title: "金价为什么从5400跌到4000？",
+          summary: "年内跌超 20%，高盛大幅下调预期，但长期牛市根基未破。",
+          detail: "2026 年初金价一度冲上 5405 美元历史新高，此后半年内暴跌至 4000 附近。下跌原因：1) 前两年涨幅过大积累获利盘；2) 美联储加息预期推高美元；3) 地缘风险反复但不是持续恶化。但要注意：央行购金量保持在 1000 吨以上，全球\"去美元化\"趋势未变。",
+          source: "央视财经 / 新浪财经研报" },
+        { cat: "金价趋势", title: "现在是买黄金的好时机吗？",
+          summary: "短线不确定，长线有机会。定投优于一把梭。",
+          detail: "短线（1-3 个月）：金价可能在 3900-4200 区间震荡。中线（3-12 个月）：若美联储降息信号明朗，金价有望重回上行。操作建议：分批定投 > 一次性重仓。",
+          source: "世界黄金协会 / 华安证券研报" },
         { cat: "地缘政治与金价", title: "为什么一打仗金价就容易涨？",
           summary: "不确定时，人们会找「不会破产」的资产。",
           detail: "战争、制裁、冲突会让股票、债券、货币都变得不确定。黄金没有违约风险、不受单一国家信用约束，常被当作避险资产。注意：避险行情来得快去得也快，别把短期冲击当长期趋势。" },

@@ -74,15 +74,17 @@ function renderHome() {
   const heroEl = document.getElementById('price-hero');
   const heroCls = chgClass(heroPrice.change);
   heroEl.innerHTML = `
-    <div class="hero-label">${heroPrice.label}</div>
+    <div class="hero-label">${heroPrice.label}${heroPrice.note ? `<span style="font-size:0.6rem;color:var(--fg-subtle);font-weight:400;margin-left:4px">(${heroPrice.note})</span>` : ''}</div>
     <div class="hero-value">${heroPrice.value}<span class="hero-unit">${heroPrice.unit || ''}</span></div>
     <div class="hero-change ${heroCls}">${chgArrow(heroPrice.change)} ${fmtPct(heroPrice.change)}</div>
+    ${heroPrice.source ? `<div class="source-tag">${heroPrice.source}</div>` : ''}
     <div class="price-mini-grid">
       ${b.prices.filter(p => p !== heroPrice).map(p => `
         <div class="price-mini">
           <div class="pm-label">${p.label}</div>
-          <div class="pm-value">${p.value}</div>
+          <div class="pm-value">${p.value}${p.unit ? `<span style="font-size:0.6rem;color:var(--fg-subtle)">${p.unit}</span>` : ''}</div>
           <div class="pm-change text-${chgClass(p.change)}">${chgArrow(p.change)} ${fmtPct(p.change)}</div>
+          ${p.source ? `<div class="source-tag">${p.source}</div>` : ''}
         </div>
       `).join('')}
     </div>
@@ -94,6 +96,12 @@ function renderHome() {
       <span class="news-tag ${n.tagType || 'fed'}">${n.tag}</span>
       <div class="news-title">${n.title}</div>
       <div class="news-explain">${n.explain}</div>
+      ${n.source ? `
+        <div class="news-source">
+          <span class="news-source-name">📰 ${n.source}</span>
+          ${n.url ? `<a class="source-link" href="${n.url}" target="_blank" rel="noopener">查看原文 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>` : ''}
+        </div>
+      ` : ''}
     </div>
   `).join('') || '<div class="empty-state"><div class="empty-icon">📰</div>今日暂无重大新闻</div>';
 
@@ -140,8 +148,25 @@ function renderHome() {
       <span class="teach-badge">知识</span>
       <div class="teach-title">${teach.title || '今日学一招'}</div>
       <div class="teach-body">${teach.body || ''}</div>
+      ${teach.source ? `<div class="teach-source">📚 参考：${teach.source}</div>` : ''}
     </div>
   `;
+
+  // Data Sources Footer
+  const meta = b._meta;
+  if (meta && meta.dataSources) {
+    const srcFooter = document.createElement('div');
+    srcFooter.className = 'source-footer';
+    srcFooter.innerHTML = `
+      <div class="source-footer-title">📡 数据来源</div>
+      <div class="source-footer-list">
+        ${meta.dataSources.map(s => `
+          ${s.url ? `<a class="source-footer-item" href="${s.url}" target="_blank" rel="noopener">${s.name}</a>` : `<span class="source-footer-item">${s.name}</span>`}
+        `).join('')}
+      </div>
+    `;
+    document.getElementById('page-home').appendChild(srcFooter);
+  }
 }
 
 function renderEmptyHome() {
@@ -196,6 +221,7 @@ function renderKnowledge() {
       <h3>${k.title}</h3>
       <p class="kb-summary">${k.summary}</p>
       <div class="kb-detail">${k.detail}</div>
+      ${k.source ? `<div class="kb-source">📚 ${k.source}</div>` : ''}
       <span class="kb-toggle">点击展开 ▾</span>
     </button>
   `).join('');
@@ -232,6 +258,19 @@ function renderChart() {
   rangeEl.textContent = fmtPct(pct);
   rangeEl.className = 'cm-val text-' + chgClass(pct);
   document.getElementById('chart-latest').textContent = last.toFixed(1) + ' ¥/克';
+
+  // Chart source
+  const chartSrc = chart.source;
+  if (chartSrc) {
+    const chartCard = document.getElementById('chart-wrap');
+    let srcEl = chartCard.querySelector('.chart-source');
+    if (!srcEl) {
+      srcEl = document.createElement('div');
+      srcEl.className = 'chart-source';
+      chartCard.appendChild(srcEl);
+    }
+    srcEl.textContent = '📡 ' + chartSrc;
+  }
 
   // Events
   document.getElementById('event-list').innerHTML = (chart.events || []).map(e => `

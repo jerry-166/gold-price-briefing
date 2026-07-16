@@ -743,3 +743,94 @@ img { max-width: 100%; display: block; }
   .kb-list { grid-template-columns: 1fr 1fr 1fr 1fr; }
   .event-list { grid-template-columns: 1fr 1fr 1fr; }
 }
+
+/* ===== 数据来源标注 ===== */
+.source-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.6rem;
+  color: var(--fg-subtle);
+  margin-top: 4px;
+}
+.source-tag::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.news-source {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.news-source-name {
+  font-size: 0.65rem;
+  color: var(--fg-subtle);
+}
+.source-link {
+  font-size: 0.65rem;
+  color: var(--gold);
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  transition: opacity var(--transition);
+}
+.source-link:hover { opacity: 0.7; text-decoration: underline; }
+.source-link svg { width: 12px; height: 12px; }
+.source-footer {
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.source-footer-title {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--fg-muted);
+  margin-bottom: 6px;
+}
+.source-footer-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.source-footer-item {
+  font-size: 0.62rem;
+  color: var(--fg-subtle);
+  padding: 2px 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--transition);
+}
+.source-footer-item:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.teach-source {
+  margin-top: 8px;
+  font-size: 0.65rem;
+  color: var(--fg-subtle);
+}
+.kb-source {
+  font-size: 0.65rem;
+  color: var(--fg-subtle);
+  margin-top: 8px;
+}
+.chart-source {
+  font-size: 0.65rem;
+  color: var(--fg-subtle);
+  text-align: right;
+  padding: 0 4px;
+}
