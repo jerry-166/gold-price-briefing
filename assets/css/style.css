@@ -477,8 +477,10 @@ img { max-width: 100%; display: block; }
   width: 100%;
   transition: box-shadow var(--transition), border-color var(--transition);
   cursor: pointer;
+  position: relative;
 }
 .kb-card:hover { box-shadow: var(--shadow-sm); border-color: var(--border-strong); }
+.kb-card.open { z-index: 5; border-color: var(--gold); box-shadow: var(--shadow); }
 .kb-cat {
   font-size: 0.65rem;
   font-weight: 600;
@@ -496,12 +498,21 @@ img { max-width: 100%; display: block; }
 .kb-summary { font-size: 0.8rem; color: var(--fg-muted); line-height: 1.5; }
 .kb-detail {
   display: none;
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--border);
+  margin-top: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
   font-size: 0.8rem;
   line-height: 1.65;
   color: var(--fg);
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  position: absolute;
+  left: 0;
+  top: calc(100% - 1px);
+  width: 100%;
+  z-index: 10;
 }
 .kb-card.open .kb-detail { display: block; animation: pageIn var(--transition) ease-out; }
 .kb-toggle {
