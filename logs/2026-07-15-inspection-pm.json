@@ -4,76 +4,12 @@
   "timestamp": "2026-07-15T14:00:00+08:00",
   "finishedAt": "2026-07-15T14:00:09+08:00",
   "status": "partial",
-  "summary": "14:00 巡检发现金价日内暴跌 -2.3%，触发预警邮件。",
+  "summary": "14:00 巡检发现金价日内暴跌 -2.36%，触发预警邮件。",
   "steps": [
-    {
-      "step": 1,
-      "name": "检查金价波动",
-      "tool": "neodata-financial-search",
-      "query": "伦敦金XAUUSD最新价",
-      "status": "success",
-      "duration_ms": 1100,
-      "result_summary": "XAUUSD: $3938.50, 较今早 -2.36%",
-      "source": "Kitco 国际金价",
-      "raw_preview": "黄金现货-伦敦金 | AUUSDO.LIFFE | 3938.50 | -2.36 | 2026-07-15 13:55:00"
-    },
-    {
-      "step": 2,
-      "name": "搜索突发新闻",
-      "tool": "FinanceMCP",
-      "query": "黄金 金价 暴跌 突发",
-      "status": "success",
-      "duration_ms": 2400,
-      "result_summary": "命中：美联储官员释放超鹰派信号，美元飙升，黄金遭抛售",
-      "source": "财经媒体",
-      "raw_preview": "美联储 7 月议息会议纪要释放超鹰派信号，多数官员支持继续加息..."
-    },
-    {
-      "step": 3,
-      "name": "对比阈值",
-      "tool": "本地计算",
-      "query": "波动 -2.36% > 阈值 1.5%",
-      "status": "success",
-      "duration_ms": 30,
-      "result_summary": "触发预警条件"
-    },
-    {
-      "step": 4,
-      "name": "生成预警邮件",
-      "tool": "LLM 生成",
-      "query": "生成金价暴跌预警邮件",
-      "status": "success",
-      "duration_ms": 1500,
-      "result_summary": "邮件已生成"
-    },
-    {
-      "step": 5,
-      "name": "发送预警邮件",
-      "tool": "QQ Mail MCP",
-      "query": "主题: ⚠️ 金价预警 | 午后暴跌 -2.36%",
-      "status": "success",
-      "duration_ms": 1100,
-      "result_summary": "邮件发送成功",
-      "source": "QQ邮箱"
-    }
+    { "step": 1, "name": "检查金价波动", "tool": "neodata-financial-search", "query": "伦敦金XAUUSD最新价", "status": "success", "duration_ms": 1100, "result_summary": "XAUUSD: $3938.50, -2.36%", "source": "Kitco 国际金价", "outputs": [{ "label": "原始数据", "content": "黄金现货-伦敦金 | AUUSDO.LIFFE | 3938.50 | -2.36 | 2026-07-15 13:55:00" }] },
+    { "step": 2, "name": "搜索突发新闻", "tool": "FinanceMCP", "query": "黄金 金价 暴跌 突发", "status": "success", "duration_ms": 2400, "result_summary": "美联储释放超鹰派信号，美元飙升", "source": "财经媒体", "outputs": [{ "label": "命中新闻", "content": "美联储 7 月议息会议纪要释放超鹰派信号\n多数官员支持继续加息\n美元指数短线跳升 1.2%\n黄金遭投机盘大幅抛售" }] },
+    { "step": 3, "name": "对比阈值并触发预警", "tool": "LLM 决策", "query": "波动 -2.36% > 阈值 1.5%", "status": "success", "duration_ms": 30, "result_summary": "触发预警条件", "outputs": [{ "label": "判定", "content": "波动率: -2.36%\n阈值: 1.50%\n触发: YES" }] },
+    { "step": 4, "name": "生成并发送预警邮件", "tool": "QQ Mail MCP", "query": "发送金价暴跌预警邮件", "status": "success", "duration_ms": 1100, "result_summary": "邮件发送成功", "source": "QQ邮箱", "outputs": [{ "label": "邮件内容", "content": "收件人: 2132049351@qq.com\n主题: ⚠️ 金价预警 | 午后暴跌 -2.36%\n\n金价短线跳水 -2.36%\n原因：美联储会议纪要释放超鹰派信号，美元飙升，黄金遭抛售。\n\n你的建议：积存金适合中长期持有，短线暴跌别慌。\n若有闲置资金，可考虑分批定投加仓。\n\n数据来源：Kitco 国际金价" }] }
   ],
-  "outputs": {
-    "triggered": true,
-    "reason": "波动 -2.36% 超过 1.5% 阈值",
-    "email_sent": true,
-    "email": {
-      "to": "2132049351@qq.com",
-      "subject": "⚠️ 金价预警 | 午后暴跌 -2.36%",
-      "body": "金价短线跳水 -2.36%\n原因：美联储 7 月议息会议纪要释放超鹰派信号，美元飙升，黄金遭抛售。\n\n你的建议：\n积存金适合中长期持有，短线暴跌别慌。但如果你有闲置资金，可以考虑分批定投加仓。\n\n数据来源：Kitco 国际金价"
-    }
-  },
-  "summary_stats": {
-    "total_steps": 5,
-    "success_steps": 5,
-    "failed_steps": 0,
-    "total_duration_ms": 6130,
-    "briefing_generated": false,
-    "email_sent": true,
-    "git_pushed": false
-  }
+  "summary_stats": { "total_steps": 4, "success_steps": 4, "failed_steps": 0, "total_duration_ms": 4630, "email_sent": true }
 }

@@ -532,63 +532,6 @@ function renderLogDetail(l) {
   const stLabel = STATUS_LABELS[stCls] || l.status;
   const s = l.summary_stats || l.summary || {};
   const typeLabel = TYPE_LABELS[l.type] || l.type;
-  const outputs = l.outputs || {};
-
-  // Build outputs HTML
-  let outputsHtml = '';
-  if (Object.keys(outputs).length > 0) {
-    let blocks = [];
-    if (outputs.briefing_json) {
-      blocks.push(`
-        <div class="output-block">
-          <div class="output-block-header">
-            <span>📄 早报 JSON</span>
-            <span class="output-block-meta">daily/2026-07-16.json</span>
-          </div>
-          <div class="output-block-body">${JSON.stringify(outputs.briefing_json, null, 2)}</div>
-        </div>`);
-    }
-    if (outputs.email) {
-      const e = outputs.email;
-      blocks.push(`
-        <div class="output-block">
-          <div class="output-block-header">
-            <span>📧 邮件内容</span>
-            <span class="output-block-meta">${e.to || ''} · ${(e.body || '').length} 字符</span>
-          </div>
-          <div class="output-block-body">主题: ${e.subject || ''}
-${'─'.repeat(40)}
-${e.body || ''}</div>
-        </div>`);
-    }
-    if (outputs.triggered !== undefined) {
-      blocks.push(`
-        <div class="output-block">
-          <div class="output-block-header">
-            <span>${outputs.triggered ? '🚨 预警已触发' : '✅ 无需预警'}</span>
-            <span class="output-block-meta">${outputs.reason || ''}</span>
-          </div>
-          <div class="output-block-body">triggered: ${outputs.triggered}
-reason: ${outputs.reason || '—'}
-email_sent: ${outputs.email_sent !== false}</div>
-        </div>`);
-    }
-    if (outputs.git_commit) {
-      blocks.push(`
-        <div class="output-block">
-          <div class="output-block-header">
-            <span>🚀 Git 提交</span>
-            <span class="output-block-meta">${outputs.git_commit}</span>
-          </div>
-          <div class="output-block-body">commit: ${outputs.git_commit}
-branch: master
-status: pushed</div>
-        </div>`);
-    }
-    if (blocks.length) {
-      outputsHtml = `<div class="outputs-section"><div class="outputs-title">📦 产物 / Outputs</div>${blocks.join('')}</div>`;
-    }
-  }
 
   document.getElementById('log-detail').innerHTML = `
     <div class="log-run-header">
@@ -602,7 +545,9 @@ status: pushed</div>
       </div>
     </div>
     <div class="step-list">
-      ${(l.steps || []).map((step) => `
+      ${(l.steps || []).map((step) => {
+        const outputs = step.outputs || [];
+        return `
         <div class="step-item ${step.status}">
           <div class="step-num">${step.step}</div>
           <div class="step-info">
@@ -615,14 +560,20 @@ status: pushed</div>
               ${step.source ? `<span>📡 ${step.source}</span>` : ''}
             </div>
             <div class="step-result">${step.result_summary || ''}</div>
-            ${step.query ? `<div class="step-source">查询: ${step.query}</div>` : ''}
-            ${step.raw_preview ? `
-              <div class="step-raw" style="display:none" id="raw-${step.step}">${step.raw_preview}</div>
-              <span class="step-toggle" onclick="toggleRaw('raw-${step.step}', this)">查看原始数据 ▾</span>
+            ${step.query ? `<div class="step-query">查询: ${step.query}</div>` : ''}
+            ${outputs.length > 0 ? `
+              <div class="step-outputs">
+                ${outputs.map((o, oi) => `
+                  <div class="step-output-block">
+                    <div class="step-output-label">${o.label || '产物'}</div>
+                    <div class="step-output-body">${o.type === 'json' || o.label.includes('JSON') ? '<pre style="white-space:pre;line-height:1.5;margin:0;font-size:0.63rem">' + o.content + '</pre>' : o.content}</div>
+                  </div>
+                `).join('')}
+              </div>
             ` : ''}
           </div>
-        </div>
-      `).join('')}
+        </div>`;
+      }).join('')}
     </div>
     <div class="log-summary-box">
       <div class="log-summary-item">总计 <strong>${s.total_steps || 0}</strong> 步</div>
@@ -631,9 +582,7 @@ status: pushed</div>
       <div class="log-summary-item">耗时 <strong>${((s.total_duration_ms || 0) / 1000).toFixed(1)}s</strong></div>
       ${s.email_sent ? '<div class="log-summary-item">📧 邮件已发</div>' : ''}
       ${s.git_pushed ? '<div class="log-summary-item">🚀 已推送</div>' : ''}
-      ${outputs.triggered ? '<div class="log-summary-item" style="color:var(--warn)">🚨 触发预警</div>' : ''}
     </div>
-    ${outputsHtml}
   `;
 }
 

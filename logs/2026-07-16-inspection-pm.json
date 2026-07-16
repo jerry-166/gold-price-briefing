@@ -4,59 +4,12 @@
   "timestamp": "2026-07-16T14:00:00+08:00",
   "finishedAt": "2026-07-16T14:00:06+08:00",
   "status": "no_action",
-  "summary": "14:00 巡检完成，金价日内波动在 0.5% 阈值内，未触发预警。",
+  "summary": "14:00 巡检完成，金价日内波动 0.28%，未触发预警。",
   "steps": [
-    {
-      "step": 1,
-      "name": "检查金价波动",
-      "tool": "neodata-financial-search",
-      "query": "伦敦金XAUUSD最新价",
-      "status": "success",
-      "duration_ms": 920,
-      "result_summary": "XAUUSD: $4022.30, 较今早 -0.28%",
-      "source": "Kitco 国际金价",
-      "raw_preview": "黄金现货-伦敦金 | AUUSDO.LIFFE | 4022.30 | -0.28 | 2026-07-16 13:55:00"
-    },
-    {
-      "step": 2,
-      "name": "对比早报基准价",
-      "tool": "本地计算",
-      "query": "波动 = (4022.30 - 4033.70) / 4033.70 = -0.28%",
-      "status": "success",
-      "duration_ms": 30,
-      "result_summary": "波动 0.28%，未超 1.5% 阈值"
-    },
-    {
-      "step": 3,
-      "name": "检查突发新闻",
-      "tool": "WebSearch",
-      "query": "黄金 美联储 紧急 突发",
-      "status": "success",
-      "duration_ms": 1500,
-      "result_summary": "无重大突发事件"
-    },
-    {
-      "step": 4,
-      "name": "决策",
-      "tool": "LLM 决策",
-      "query": "波动 < 1.5% 且无重大事件",
-      "status": "success",
-      "duration_ms": 200,
-      "result_summary": "判定为 no_action，不发邮件"
-    }
+    { "step": 1, "name": "检查金价波动", "tool": "neodata-financial-search", "query": "伦敦金XAUUSD最新价", "status": "success", "duration_ms": 920, "result_summary": "XAUUSD: $4022.30, 较今早 -0.28%", "source": "Kitco 国际金价", "outputs": [{ "label": "原始数据", "content": "黄金现货-伦敦金 | AUUSDO.LIFFE | 4022.30 | -0.28 | 2026-07-16 13:55:00" }] },
+    { "step": 2, "name": "对比早报基准价", "tool": "本地计算", "query": "(4022.30 - 4033.70) / 4033.70", "status": "success", "duration_ms": 30, "result_summary": "波动 0.28%，未超 1.5% 阈值", "outputs": [{ "label": "计算过程", "content": "当前价: 4022.30\n基准价: 4033.70\n波动率: (4022.30 - 4033.70) / 4033.70 = -0.28%\n阈值: 1.50%\n判定: 不触发" }] },
+    { "step": 3, "name": "检查突发新闻", "tool": "WebSearch", "query": "黄金 美联储 紧急 突发", "status": "success", "duration_ms": 1500, "result_summary": "无重大突发事件", "outputs": [{ "label": "搜索结果", "content": "今日无与金价相关的紧急或突发新闻。" }] },
+    { "step": 4, "name": "决策：无需动作", "tool": "LLM 决策", "query": "波动 < 1.5% 且无重大事件", "status": "success", "duration_ms": 200, "result_summary": "判定为 no_action，不发邮件", "outputs": [{ "label": "决策输出", "content": "triggered: false\nreason: 波动 0.28% < 阈值 1.5%\naction: no_action\nemail_sent: false" }] }
   ],
-  "outputs": {
-    "triggered": false,
-    "reason": "波动 0.28% < 阈值 1.5%",
-    "email_sent": false
-  },
-  "summary_stats": {
-    "total_steps": 4,
-    "success_steps": 4,
-    "failed_steps": 0,
-    "total_duration_ms": 2650,
-    "briefing_generated": false,
-    "email_sent": false,
-    "git_pushed": false
-  }
+  "summary_stats": { "total_steps": 4, "success_steps": 4, "failed_steps": 0, "total_duration_ms": 2650, "email_sent": false }
 }

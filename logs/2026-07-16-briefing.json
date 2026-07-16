@@ -4,131 +4,76 @@
   "timestamp": "2026-07-16T09:00:00+08:00",
   "finishedAt": "2026-07-16T09:00:11+08:00",
   "status": "success",
-  "summary": "生成了今日早报并发送邮件。金价处于年内低位震荡。",
+  "summary": "金价处于年内低位震荡，早报已生成并发送邮件。",
   "steps": [
     {
-      "step": 1,
-      "name": "查询上海金 AU9999",
-      "tool": "neodata-financial-search",
-      "query": "上海金AU9999最新价格和涨跌幅",
-      "status": "success",
-      "duration_ms": 1230,
-      "result_summary": "AU9999: ¥877.20, -0.09%",
-      "source": "上海金交所",
-      "raw_preview": "黄金现货-上海金 | AU9999.SHG | 877.20 | -0.09 | 2026-07-16 15:22:00 | 昨结 877.99"
+      "step": 1, "name": "查询上海金 AU9999", "tool": "neodata-financial-search",
+      "query": "上海金AU9999最新价格和涨跌幅", "status": "success", "duration_ms": 1230,
+      "result_summary": "AU9999: ¥877.20, -0.09%", "source": "上海金交所",
+      "outputs": [
+        { "label": "原始数据", "content": "黄金现货-上海金 | AU9999.SHG | 877.20 | -0.09 | 2026-07-16 15:22:00 | 昨结 877.99" }
+      ]
     },
     {
-      "step": 2,
-      "name": "查询伦敦金 XAUUSD",
-      "tool": "neodata-financial-search",
-      "query": "伦敦金现货价格XAUUSD最新价和涨跌幅",
-      "status": "success",
-      "duration_ms": 980,
-      "result_summary": "XAUUSD: $4033.70, -0.45%",
-      "source": "Kitco 国际金价",
-      "raw_preview": "黄金现货-伦敦金 | AUUSDO.LIFFE | 4033.70 | -0.45 | 2026-07-16 15:13:00 | 昨结 4051.80"
+      "step": 2, "name": "查询伦敦金 XAUUSD", "tool": "neodata-financial-search",
+      "query": "伦敦金现货价格XAUUSD最新价和涨跌幅", "status": "success", "duration_ms": 980,
+      "result_summary": "XAUUSD: $4033.70, -0.45%", "source": "Kitco 国际金价",
+      "outputs": [
+        { "label": "原始数据", "content": "黄金现货-伦敦金 | AUUSDO.LIFFE | 4033.70 | -0.45 | 2026-07-16 15:13:00 | 昨结 4051.80" }
+      ]
     },
     {
-      "step": 3,
-      "name": "查询美元人民币汇率",
-      "tool": "neodata-financial-search",
-      "query": "美元人民币中间价最新汇率",
-      "status": "success",
-      "duration_ms": 760,
-      "result_summary": "USD/CNY: 6.7909, -1.0基点",
-      "source": "中国外汇交易中心",
-      "raw_preview": "20260716 | USD/CNY | 6.7909 | -1.0bp"
+      "step": 3, "name": "查询美元人民币汇率", "tool": "neodata-financial-search",
+      "query": "美元人民币中间价最新汇率", "status": "success", "duration_ms": 760,
+      "result_summary": "USD/CNY: 6.7909, -1.0基点", "source": "中国外汇交易中心",
+      "outputs": [
+        { "label": "原始数据", "content": "20260716 | USD/CNY | 6.7909 | -1.0bp" }
+      ]
     },
     {
-      "step": 4,
-      "name": "搜索黄金相关新闻",
-      "tool": "FinanceMCP",
-      "query": "黄金 金价 美联储 降息 最新新闻",
-      "status": "success",
-      "duration_ms": 2100,
-      "result_summary": "获取 10 条新闻，筛选 3 条入库",
-      "source": "百度财经 / 东方财富 / 央视财经",
-      "raw_preview": "1. 金价年内跌超20% (央视财经)\n2. 星展不再预期降息 (星展银行)\n3. 中东局势边打边谈 (东方财富)"
+      "step": 4, "name": "搜索黄金相关新闻", "tool": "FinanceMCP",
+      "query": "黄金 金价 美联储 降息 最新新闻", "status": "success", "duration_ms": 2100,
+      "result_summary": "获取 10 条新闻，筛选 3 条入库", "source": "百度财经 / 东方财富 / 央视财经",
+      "outputs": [
+        { "label": "命中新闻", "content": "1. 金价年内跌超20% [央视财经]\n2. 星展不再预期降息 [百度财经]\n3. 中东局势边打边谈 [东方财富]" }
+      ]
     },
     {
-      "step": 5,
-      "name": "计算招行积存金估算价",
-      "tool": "LLM 计算",
-      "query": "4033.70 × 6.7909 ÷ 31.1035",
-      "status": "success",
-      "duration_ms": 50,
-      "result_summary": "积存金估算: ¥880.6/克",
-      "source": "模型计算"
+      "step": 5, "name": "计算招行积存金估算价", "tool": "LLM 计算",
+      "query": "4033.70 × 6.7909 ÷ 31.1035", "status": "success", "duration_ms": 50,
+      "result_summary": "积存金估算: ¥880.6/克", "source": "模型计算",
+      "outputs": [
+        { "label": "计算过程", "content": "国际金价 4033.70 × 汇率 6.7909 ÷ 31.1035 (盎司转克) = 880.56 ¥/克" }
+      ]
     },
     {
-      "step": 6,
-      "name": "生成每日早报 JSON",
-      "tool": "LLM 生成",
-      "query": "生成 daily/2026-07-16.json",
-      "status": "success",
-      "duration_ms": 3200,
-      "result_summary": "JSON 生成完成，含 4 个价格点、3 条新闻、2 个知识卡片",
-      "source": "模型生成",
-      "output_file": "daily/2026-07-16.json"
+      "step": 6, "name": "生成每日早报 JSON", "tool": "LLM 生成",
+      "query": "基于数据生成 daily/2026-07-16.json", "status": "success", "duration_ms": 3200,
+      "result_summary": "JSON 生成完成，含 4 个价格点、3 条新闻、2 个知识卡片", "source": "模型生成",
+      "outputs": [
+        { "label": "早报 JSON", "type": "json", "content": "{\n  \"date\": \"2026-07-16\",\n  \"weekday\": \"周四\",\n  \"prices\": [\n    { \"label\": \"招行积存金买入价\", \"value\": \"880.0\", \"unit\": \"¥/克\", \"change\": -0.12, \"source\": \"估算：伦敦金×汇率÷31.1035\" },\n    { \"label\": \"上海金 AU9999\", \"value\": \"877.20\", \"unit\": \"¥/克\", \"change\": -0.09, \"source\": \"上海金交所\" },\n    { \"label\": \"美元汇率\", \"value\": \"6.79\", \"unit\": \"USD/CNY\", \"change\": 0.01, \"source\": \"中国外汇交易中心\" },\n    { \"label\": \"伦敦金 XAUUSD\", \"value\": \"4033.7\", \"unit\": \"$/盎司\", \"change\": -0.45, \"source\": \"国际金价实时行情\" }\n  ],\n  \"news_count\": 3, \"knowledge_count\": 2,\n  \"_meta\": { \"dataSources\": [{\"name\":\"上海金交所\"},{\"name\":\"Kitco\"},{\"name\":\"中国外汇交易中心\"}] }\n}" }
+      ]
     },
     {
-      "step": 7,
-      "name": "更新 manifest.json",
-      "tool": "文件操作",
-      "query": "追加 2026-07-16 到 briefings 数组",
-      "status": "success",
-      "duration_ms": 80,
-      "result_summary": "manifest 已更新"
+      "step": 7, "name": "更新 manifest.json 和 Git 推送", "tool": "Git CLI",
+      "query": "git add && git commit && git push", "status": "success", "duration_ms": 1880,
+      "result_summary": "已推送到 GitHub", "source": "GitHub",
+      "outputs": [
+        { "label": "Git 结果", "content": "commit: 43ff33b\nbranch: master\nremote: github.com/jerry-166/gold-price-briefing" }
+      ]
     },
     {
-      "step": 8,
-      "name": "Git 提交和推送",
-      "tool": "Git CLI",
-      "query": "git add && git commit && git push",
-      "status": "success",
-      "duration_ms": 1800,
-      "result_summary": "已推送到 GitHub: 43ff33b",
-      "source": "GitHub"
-    },
-    {
-      "step": 9,
-      "name": "发送邮件",
-      "tool": "QQ Mail MCP",
-      "query": "主题: 今日金价早报 7月16日",
-      "status": "success",
-      "duration_ms": 1200,
-      "result_summary": "邮件已发送至 2132049351@qq.com",
-      "source": "QQ邮箱"
+      "step": 8, "name": "发送邮件", "tool": "QQ Mail MCP",
+      "query": "发送早报邮件至 2132049351@qq.com", "status": "success", "duration_ms": 1200,
+      "result_summary": "邮件已发送", "source": "QQ邮箱",
+      "outputs": [
+        { "label": "邮件内容", "content": "收件人: 2132049351@qq.com\n主题: 🌅 今日金价早报 | 2026年7月16日 周四\n\n今日金价\n• 招行积存金买入价: ¥880.0/克 (-0.12%)\n• 上海金 AU9999: ¥877.20 (-0.09%)\n• 伦敦金 XAUUSD: $4033.7 (-0.45%)\n• 美元汇率: 6.79\n\n昨夜大事\n1. 金价年内跌超20% — 高位回落但央行还在买\n2. 星展不再预期降息 — 美元强、金价承压\n3. 中东边打边谈 — 避险情绪反复\n\n趋势建议：短期偏弱，中期等信号，长线牛市在\n\n详情 → https://jerry-166.github.io/gold-price-briefing/" }
+      ]
     }
   ],
-  "outputs": {
-    "briefing_json": {
-      "_meta": { "updated": "2026-07-16 15:22 CST", "dataSources": [{ "name": "上海金交所", "url": "https://www.sge.com.cn/" }] },
-      "date": "2026-07-16",
-      "weekday": "周四",
-      "prices": [
-        { "label": "招行积存金买入价", "value": "880.0", "unit": "¥/克", "change": -0.12, "hero": true },
-        { "label": "上海金 AU9999", "value": "877.20", "unit": "¥/克", "change": -0.09, "source": "上海金交所" },
-        { "label": "美元汇率", "value": "6.79", "unit": "USD/CNY", "change": 0.01, "source": "中国外汇交易中心" },
-        { "label": "伦敦金 XAUUSD", "value": "4033.7", "unit": "$/盎司", "change": -0.45, "source": "国际金价实时行情" }
-      ],
-      "news_count": 3,
-      "knowledge_count": 2
-    },
-    "email": {
-      "to": "2132049351@qq.com",
-      "subject": "🌅 今日金价早报 | 2026年7月16日 周四",
-      "body": "今日金价\n\n• 招行积存金买入价: ¥880.0/克 (-0.12%)\n• 上海金 AU9999: ¥877.20 (-0.09%)\n• 美元汇率: 6.79\n• 伦敦金 XAUUSD: $4033.7 (-0.45%)\n\n昨夜大事\n\n1. 国际金价年内跌超20% — 高位回落但央行还在买\n2. 星展不再预期降息 — 加息预期推高美元，金价承压\n3. 中东局势边打边谈 — 避险情绪反复拉扯\n\n趋势建议：短期偏弱震荡，中期等待美联储信号，长期牛市根基在。\n\n今日学一招：为什么央行买金金价还跌？央行看 5-10 年战略，市场交易当下利率。\n\n详情看网站：https://jerry-166.github.io/gold-price-briefing/"
-    },
-    "git_commit": "43ff33b"
-  },
   "summary_stats": {
-    "total_steps": 9,
-    "success_steps": 9,
-    "failed_steps": 0,
+    "total_steps": 8, "success_steps": 8, "failed_steps": 0,
     "total_duration_ms": 11400,
-    "briefing_generated": true,
-    "email_sent": true,
-    "git_pushed": true
+    "briefing_generated": true, "email_sent": true, "git_pushed": true
   }
 }
