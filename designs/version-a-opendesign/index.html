@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>每日金价早报</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: oklch(99% 0.002 240);
+      --surface: oklch(100% 0 0);
+      --fg: oklch(18% 0.012 250);
+      --muted: oklch(54% 0.012 250);
+      --border: oklch(92% 0.005 250);
+      --accent: oklch(58% 0.18 255);
+      --up: oklch(52% 0.2 25);
+      --up-bg: oklch(96% 0.03 25);
+      --down: oklch(52% 0.14 155);
+      --down-bg: oklch(96% 0.03 155);
+      --warn: oklch(62% 0.14 75);
+      --warn-bg: oklch(97% 0.03 85);
+      --hold: oklch(58% 0.18 255);
+      --hold-bg: oklch(96% 0.03 255);
+      --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+      --font-mono: "SF Mono", ui-monospace, "Menlo", "Consolas", monospace;
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --nav-h: 64px;
+      --radius: 14px;
+      --shadow: 0 1px 2px oklch(0% 0 0 / 0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: calc(var(--nav-h) + var(--safe-b) + 12px);
+    }
+    button { font: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    .app {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100%;
+    }
+
+    /* —— Header —— */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: color-mix(in oklch, var(--bg) 88%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px 12px;
+    }
+    .site-header h1 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .site-header .date {
+      margin-top: 4px;
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+
+    /* —— Pages —— */
+    .page { display: none; padding: 16px; }
+    .page.active { display: block; }
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .page-sub {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    /* —— Cards —— */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .section {
+      margin-bottom: 18px;
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 0.9375rem;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+    .section-hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* —— Price snapshot —— */
+    .price-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .price-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+    .price-item .label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .price-item .value {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 1.125rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .price-item .unit {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-left: 2px;
+    }
+    .chg {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-top: 8px;
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    .chg.up { color: var(--up); background: var(--up-bg); }
+    .chg.down { color: var(--down); background: var(--down-bg); }
+    .chg.flat { color: var(--muted); background: oklch(96% 0.005 250); }
+
+    /* —— News —— */
+    .news-list { display: flex; flex-direction: column; gap: 10px; }
+    .news-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .news-card .tag {
+      display: inline-block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: color-mix(in oklch, var(--accent) 10%, transparent);
+      padding: 2px 7px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .news-card h3 {
+      font-size: 0.9375rem;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .news-card .plain {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 10px 12px;
+      line-height: 1.55;
+    }
+    .news-card .plain strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* —— Trend advice —— */
+    .trend-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .trend-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+    .trend-box .t-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .trend-box .t-val {
+      font-size: 0.9375rem;
+      font-weight: 650;
+    }
+    .action-card {
+      border-radius: var(--radius);
+      padding: 14px;
+      border: 1px solid var(--border);
+    }
+    .action-card.hold { background: var(--hold-bg); border-color: color-mix(in oklch, var(--hold) 25%, var(--border)); }
+    .action-card.watch { background: var(--warn-bg); border-color: color-mix(in oklch, var(--warn) 25%, var(--border)); }
+    .action-card.buy { background: var(--up-bg); border-color: color-mix(in oklch, var(--up) 25%, var(--border)); }
+    .action-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .action-badge .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .action-card.hold .action-badge { color: var(--hold); }
+    .action-card.hold .dot { background: var(--hold); }
+    .action-card.watch .action-badge { color: var(--warn); }
+    .action-card.watch .dot { background: var(--warn); }
+    .action-card.buy .action-badge { color: var(--up); }
+    .action-card.buy .dot { background: var(--up); }
+    .action-card p {
+      font-size: 0.8125rem;
+      color: var(--fg);
+      line-height: 1.55;
+    }
+
+    /* —— Learn card —— */
+    .learn-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .learn-card::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+    }
+    .learn-card .learn-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: none;
+      margin-bottom: 6px;
+    }
+    .learn-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    .learn-card ol {
+      list-style: none;
+      counter-reset: step;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .learn-card li {
+      counter-increment: step;
+      font-size: 0.8125rem;
+      color: var(--fg);
+      padding-left: 28px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .learn-card li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: color-mix(in oklch, var(--accent) 12%, transparent);
+      color: var(--accent);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+    }
+
+    /* —— Knowledge —— */
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 14px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .filter-row::-webkit-scrollbar { display: none; }
+    .chip {
+      flex: 0 0 auto;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .chip.active {
+      background: var(--fg);
+      border-color: var(--fg);
+      color: var(--surface);
+    }
+    .kb-list { display: flex; flex-direction: column; gap: 10px; }
+    .kb-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      text-align: left;
+      width: 100%;
+      transition: border-color 0.15s ease;
+    }
+    .kb-card:active { border-color: color-mix(in oklch, var(--accent) 40%, var(--border)); }
+    .kb-card .kb-cat {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .kb-card h3 {
+      font-size: 0.9375rem;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .kb-card .kb-sum {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .kb-card .kb-detail {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: var(--fg);
+    }
+    .kb-card.open .kb-detail { display: block; }
+    .kb-card .kb-toggle {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* —— Chart —— */
+    .chart-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 10px 10px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+    .chart-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 6px 10px;
+    }
+    .chart-meta .cm-label { font-size: 0.75rem; color: var(--muted); }
+    .chart-meta .cm-val {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .chart-box { position: relative; height: 240px; }
+    .event-list { display: flex; flex-direction: column; gap: 8px; }
+    .event-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+    .event-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .event-item .e-date {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .event-item .e-text {
+      font-size: 0.8125rem;
+      line-height: 1.4;
+    }
+
+    /* —— About —— */
+    .about-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow);
+    }
+    .about-block h3 {
+      font-size: 0.875rem;
+      font-weight: 650;
+      margin-bottom: 8px;
+    }
+    .about-block p, .about-block li {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .about-block ul {
+      padding-left: 1.1em;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .disclaimer {
+      background: var(--warn-bg);
+      border: 1px solid color-mix(in oklch, var(--warn) 25%, var(--border));
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .disclaimer h3 { color: oklch(40% 0.08 75); font-size: 0.875rem; font-weight: 650; margin-bottom: 8px; }
+    .disclaimer p { font-size: 0.8125rem; color: oklch(35% 0.04 75); line-height: 1.6; }
+
+    /* —— Bottom nav —— */
+    .bottom-nav {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 30;
+      background: color-mix(in oklch, var(--surface) 92%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      padding: 6px 8px calc(6px + var(--safe-b));
+    }
+    .bottom-nav-inner {
+      max-width: 480px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      min-height: 48px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      padding: 4px 2px;
+    }
+    .nav-btn svg {
+      width: 22px; height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .nav-btn.active {
+      color: var(--accent);
+      font-weight: 650;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.6875rem;
+      color: var(--muted);
+      padding: 8px 0 4px;
+    }
+
+    @media (min-width: 480px) {
+      body { background: oklch(97% 0.004 240); }
+      .app {
+        margin-top: 12px;
+        margin-bottom: 12px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        min-height: calc(100vh - 24px);
+        box-shadow: 0 8px 32px oklch(0% 0 0 / 0.06);
+      }
+      .site-header { border-radius: 20px 20px 0 0; }
+      .bottom-nav {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 480px;
+        border-radius: 0 0 20px 20px;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app" data-od-id="app-shell">
+    <header class="site-header" data-od-id="site-header">
+      <h1 data-od-id="site-title">每日金价早报</h1>
+      <p class="date" id="header-date" data-od-id="header-date">—</p>
+    </header>
+
+    <!-- 首页 -->
+    <main id="page-home" class="page active" data-od-id="page-home">
+      <section class="section" data-od-id="price-snapshot">
+        <div class="section-head">
+          <h2 class="section-title">今日金价快照</h2>
+          <span class="section-hint" id="snapshot-time">更新于 08:30</span>
+        </div>
+        <div class="price-grid" id="price-grid"></div>
+      </section>
+
+      <section class="section" data-od-id="news-section">
+        <div class="section-head">
+          <h2 class="section-title">昨夜大事</h2>
+          <span class="section-hint">大白话解读</span>
+        </div>
+        <div class="news-list" id="news-list"></div>
+      </section>
+
+      <section class="section" data-od-id="trend-section">
+        <div class="section-head">
+          <h2 class="section-title">趋势建议</h2>
+          <span class="section-hint">仅供参考，非投资建议</span>
+        </div>
+        <div class="trend-grid" id="trend-grid"></div>
+        <div id="action-box"></div>
+      </section>
+
+      <section class="section" data-od-id="learn-section">
+        <div class="section-head">
+          <h2 class="section-title">今日学一招</h2>
+          <span class="section-hint">3 句话讲明白</span>
+        </div>
+        <div id="learn-box"></div>
+      </section>
+
+      <p class="footer-note">数据为演示 mock，仅供界面预览</p>
+    </main>
+
+    <!-- 知识库 -->
+    <main id="page-knowledge" class="page" data-od-id="page-knowledge">
+      <h2 class="page-title">知识库</h2>
+      <p class="page-sub">按主题学懂金价背后的逻辑</p>
+      <div class="filter-row" id="kb-filters" data-od-id="kb-filters"></div>
+      <div class="kb-list" id="kb-list" data-od-id="kb-list"></div>
+    </main>
+
+    <!-- 走势图 -->
+    <main id="page-chart" class="page" data-od-id="page-chart">
+      <h2 class="page-title">走势图</h2>
+      <p class="page-sub">近 30 天国内金价（¥/克）· 标注关键事件</p>
+      <div class="chart-wrap" data-od-id="chart-wrap">
+        <div class="chart-meta">
+          <div>
+            <div class="cm-label">区间涨跌</div>
+            <div class="cm-val" id="chart-range-chg">—</div>
+          </div>
+          <div style="text-align:right">
+            <div class="cm-label">最新价</div>
+            <div class="cm-val" id="chart-latest">—</div>
+          </div>
+        </div>
+        <div class="chart-box">
+          <canvas id="gold-chart" data-od-id="gold-chart"></canvas>
+        </div>
+      </div>
+      <div class="section-head">
+        <h3 class="section-title">关键事件点</h3>
+      </div>
+      <div class="event-list" id="event-list" data-od-id="event-list"></div>
+    </main>
+
+    <!-- 关于 -->
+    <main id="page-about" class="page" data-od-id="page-about">
+      <h2 class="page-title">关于</h2>
+      <p class="page-sub">每日金价早报 · 给银行黄金积存金散户的轻量资讯</p>
+
+      <div class="about-block" data-od-id="about-system">
+        <h3>系统说明</h3>
+        <p>本站面向买卖银行黄金积存金的普通用户，用大白话把国际金价、汇率、国内金价和昨夜大事讲清楚，并附上趋势判断与知识点卡片。界面手机优先，信息优先，不做复杂交易功能。</p>
+      </div>
+
+      <div class="about-block" data-od-id="about-sources">
+        <h3>数据来源（演示）</h3>
+        <ul>
+          <li>国际金价：伦敦现货黄金（XAU/USD）示意数据</li>
+          <li>人民币汇率：美元兑人民币中间价示意数据</li>
+          <li>国内金价：按国际金价 × 汇率 ÷ 31.1035 换算示意</li>
+          <li>招行积存金：银行挂牌买入价示意（通常略高于换算价）</li>
+          <li>新闻与事件：公开财经资讯摘要（mock）</li>
+        </ul>
+      </div>
+
+      <div class="about-block">
+        <h3>颜色约定</h3>
+        <p>涨跌色遵循中国股市惯例：<span style="color:var(--up);font-weight:650">红色 = 上涨</span>，<span style="color:var(--down);font-weight:650">绿色 = 下跌</span>。</p>
+      </div>
+
+      <div class="disclaimer" data-od-id="about-disclaimer">
+        <h3>免责声明</h3>
+        <p>本站内容仅为信息整理与知识科普，不构成任何投资建议、买卖推荐或收益承诺。黄金价格受多种因素影响，可能大幅波动。投资有风险，决策请结合自身情况，必要时咨询持牌专业人士。演示数据非实时行情，请以银行/交易所官方报价为准。</p>
+      </div>
+    </main>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav" data-od-id="bottom-nav" aria-label="主导航">
+      <div class="bottom-nav-inner">
+        <button type="button" class="nav-btn active" data-page="home" data-od-id="nav-home" aria-current="page">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"/></svg>
+          首页
+        </button>
+        <button type="button" class="nav-btn" data-page="knowledge" data-od-id="nav-knowledge">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13zM13 4h5.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H13V4z"/></svg>
+          知识库
+        </button>
+        <button type="button" class="nav-btn" data-page="chart" data-od-id="nav-chart">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M6 16l4-5 3.5 3.5L18 8"/><circle cx="18" cy="8" r="1.2" fill="currentColor" stroke="none"/></svg>
+          走势图
+        </button>
+        <button type="button" class="nav-btn" data-page="about" data-od-id="nav-about">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 10.5v5.5M12 7.5h.01"/></svg>
+          关于
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    /* ========== Mock 数据 ========== */
+    const MOCK = {
+      date: "2026年7月16日 星期四",
+      updateTime: "08:30",
+      prices: [
+        { id: "xau", label: "国际金价", value: "2,348.60", unit: "$/盎司", chg: 0.82, chgText: "+0.82%" },
+        { id: "fx", label: "人民币汇率", value: "7.2450", unit: "USD/CNY", chg: -0.05, chgText: "-0.05%" },
+        { id: "cny", label: "国内金价", value: "547.20", unit: "¥/克", chg: 0.74, chgText: "+0.74%" },
+        { id: "cmb", label: "招行积存金买入价", value: "551.80", unit: "¥/克", chg: 0.71, chgText: "+0.71%" }
+      ],
+      news: [
+        {
+          tag: "美联储",
+          title: "美联储官员暗示年内或再降息一次",
+          plain: "美联储暗示降息 → 存银行利息变少 → 大家更爱买黄金保值 → 金价容易涨"
+        },
+        {
+          tag: "地缘",
+          title: "中东局势紧张，避险资金回流黄金",
+          plain: "国际局势不稳 → 股票债券心里没底 → 钱往黄金里躲 → 金价被推高"
+        },
+        {
+          tag: "汇率",
+          title: "美元指数小幅回落，人民币相对走强",
+          plain: "美元变弱一点 → 同样的国际金价换成人民币更贵 → 国内金价跟着抬升"
+        }
+      ],
+      trend: {
+        short: { label: "短期（1–2 周）", value: "偏强震荡" },
+        mid: { label: "中期（1–3 月）", value: "温和看多" },
+        action: "hold",
+        actionLabel: "建议：持有",
+        actionText: "短期有事件扰动，但中期逻辑仍偏多。已持有积存金的用户可继续持有；暂无仓位的不必急着追高，可等回调再分批定投。"
+      },
+      learn: {
+        title: "什么是「黄金积存金」？",
+        steps: [
+          "银行按「克」记账的黄金账户，不提实物，买卖像余额宝一样方便。",
+          "价格跟国际金价和汇率挂钩，银行挂牌价通常略有点差。",
+          "适合想参与金价波动、又不想存金条的普通人做长期配置。"
+        ]
+      },
+      kbCategories: ["全部", "美联储与金价", "地缘政治与金价", "汇率与金价", "银行积存金"],
+      knowledge: [
+        {
+          cat: "美联储与金价",
+          title: "利率和金价，为什么总是「跷跷板」？",
+          summary: "利息高时，放银行更香；利息低时，黄金更香。",
+          detail: "黄金本身不付利息。当美联储加息、存款利率升高时，把钱放银行更划算，买黄金的吸引力下降，金价容易承压。反过来，降息时存款收益变薄，黄金的「保值」属性更突出，资金会回流黄金。所以看金价，先看美联储说话的风向。"
+        },
+        {
+          cat: "美联储与金价",
+          title: "什么是「实际利率」？",
+          summary: "名义利率减去通胀，才是钱真正的「购买力利息」。",
+          detail: "名义利率是银行写在纸上的利息；实际利率 = 名义利率 − 通胀。实际利率越低，现金越「烫手」，黄金越受欢迎。很多时候金价不是跟着「加息/降息」字面走，而是跟着实际利率走。"
+        },
+        {
+          cat: "地缘政治与金价",
+          title: "为什么一打仗金价就容易涨？",
+          summary: "不确定时，人们会找「不会破产」的资产。",
+          detail: "战争、制裁、冲突会让股票、债券、货币都变得不确定。黄金没有违约风险、不受单一国家信用约束，常被当作避险资产。注意：避险行情来得快去得也快，别把短期冲击当长期趋势。"
+        },
+        {
+          cat: "地缘政治与金价",
+          title: "央行买金，和我有什么关系？",
+          summary: "各国央行持续增持，相当于给金价加了「底气」。",
+          detail: "近年来多国央行增加黄金储备，用来分散美元资产风险。央行买金通常是慢而稳的长期行为，会抬升黄金的中长期需求底座，但对你今天的积存金买卖，影响是「背景板」而不是「当日催化剂」。"
+        },
+        {
+          cat: "汇率与金价",
+          title: "国际金价涨了，国内为啥没涨那么多？",
+          summary: "国内金价 ≈ 国际金价 × 汇率 ÷ 31.1035。",
+          detail: "国际报价是美元/盎司，国内是人民币/克。如果国际金价涨、但人民币升值（同样美元换更少人民币），国内涨幅会被汇率「吃掉」一部分。反过来，人民币贬值时，国内金价会涨得更猛。买卖积存金时，两个都要看。"
+        },
+        {
+          cat: "汇率与金价",
+          title: "美元指数是什么？",
+          summary: "衡量美元相对一篮子货币的强弱，和金价常呈反向。",
+          detail: "美元强时，用其他货币买黄金更贵，需求受抑制，金价常承压；美元弱时则相反。不是铁律，但当你看到「美元指数大涨、金价却跌」，往往就是这个逻辑在起作用。"
+        },
+        {
+          cat: "银行积存金",
+          title: "买入价、卖出价差在哪？",
+          summary: "银行赚的是点差，就像换汇有买入卖出价。",
+          detail: "积存金有「客户买入价」和「客户卖出价」，中间的差就是银行点差。频繁短线买卖容易被点差磨损。更适合分批定投、中长期持有，而不是一天进进出出。"
+        },
+        {
+          cat: "银行积存金",
+          title: "积存金和金条，哪个更适合普通人？",
+          summary: "积存金灵活；金条有实物感，但保管和变现麻烦。",
+          detail: "积存金门槛低、可按克买卖、不用担心存放；缺点是不能提实物（多数产品）、有点差。金条看得见摸得着，但要考虑保管、鉴定和变现渠道。对银行渠道的散户，积存金通常更省心。"
+        }
+      ],
+      chart: {
+        // 近 30 天国内金价 ¥/克
+        labels: [
+          "6/17","6/18","6/19","6/20","6/21","6/22","6/23","6/24","6/25","6/26",
+          "6/27","6/28","6/29","6/30","7/1","7/2","7/3","7/4","7/5","7/6",
+          "7/7","7/8","7/9","7/10","7/11","7/12","7/13","7/14","7/15","7/16"
+        ],
+        values: [
+          532.4, 534.1, 531.8, 533.5, 536.2, 538.0, 535.6, 537.9, 540.2, 539.1,
+          541.5, 543.0, 542.2, 544.8, 546.1, 545.0, 543.3, 544.7, 548.2, 549.5,
+          547.8, 546.4, 548.9, 550.3, 549.0, 551.2, 548.6, 546.9, 545.8, 547.2
+        ],
+        events: [
+          { index: 4, date: "6/21", text: "美联储官员发表偏鸽言论" },
+          { index: 14, date: "7/1", text: "非农数据弱于预期" },
+          { index: 18, date: "7/5", text: "地缘冲突升温，避险升温" },
+          { index: 25, date: "7/12", text: "美元指数回落" }
+        ]
+      }
+    };
+
+    /* ========== 工具 ========== */
+    function chgClass(n) {
+      if (n > 0) return "up";
+      if (n < 0) return "down";
+      return "flat";
+    }
+    function chgArrow(n) {
+      if (n > 0) return "↑";
+      if (n < 0) return "↓";
+      return "→";
+    }
+
+    /* ========== 渲染：首页 ========== */
+    function renderHome() {
+      document.getElementById("header-date").textContent = MOCK.date;
+      document.getElementById("snapshot-time").textContent = "更新于 " + MOCK.updateTime;
+
+      const grid = document.getElementById("price-grid");
+      grid.innerHTML = MOCK.prices.map(function (p) {
+        const cls = chgClass(p.chg);
+        return (
+          '<div class="price-item" data-od-id="price-' + p.id + '">' +
+            '<div class="label">' + p.label + "</div>" +
+            '<div class="value">' + p.value + '<span class="unit">' + p.unit + "</span></div>" +
+            '<span class="chg ' + cls + '">' + chgArrow(p.chg) + " " + p.chgText + "</span>" +
+          "</div>"
+        );
+      }).join("");
+
+      const news = document.getElementById("news-list");
+      news.innerHTML = MOCK.news.map(function (n, i) {
+        return (
+          '<article class="news-card" data-od-id="news-' + (i + 1) + '">' +
+            '<span class="tag">' + n.tag + "</span>" +
+            "<h3>" + n.title + "</h3>" +
+            '<p class="plain"><strong>大白话：</strong>' + n.plain + "</p>" +
+          "</article>"
+        );
+      }).join("");
+
+      const tg = document.getElementById("trend-grid");
+      tg.innerHTML =
+        '<div class="trend-box" data-od-id="trend-short"><div class="t-label">' + MOCK.trend.short.label +
+        '</div><div class="t-val">' + MOCK.trend.short.value + "</div></div>" +
+        '<div class="trend-box" data-od-id="trend-mid"><div class="t-label">' + MOCK.trend.mid.label +
+        '</div><div class="t-val">' + MOCK.trend.mid.value + "</div></div>";
+
+      const actionMap = { hold: "hold", watch: "watch", buy: "buy" };
+      const ab = document.getElementById("action-box");
+      ab.innerHTML =
+        '<div class="action-card ' + actionMap[MOCK.trend.action] + '" data-od-id="action-card">' +
+          '<div class="action-badge"><span class="dot"></span>' + MOCK.trend.actionLabel + "</div>" +
+          "<p>" + MOCK.trend.actionText + "</p>" +
+        "</div>";
+
+      const learn = document.getElementById("learn-box");
+      learn.innerHTML =
+        '<div class="learn-card" data-od-id="learn-card">' +
+          '<div class="learn-label">今日知识点</div>' +
+          "<h3>" + MOCK.learn.title + "</h3>" +
+          "<ol>" + MOCK.learn.steps.map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ol>" +
+        "</div>";
+    }
+
+    /* ========== 渲染：知识库 ========== */
+    let kbFilter = "全部";
+
+    function renderKbFilters() {
+      const row = document.getElementById("kb-filters");
+      row.innerHTML = MOCK.kbCategories.map(function (c) {
+        return (
+          '<button type="button" class="chip' + (c === kbFilter ? " active" : "") +
+          '" data-cat="' + c + '" data-od-id="chip-' + c + '">' + c + "</button>"
+        );
+      }).join("");
+      row.querySelectorAll(".chip").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          kbFilter = btn.getAttribute("data-cat");
+          renderKbFilters();
+          renderKbList();
+        });
+      });
+    }
+
+    function renderKbList() {
+      const list = document.getElementById("kb-list");
+      const items = MOCK.knowledge.filter(function (k) {
+        return kbFilter === "全部" || k.cat === kbFilter;
+      });
+      list.innerHTML = items.map(function (k, i) {
+        return (
+          '<button type="button" class="kb-card" data-od-id="kb-card-' + i + '">' +
+            '<div class="kb-cat">' + k.cat + "</div>" +
+            "<h3>" + k.title + "</h3>" +
+            '<p class="kb-sum">' + k.summary + "</p>" +
+            '<div class="kb-detail">' + k.detail + "</div>" +
+            '<div class="kb-toggle">点击展开</div>' +
+          "</button>"
+        );
+      }).join("");
+      list.querySelectorAll(".kb-card").forEach(function (card) {
+        card.addEventListener("click", function () {
+          const open = card.classList.toggle("open");
+          card.querySelector(".kb-toggle").textContent = open ? "点击收起" : "点击展开";
+        });
+      });
+    }
+
+    /* ========== 渲染：走势图 ========== */
+    let chartInstance = null;
+
+    function renderChart() {
+      const vals = MOCK.chart.values;
+      const first = vals[0];
+      const last = vals[vals.length - 1];
+      const pct = ((last - first) / first) * 100;
+      const cls = chgClass(pct);
+      const rangeEl = document.getElementById("chart-range-chg");
+      rangeEl.textContent = (pct >= 0 ? "+" : "") + pct.toFixed(2) + "%";
+      rangeEl.style.color = cls === "up" ? "var(--up)" : cls === "down" ? "var(--down)" : "var(--muted)";
+      document.getElementById("chart-latest").textContent = last.toFixed(1) + " ¥/克";
+
+      const elist = document.getElementById("event-list");
+      elist.innerHTML = MOCK.chart.events.map(function (e, i) {
+        return (
+          '<div class="event-item" data-od-id="event-' + (i + 1) + '">' +
+            '<span class="event-dot"></span>' +
+            "<div><div class=\"e-date\">" + e.date + "</div>" +
+            '<div class="e-text">' + e.text + "</div></div>" +
+          "</div>"
+        );
+      }).join("");
+
+      if (chartInstance) {
+        chartInstance.destroy();
+        chartInstance = null;
+      }
+
+      const ctx = document.getElementById("gold-chart").getContext("2d");
+      const eventIndexes = MOCK.chart.events.map(function (e) { return e.index; });
+      const pointRadius = vals.map(function (_, i) {
+        return eventIndexes.indexOf(i) >= 0 ? 5 : 0;
+      });
+      const pointBg = vals.map(function (_, i) {
+        return eventIndexes.indexOf(i) >= 0 ? "oklch(58% 0.18 255)" : "transparent";
+      });
+
+      chartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: MOCK.chart.labels,
+          datasets: [{
+            label: "国内金价 ¥/克",
+            data: vals,
+            borderColor: "oklch(58% 0.18 255)",
+            backgroundColor: "oklch(58% 0.18 255 / 0.08)",
+            borderWidth: 2,
+            fill: true,
+            tension: 0.3,
+            pointRadius: pointRadius,
+            pointHoverRadius: 6,
+            pointBackgroundColor: pointBg,
+            pointBorderColor: "#fff",
+            pointBorderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: "index", intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: "oklch(18% 0.012 250)",
+              titleFont: { size: 12 },
+              bodyFont: { size: 13, family: "ui-monospace, monospace" },
+              padding: 10,
+              cornerRadius: 8,
+              displayColors: false,
+              callbacks: {
+                label: function (ctx) {
+                  var v = ctx.parsed.y;
+                  var extra = "";
+                  MOCK.chart.events.forEach(function (e) {
+                    if (e.index === ctx.dataIndex) extra = " · " + e.text;
+                  });
+                  return v.toFixed(1) + " ¥/克" + extra;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: {
+                maxRotation: 0,
+                autoSkip: true,
+                maxTicksLimit: 6,
+                color: "oklch(54% 0.012 250)",
+                font: { size: 10 }
+              },
+              border: { display: false }
+            },
+            y: {
+              grid: { color: "oklch(92% 0.005 250)" },
+              ticks: {
+                color: "oklch(54% 0.012 250)",
+                font: { size: 10, family: "ui-monospace, monospace" },
+                callback: function (v) { return v; }
+              },
+              border: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    /* ========== 路由 ========== */
+    const pages = ["home", "knowledge", "chart", "about"];
+    let chartReady = false;
+
+    function showPage(name) {
+      if (pages.indexOf(name) < 0) name = "home";
+      pages.forEach(function (p) {
+        const el = document.getElementById("page-" + p);
+        if (el) el.classList.toggle("active", p === name);
+      });
+      document.querySelectorAll(".nav-btn").forEach(function (btn) {
+        const on = btn.getAttribute("data-page") === name;
+        btn.classList.toggle("active", on);
+        if (on) btn.setAttribute("aria-current", "page");
+        else btn.removeAttribute("aria-current");
+      });
+      // 首页显示完整标题日期；其他页保持
+      if (name === "chart" && !chartReady) {
+        // 等页面可见再初始化图表，避免 canvas 宽高为 0
+        requestAnimationFrame(function () {
+          renderChart();
+          chartReady = true;
+        });
+      } else if (name === "chart" && chartInstance) {
+        requestAnimationFrame(function () {
+          chartInstance.resize();
+        });
+      }
+      window.scrollTo(0, 0);
+      try { localStorage.setItem("gold-digest-page", name); } catch (e) {}
+    }
+
+    document.querySelectorAll(".nav-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        showPage(btn.getAttribute("data-page"));
+      });
+    });
+
+    /* ========== 启动 ========== */
+    renderHome();
+    renderKbFilters();
+    renderKbList();
+
+    var saved = null;
+    try { saved = localStorage.getItem("gold-digest-page"); } catch (e) {}
+    showPage(saved || "home");
+  </script>
+</body>
+</html>

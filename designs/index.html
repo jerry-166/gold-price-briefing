@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>金价资讯网站 · 三版设计对比</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 8px; }
+    .subtitle { color: #6e6e73; font-size: 0.95rem; margin-bottom: 32px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .preview {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .preview-a { background: linear-gradient(135deg, #e8f0fe, #f0e8fe); }
+    .preview-b { background: linear-gradient(135deg, #0F172A, #1E293B); color: #F59E0B; }
+    .preview-c { background: linear-gradient(135deg, #f8f9fa, #e9ecef); color: #4263eb; }
+    .card-body { padding: 20px; }
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .badge-a { background: #e8f0fe; color: #1a73e8; }
+    .badge-b { background: #fef3c7; color: #92400e; }
+    .badge-c { background: #e7f5ff; color: #1971c2; }
+    .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .card-desc { font-size: 0.85rem; color: #6e6e73; line-height: 1.5; }
+    .card-meta { margin-top: 12px; font-size: 0.75rem; color: #86868b; }
+    .open-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 16px;
+      background: #1d1d1f;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .open-btn:hover { background: #424245; }
+    .compare-section {
+      margin-top: 40px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .compare-section h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e8e8ed; }
+    th { font-weight: 600; color: #6e6e73; background: #f5f5f7; }
+    td:first-child { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>金价资讯网站 · 三版设计对比</h1>
+    <p class="subtitle">同一个需求，三种设计工具/方法论，选你喜欢的风格</p>
+
+    <div class="grid">
+      <a class="card" href="version-a-opendesign/index.html" target="_blank">
+        <div class="preview preview-a">🎨</div>
+        <div class="card-body">
+          <span class="badge badge-a">版本 A</span>
+          <div class="card-title">OpenDesign MCP</div>
+          <div class="card-desc">AI 设计工具自主生成。浅色现代风，数据驱动布局，完整 mock 数据，知识库可展开交互。</div>
+          <div class="card-meta">38KB · 单文件 · Chart.js · oklch 色彩</div>
+          <span class="open-btn">查看 →</span>
+        </div>
+      </a>
+
+      <a class="card" href="version-b-uiux-promax/index.html" target="_blank">
+        <div class="preview preview-b">✦</div>
+        <div class="card-body">
+          <span class="badge badge-b">版本 B</span>
+          <div class="card-title">ui-ux-pro-max</div>
+          <div class="card-desc">暗色玻璃拟态风格。金色主题色，毛玻璃卡片，Fira Code 字体，数据仪表盘感。</div>
+          <div class="card-meta">14KB · 单文件 · Chart.js · Glassmorphism</div>
+          <span class="open-btn">查看 →</span>
+        </div>
+      </a>
+
+      <a class="card" href="version-c-frontend-design/index.html" target="_blank">
+        <div class="preview preview-c">◐</div>
+        <div class="card-body">
+          <span class="badge badge-c">版本 C</span>
+          <div class="card-title">frontend-design</div>
+          <div class="card-desc">清爽浅色现代风。Vercel/Linear 风格，Inter 字体，hero 价格展示，oklch 色彩系统。</div>
+          <div class="card-meta">16KB · 单文件 · Chart.js · Light Modern</div>
+          <span class="open-btn">查看 →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="compare-section">
+      <h2>三版设计对比</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>维度</th>
+            <th>A · OpenDesign</th>
+            <th>B · ui-ux-pro-max</th>
+            <th>C · frontend-design</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>设计工具</td>
+            <td>OpenDesign AI MCP</td>
+            <td>ui-ux-pro-max skill</td>
+            <td>frontend-design skill</td>
+          </tr>
+          <tr>
+            <td>视觉风格</td>
+            <td>浅色 · 苹果原生感</td>
+            <td>暗色 · 玻璃拟态</td>
+            <td>浅色 · Vercel/Linear</td>
+          </tr>
+          <tr>
+            <td>主色调</td>
+            <td>蓝色 accent</td>
+            <td>金色 #F59E0B</td>
+            <td>靛蓝 + 金色点缀</td>
+          </tr>
+          <tr>
+            <td>字体</td>
+            <td>系统字体 (SF Pro)</td>
+            <td>Fira Code + Fira Sans</td>
+            <td>Inter + JetBrains Mono</td>
+          </tr>
+          <tr>
+            <td>价格展示</td>
+            <td>四宫格卡片</td>
+            <td>四宫格毛玻璃</td>
+            <td>Hero 大数字 + 三小卡</td>
+          </tr>
+          <tr>
+            <td>知识库</td>
+            <td>分类筛选 + 可展开</td>
+            <td>简单列表</td>
+            <td>列表 + 箭头</td>
+          </tr>
+          <tr>
+            <td>走势图</td>
+            <td>事件点标注 + tooltip</td>
+            <td>基础折线</td>
+            <td>基础折线</td>
+          </tr>
+          <tr>
+            <td>Mock 数据</td>
+            <td>最丰富（8条知识库）</td>
+            <td>基础示例</td>
+            <td>基础示例</td>
+          </tr>
+          <tr>
+            <td>代码量</td>
+            <td>38KB（最大）</td>
+            <td>14KB</td>
+            <td>16KB</td>
+          </tr>
+          <tr>
+            <td>交互细节</td>
+            <td>最多（筛选/展开/事件）</td>
+            <td>中等（hover/导航）</td>
+            <td>中等（hover/导航/动画）</td>
+          </tr>
+          <tr>
+            <td>适合场景</td>
+            <td>正式产品 · 内容丰富</td>
+            <td>数据仪表盘 · 科技感</td>
+            <td>简洁资讯 · 快速阅读</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

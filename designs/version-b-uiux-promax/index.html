@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日金价早报 | Glassmorphism Dark</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0F172A;
+      --bg-gradient: radial-gradient(ellipse at top, #1E293B 0%, #0F172A 50%, #020617 100%);
+      --primary: #F59E0B;
+      --secondary: #FBBF24;
+      --cta: #8B5CF6;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --up: #EF4444;
+      --down: #10B981;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glass-hover: rgba(255, 255, 255, 0.08);
+      --blur: 16px;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: 200ms ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Fira Sans', 'Noto Sans SC', -apple-system, sans-serif;
+      background: var(--bg);
+      background-image: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-orb-1 { top: -100px; right: -50px; width: 300px; height: 300px; background: var(--primary); }
+    .bg-orb-2 { bottom: 100px; left: -100px; width: 250px; height: 250px; background: var(--cta); }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      padding: 32px 0 24px;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+    header .date {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Glass Card */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: background var(--transition);
+    }
+    .glass-card:hover { background: var(--glass-hover); }
+
+    .section-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-title::before {
+      content: '';
+      width: 3px;
+      height: 14px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    /* Price Grid */
+    .price-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .price-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+    }
+    .price-item .label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .price-item .value {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .price-item .change {
+      font-size: 0.75rem;
+      font-family: 'Fira Code', monospace;
+      margin-top: 2px;
+    }
+    .change.up { color: var(--up); }
+    .change.down { color: var(--down); }
+
+    /* News */
+    .news-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-item .news-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .news-item .news-explain {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 8px 10px;
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 2px solid var(--primary);
+      border-radius: 4px;
+    }
+
+    /* Trend */
+    .trend-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .trend-row:last-child { border-bottom: none; }
+    .trend-label { font-size: 0.85rem; color: var(--text-muted); }
+    .trend-value { font-size: 0.85rem; font-weight: 500; }
+    .advice-box {
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+    }
+    .advice-box strong { color: var(--cta); }
+
+    /* Teaching Card */
+    .teach-card {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(139, 92, 246, 0.1));
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+    .teach-card .teach-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .teach-card .teach-body {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* Chart */
+    .chart-container {
+      position: relative;
+      height: 200px;
+      margin-top: 8px;
+    }
+
+    /* Bottom Nav */
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      z-index: 100;
+    }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.7rem;
+      text-align: center;
+      cursor: pointer;
+      transition: color var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    nav a:hover, nav a.active { color: var(--primary); }
+    nav a svg { width: 20px; height: 20px; }
+
+    /* Page switching */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* Knowledge */
+    .kb-item {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .kb-item:hover { background: var(--glass-hover); }
+    .kb-item .kb-title { font-size: 0.85rem; font-weight: 500; }
+    .kb-item .kb-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* About */
+    .about-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+    .disclaimer {
+      margin-top: 12px;
+      padding: 10px;
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <div class="container">
+    <header>
+      <h1>每日金价早报</h1>
+      <div class="date">2026-07-16 周四</div>
+    </header>
+
+    <!-- Page: Home -->
+    <div id="page-home" class="page active">
+      <div class="glass-card">
+        <div class="section-title">今日金价快照</div>
+        <div class="price-grid">
+          <div class="price-item">
+            <div class="label">国际金价</div>
+            <div class="value">$2,456</div>
+            <div class="change up">▲ +0.8%</div>
+          </div>
+          <div class="price-item">
+            <div class="label">人民币汇率</div>
+            <div class="value">7.25</div>
+            <div class="change up">▲ +0.1%</div>
+          </div>
+          <div class="price-item">
+            <div class="label">国内金价</div>
+            <div class="value">¥576</div>
+            <div class="change up">▲ +0.9%</div>
+          </div>
+          <div class="price-item">
+            <div class="label">招行积存金买</div>
+            <div class="value">¥578</div>
+            <div class="change up">▲ +0.9%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div class="section-title">昨夜大事</div>
+        <div class="news-item">
+          <div class="news-title">美联储暗示9月可能降息</div>
+          <div class="news-explain">降息 = 存银行利息变少 → 大家更爱买黄金保值 → 金价涨</div>
+        </div>
+        <div class="news-item">
+          <div class="news-title">中东局势再度紧张</div>
+          <div class="news-explain">打仗 = 人心慌 → 黄金这种"避险资产"更抢手 → 金价涨</div>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div class="section-title">趋势怎么看</div>
+        <div class="trend-row">
+          <span class="trend-label">短期（本周）</span>
+          <span class="trend-value" style="color: var(--up);">偏强 ↗</span>
+        </div>
+        <div class="trend-row">
+          <span class="trend-label">中期（本月）</span>
+          <span class="trend-value" style="color: var(--up);">温和上行 ↗</span>
+        </div>
+        <div class="advice-box">
+          <strong>给你的建议：</strong>持有为主，别急着加仓。积存金适合中长期，短线波动别慌。
+        </div>
+      </div>
+
+      <div class="glass-card teach-card">
+        <div class="teach-title">今日学一招</div>
+        <div class="teach-body">
+          <strong>为什么"美联储降息"会让金价涨？</strong><br>
+          ① 美联储降息 → 美元存款利息变少 → 持有美元不划算<br>
+          ② 黄金以美元计价 → 美元弱了 → 同样的钱能买更多黄金<br>
+          ③ 聪明钱从银行流出 → 涌入黄金市场 → 需求增加 → 金价涨
+        </div>
+      </div>
+    </div>
+
+    <!-- Page: Knowledge -->
+    <div id="page-knowledge" class="page">
+      <div class="glass-card">
+        <div class="section-title">知识库</div>
+        <div class="kb-item">
+          <div class="kb-title">美联储与金价的关系</div>
+          <div class="kb-meta">3 篇文章 · 最近更新 7月15日</div>
+        </div>
+        <div class="kb-item">
+          <div class="kb-title">地缘政治如何影响金价</div>
+          <div class="kb-meta">2 篇文章 · 最近更新 7月14日</div>
+        </div>
+        <div class="kb-item">
+          <div class="kb-title">人民币汇率与国内金价</div>
+          <div class="kb-meta">2 篇文章 · 最近更新 7月13日</div>
+        </div>
+        <div class="kb-item">
+          <div class="kb-title">什么是"避险资产"</div>
+          <div class="kb-meta">1 篇文章 · 最近更新 7月12日</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page: Chart -->
+    <div id="page-chart" class="page">
+      <div class="glass-card">
+        <div class="section-title">30天金价走势</div>
+        <div class="chart-container">
+          <canvas id="priceChart"></canvas>
+        </div>
+      </div>
+      <div class="glass-card">
+        <div class="section-title">关键事件标注</div>
+        <div class="news-item">
+          <div class="news-title">7月10日 · 美联储会议纪要</div>
+          <div class="news-explain">鸽派言论 → 金价单日跳涨 1.2%</div>
+        </div>
+        <div class="news-item">
+          <div class="news-title">7月3日 · 美国 CPI 数据</div>
+          <div class="news-explain">通胀降温 → 降息预期升温 → 金价走高</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page: About -->
+    <div id="page-about" class="page">
+      <div class="glass-card">
+        <div class="section-title">关于本系统</div>
+        <p class="about-text">
+          这是一个自动化金价资讯系统，每天为你搜集国际金价、汇率、重大新闻，用大白话解读，帮助你理解金价变动的原因和趋势。
+        </p>
+        <p class="about-text" style="margin-top: 10px;">
+          <strong>数据来源：</strong>上海金交所、国际金价实时行情、公开新闻资讯
+        </p>
+        <div class="disclaimer">
+          ⚠️ 免责声明：本系统所有内容仅供参考学习，不构成任何投资建议。投资有风险，决策需谨慎。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav>
+    <a class="active" data-page="home">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      首页
+    </a>
+    <a data-page="knowledge">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      知识库
+    </a>
+    <a data-page="chart">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
+      走势图
+    </a>
+    <a data-page="about">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      关于
+    </a>
+  </nav>
+
+  <script>
+    // Navigation
+    document.querySelectorAll('nav a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.querySelectorAll('nav a').forEach(n => n.classList.remove('active'));
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        a.classList.add('active');
+        document.getElementById('page-' + a.dataset.page).classList.add('active');
+        if (a.dataset.page === 'chart') initChart();
+      });
+    });
+
+    // Chart
+    let chartInstance = null;
+    function initChart() {
+      if (chartInstance) return;
+      const ctx = document.getElementById('priceChart').getContext('2d');
+      const days = [];
+      const prices = [];
+      let base = 560;
+      for (let i = 29; i >= 0; i--) {
+        const d = new Date(); d.setDate(d.getDate() - i);
+        days.push(`${d.getMonth()+1}/${d.getDate()}`);
+        base += (Math.random() - 0.45) * 8;
+        prices.push(base.toFixed(1));
+      }
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: days,
+          datasets: [{
+            label: '国内金价 (¥/克)',
+            data: prices,
+            borderColor: '#F59E0B',
+            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+            fill: true,
+            tension: 0.3,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', maxTicksLimit: 6, font: { size: 10 } } },
+            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', font: { size: 10 } } }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
