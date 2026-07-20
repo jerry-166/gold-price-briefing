@@ -210,8 +210,33 @@ async function renderKnowledge() {
           kbMap.set(item.title, item);
         }
       }
+      // Also include today's teach card (every day's 今日学一招) as a knowledge entry
+      const teach = briefing?.teach;
+      if (teach && teach.title) {
+        const teachKey = `[今日学一招] ${teach.title}`;
+        if (!kbMap.has(teachKey)) {
+          // Strip HTML tags from body for summary
+          const plainBody = String(teach.body || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+          kbMap.set(teachKey, {
+            cat: '今日学一招',
+            title: teach.title,
+            summary: plainBody.length > 50 ? plainBody.slice(0, 50) + '…' : plainBody,
+            detail: teach.body,
+            source: teach.source || '每日金价早报',
+            _date: entry.date
+          });
+        }
+      }
     }
     allKnowledgeCache = Array.from(kbMap.values());
+    // Sort: items with date first (newest first), then undated
+    allKnowledgeCache.sort((a, b) => {
+      const da = a._date || '';
+      const db = b._date || '';
+      if (da && !db) return -1;
+      if (!da && db) return 1;
+      return db.localeCompare(da);
+    });
   }
 
   const kbItems = allKnowledgeCache;
