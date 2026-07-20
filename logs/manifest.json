@@ -1,16 +1,22 @@
 {
   "logs": [
     {
-      "date": "2026-07-15",
-      "type": "inspection_pm",
-      "status": "partial",
-      "summary": "14:00 巡检发现金价日内暴跌 -2.36%，触发预警邮件。"
+      "date": "2026-07-20",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "金价延续震荡，伦敦金 XAUUSD 维持 4030 美元/盎司附近，今日学一招：美联储加息与金价。事后补登日志。"
     },
     {
       "date": "2026-07-16",
       "type": "morning_briefing",
       "status": "success",
       "summary": "金价处于年内低位震荡，早报已生成并发送邮件。"
+    },
+    {
+      "date": "2026-07-15",
+      "type": "inspection_pm",
+      "status": "partial",
+      "summary": "14:00 巡检发现金价日内暴跌 -2.36%，触发预警邮件。"
     },
     {
       "date": "2026-07-16",

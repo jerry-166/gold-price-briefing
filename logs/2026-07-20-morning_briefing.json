@@ -1,0 +1,64 @@
+{
+  "date": "2026-07-20",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "金价延续震荡格局，伦敦金 XAUUSD 维持 4030 美元/盎司附近，今日学一招：美联储加息与金价。",
+  "timestamp": "09:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 8500,
+      "result": "查询到伦敦金 XAUUSD、美元人民币中间价、上海金 AU9999 数据，扫描 4 条黄金相关要闻。",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 12000,
+      "result": "已写入 daily/2026-07-20.json（4 个价格、4 条新闻、2 条知识、1 条 teach）。"
+    },
+    {
+      "num": 3,
+      "name": "更新 manifest",
+      "status": "success",
+      "duration_ms": 300,
+      "result": "已追加 2026-07-20 早报记录到 manifest.json。"
+    },
+    {
+      "num": 4,
+      "name": "Git 推送",
+      "status": "success",
+      "duration_ms": 4200,
+      "result": "已 commit 并 push 到 master 分支。"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 3800,
+      "result": "已发送至 2132049351@qq.com。",
+      "outputs": [
+        {
+          "label": "邮件主题",
+          "body": "🌅 今日金价早报 | 2026年07月20日 周一"
+        },
+        {
+          "label": "邮件正文（摘要）",
+          "body": "【金价快照】伦敦金 XAUUSD $4033.7 / 招行积存金估算 ¥877.20 / 上海金 AU9999 ¥877.40 / 美元汇率 7.10。\n【昨夜大事】① 美联储官员重申高利率立场；② 中东地缘风险再度升温；③ 美元指数小幅走弱；④ 全球央行购金趋势延续。\n【趋势建议】短期震荡 / 中期偏多 / 长期看多，操作 hold 观望。\n【今日学一招】为什么美联储加息会让黄金跌？① 黄金不生利息，加息后存款/美债收益更高；② 加息→美元走强→以美元计价的黄金变贵→需求减少；③ 加息通常伴随通胀降温，黄金的通胀对冲价值下降。\n详细早报：https://jerry-166.github.io/gold-price-briefing/"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 28800,
+    "email_sent": true,
+    "git_pushed": true,
+    "note": "本日志为事后补写——7-20 早报定时任务触发时，automation prompt 尚未加入写日志步骤，因此原执行未生成日志。现已补登。修复后（commit f5a160e 起）的新运行会自动写日志。"
+  }
+}
