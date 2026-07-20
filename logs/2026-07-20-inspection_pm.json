@@ -1,0 +1,39 @@
+{
+  "date": "2026-07-20",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "金价平稳，伦敦金 XAUUSD 报 $4008.94（日跌0.18%，日内振幅约1.47%），无今晚突发重大事件，未触发预警。",
+  "timestamp": "21:56 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 3200,
+      "result": "当前金价 XAUUSD $4008.94，日涨跌 -7.32（-0.18%）；日内区间 3981.79–4040.25，振幅约 1.47%",
+      "source": "WebSearch（金投网 cngold 实时报价，更新于 21:51:01）"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 2600,
+      "result": "检索'黄金 美联储 金价 今晚'：主流为日间分析——美联储7/28-29 FOMC议息前沃什'罕见沉默'、加息预期升温（7月加息25bp概率14.4%）、美债收益率高企压制、中东海峡再断航；无明确的今晚突发重大事件。",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 400,
+      "result": "日内振幅约1.47% < 1.5%阈值，且无突发重大事件 → 未触发预警阈值，静默。"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 6200,
+    "alert_triggered": false
+  }
+}
