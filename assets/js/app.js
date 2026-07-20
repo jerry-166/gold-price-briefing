@@ -184,9 +184,37 @@ function renderEmptyHome() {
 }
 
 // ===== Render: Knowledge =====
-function renderKnowledge() {
-  const b = state.currentBriefing;
-  const kbItems = (b && b.knowledge) || [];
+// Cache aggregated knowledge across all briefings
+let allKnowledgeCache = null;
+
+async function renderKnowledge() {
+  // Aggregate knowledge from all briefings (cached after first load)
+  if (!allKnowledgeCache) {
+    const briefings = (state.manifest && state.manifest.briefings) || [];
+    const kbMap = new Map();
+    
+    // Collect from all briefings (reverse chronological)
+    for (const entry of briefings) {
+      let briefing;
+      if (entry.date === state.currentBriefing?.date && state.currentBriefing?.knowledge) {
+        briefing = state.currentBriefing;
+      } else {
+        try {
+          briefing = await fetchJSON(`daily/${entry.date}.json`);
+        } catch (e) { continue; }
+      }
+      const items = briefing?.knowledge || [];
+      for (const item of items) {
+        // Deduplicate by title
+        if (!kbMap.has(item.title)) {
+          kbMap.set(item.title, item);
+        }
+      }
+    }
+    allKnowledgeCache = Array.from(kbMap.values());
+  }
+
+  const kbItems = allKnowledgeCache;
 
   if (kbItems.length === 0) {
     document.getElementById('kb-filters').innerHTML = '';
@@ -403,37 +431,21 @@ const STATUS_LABELS = {
 
 async function fetchLogs() {
   logData = [];
-  const logFiles = [
-    'logs/2026-07-16-briefing.json',
-    'logs/2026-07-16-inspection-pm.json',
-    'logs/2026-07-15-inspection-pm.json'
-  ];
-  for (const file of logFiles) {
-    try {
-      const resp = await fetch(file);
-      if (resp.ok) {
-        const log = await resp.json();
-        log._filename = file;
-        if (!logData.find(l => l.date === log.date && l.type === log.type)) {
-          logData.push(log);
-        }
-      }
-    } catch (e) {}
-  }
 
-  // Try logs/manifest.json for any additional logs
+  // Load from logs/manifest.json
   try {
     const resp = await fetch('logs/manifest.json');
     if (resp.ok) {
       const m = await resp.json();
       for (const entry of (m.logs || [])) {
-        if (logData.find(l => l.date === entry.date && l.type === entry.type)) continue;
         try {
           const r = await fetch(`logs/${entry.date}-${entry.type}.json`);
           if (r.ok) {
             const l = await r.json();
             l._filename = `logs/${entry.date}-${entry.type}.json`;
-            logData.push(l);
+            if (!logData.find(ex => ex.date === l.date && ex.type === l.type)) {
+              logData.push(l);
+            }
           }
         } catch (e) {}
       }

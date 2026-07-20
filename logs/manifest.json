@@ -1,0 +1,22 @@
+{
+  "logs": [
+    {
+      "date": "2026-07-15",
+      "type": "inspection_pm",
+      "status": "partial",
+      "summary": "14:00 巡检发现金价日内暴跌 -2.36%，触发预警邮件。"
+    },
+    {
+      "date": "2026-07-16",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "金价处于年内低位震荡，早报已生成并发送邮件。"
+    },
+    {
+      "date": "2026-07-16",
+      "type": "inspection_pm",
+      "status": "no_action",
+      "summary": "14:00 巡检完成，金价日内波动 0.28%，未触发预警。"
+    }
+  ]
+}
