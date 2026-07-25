@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-07-25",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "周六休市，基于周五收盘数据：伦敦金4055.70(+0.14%)，积存金估算885.8元/克。下周议息会议前hold观望。"
+    },
+    {
       "date": "2026-07-20",
       "type": "inspection_pm",
       "status": "no_action",

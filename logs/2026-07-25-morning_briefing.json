@@ -1,0 +1,63 @@
+{
+  "date": "2026-07-25",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "周六休市，基于周五收盘数据：伦敦金 4055.70(+0.14%)，AU9999 885.10(+0.16%)，积存金估算 885.8 元/克。下周美联储议息会议前市场谨慎，操作建议 hold。",
+  "timestamp": "09:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 18000,
+      "result": "NeoData查询到XAUUSD 4055.70(+0.14%)、AU9999 885.10(+0.16%)、USDCNY中间价6.7939；WebSearch获取5条新闻（美联储议息、中东局势、CPI、央行购金、贸易关税）。",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 3500,
+      "result": "已写入 daily/2026-07-25.json（4个价格、5条新闻、2条知识、1条teach、30日走势图）。"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 500,
+      "result": "已追加 2026-07-25 早报记录到 manifest.json。"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 3200,
+      "result": "已 commit（fbf2ae1）并 push 到 origin/master。"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 4500,
+      "result": "已发送HTML格式早报邮件至 2132049351@qq.com。",
+      "outputs": [
+        {
+          "label": "邮件主题",
+          "body": "🌅 今日金价早报 | 2026年07月25日 周六"
+        },
+        {
+          "label": "邮件正文（摘要）",
+          "body": "【金价快照】招行积存金估算 ¥885.8/克(+0.12%) / 上海金 AU9999 ¥885.10(+0.16%) / 伦敦金 XAUUSD $4055.70(+0.14%) / 美元中间价 6.7939(+0.05%)。\n【昨夜大事】① 美联储7/28-29议息会议，市场预期30%加息概率；② 美伊冲突持续，布伦特原油一度破$100后回落$97；③ 美国5月CPI 4.2%创近3年新高；④ 中国央行连续20个月增持黄金，6月增持48万盎司；⑤ 美对贸易伙伴加征10-12.5%新关税。\n【趋势建议】短期偏弱/中期中性/长期偏多，操作 hold 持有观望，等下周议息会议明朗。\n【今日学一招】为什么中东打仗金价反而跌？战争→油价涨→通胀→加息预期→黄金承压。避险需求和加息预期在拉锯。\n详细早报：https://jerry-166.github.io/gold-price-briefing/"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 30200,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}
