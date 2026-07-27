@@ -1,0 +1,59 @@
+{
+  "date": "2026-07-27",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "超级央行周开启，伦敦金4102.80(+0.79%)，积存金估算896.2元/克。FOMC前建议持有观望。邮件已发送。",
+  "timestamp": "09:10 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 42000,
+      "result": "XAUUSD 4102.80(+0.79%)，AU9999 885.10(+0.16%，7/24收盘)，USDCNY中间价6.7939(7/24)。新闻：超级央行周/FOMC议息、美伊冲突/油价破100、中国央行连续20月增持黄金、金价五周拉锯4000美元。NeoData token自动刷新成功。",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 6000,
+      "result": "已写入 daily/2026-07-27.json，含4条价格、4条新闻、3维度趋势判断、1条教学知识点、2条知识卡片、30日走势图表。"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 2500,
+      "result": "已追加记录到 manifest.json：2026-07-27 周一"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 7500,
+      "result": "已提交并推送至 origin/master (4f89502)：2 files changed, 141 insertions"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 32000,
+      "result": "已发送至 2132049351@qq.com",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "主题：🌅 今日金价早报 | 2026年07月27日 周一。包含金价快照(积存金896.2元/克)、3条昨夜大事(FOMC超级央行周/美伊冲突/央行购金)、趋势建议(持有观望)、今日学一招(美联储加息为何让金价下跌)。底部链接：https://jerry-166.github.io/gold-price-briefing/"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 90000,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}
