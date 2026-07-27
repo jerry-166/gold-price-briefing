@@ -2,23 +2,23 @@
   "date": "2026-07-27",
   "type": "inspection_pm",
   "status": "no_action",
-  "summary": "伦敦金 $4089.90，较早报 $4102.80 微跌 0.31%，日内涨约1%（亚市早盘冲高4115后回落），无突发事件，未触发预警。",
-  "timestamp": "13:58 CST",
+  "summary": "晚间巡检：伦敦金 $4088.60，日内涨约0.44%（较昨结4070.80），美伊暂停互袭支撑金价反弹，FOMC周三凌晨公布，无突发事件，未触发预警。",
+  "timestamp": "21:59 CST",
   "steps": [
     {
       "num": 1,
       "name": "价格查询",
       "status": "success",
-      "duration_ms": 12000,
-      "result": "当前金价 XAUUSD $4089.90（13:45），距早报 $4102.80 变动 -0.31%；日内相对昨结算价 +0.47%",
+      "duration_ms": 45000,
+      "result": "当前金价 XAUUSD $4088.60（21:45），今开 $4097.50，昨结 $4070.80，日内波动约 +0.44%；日内高点曾触及 $4115.89 后回落，振幅约 1.1%",
       "source": "neodata-financial-search"
     },
     {
       "num": 2,
       "name": "新闻扫描",
       "status": "success",
-      "duration_ms": 15000,
-      "result": "无突发重大事件。亚市早盘金价一度涨1.5%触及4115.89后回落至4090附近；美联储7/28-29议息会议前处于静默期；美伊冲突为既有延续无升级；贝莱德建议维持适度黄金仓位",
+      "duration_ms": 20000,
+      "result": "无今晚突发重大事件。美伊暂停互袭（周末已知）支撑金价反弹重回4100上方后回落；布油暴跌逾7%失守90美元；FOMC 7/30凌晨公布利率决议，市场预期按兵不动为基准情形，加息25bp概率约36%；港股黄金股集体回暖",
       "source": "WebSearch"
     },
     {
@@ -26,14 +26,14 @@
       "name": "预警判断",
       "status": "success",
       "duration_ms": 1000,
-      "result": "波动 -0.31% → 未触发 1.5% 预警阈值，且无突发事件，静默跳过邮件"
+      "result": "日内波动 +0.44% < 1.5% 阈值，且无今晚突发事件 → 未触发预警，静默不发邮件"
     }
   ],
   "summary_stats": {
     "total_steps": 3,
     "success_steps": 3,
     "failed_steps": 0,
-    "total_duration_ms": 28000,
+    "total_duration_ms": 66000,
     "alert_triggered": false
   }
 }
