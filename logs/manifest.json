@@ -2,6 +2,12 @@
   "logs": [
     {
       "date": "2026-07-27",
+      "type": "inspection_pm",
+      "status": "no_action",
+      "summary": "伦敦金 $4089.90，较早报微跌0.31%，FOMC前静默期无突发事件，未触发预警。"
+    },
+    {
+      "date": "2026-07-27",
       "type": "morning_briefing",
       "status": "success",
       "summary": "超级央行周开启，伦敦金4102.80(+0.79%)，积存金估算896.2元/克。FOMC前建议持有观望。邮件已发送。"
