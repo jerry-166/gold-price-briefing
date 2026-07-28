@@ -1,0 +1,59 @@
+{
+  "date": "2026-07-28",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "FOMC议息首日早盘避险回落，伦敦金4050.90(-0.64%)，积存金估算884.7元/克。超级央行周核心日，建议持有观望等待FOMC决议。邮件已发送。",
+  "timestamp": "11:37 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 12000,
+      "result": "NeoData获取XAUUSD 4050.90(-0.64%)、AU9999 882.20(-1.32%)、USDCNY中间价6.7928(+0.03%)；WebSearch获取新浪财经/今日头条/证券日报等4条核心新闻",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 2000,
+      "result": "已写入 daily/2026-07-28.json，含价格/新闻/趋势/教学/图表完整数据"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 1500,
+      "result": "已追加 2026-07-28 记录到 manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 8000,
+      "result": "已提交(99cd1ae)并推送至 origin/master"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 25000,
+      "result": "已发送至 2132049351@qq.com",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "主题：🌅 今日金价早报 | 2026年07月28日 周二\nHTML邮件含金价快照（积存金¥884.7 -0.64%、AU9999 ¥882.20 -1.32%、汇率6.7928、XAUUSD $4050.90 -0.64%）、3条昨夜大事（FOMC议息今日召开/美伊油价破100/央行20月增持）、趋势建议（持有观望Hold）、今日学一招（央行购金三大原因）、底部网站链接"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 48500,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}
