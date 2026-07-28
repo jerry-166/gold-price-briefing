@@ -2,6 +2,12 @@
   "logs": [
     {
       "date": "2026-07-28",
+      "type": "inspection_pm",
+      "status": "no_action",
+      "summary": "午间巡检：伦敦金 $4041.90，距早报跌约0.22%，FOMC议息首日市场观望，无突发事件，未触发预警。"
+    },
+    {
+      "date": "2026-07-28",
       "type": "morning_briefing",
       "status": "success",
       "summary": "FOMC议息首日早盘避险回落，伦敦金4050.90(-0.64%)，积存金估算884.7元/克。建议持有观望等待FOMC决议。邮件已发送。"
