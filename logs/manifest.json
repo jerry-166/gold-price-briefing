@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-07-29",
+      "type": "inspection_pm",
+      "status": "no_action",
+      "summary": "晚间巡检：伦敦金 $4020.60，较7/28早报基线跌0.75%，中东局势为既有延续，FOMC决议明日凌晨公布，未触发预警。"
+    },
+    {
       "date": "2026-07-28",
       "type": "inspection_pm",
       "status": "partial",

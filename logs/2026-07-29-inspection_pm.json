@@ -1,0 +1,39 @@
+{
+  "date": "2026-07-29",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "晚间巡检：伦敦金 $4020.60，较7/28早报基线跌0.75%，中东局势为既有延续，FOMC决议明日凌晨公布，未触发预警。",
+  "timestamp": "21:35 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 12000,
+      "result": "当前金价 XAUUSD $4020.60（21:23），距7/28早报基线 $4050.90 变动 -0.75%（今日无早报，以最近一期早报为基线）",
+      "source": "neodata-financial-search"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 15000,
+      "result": "无重大突发：中东局势升温推动油价反弹属既有延续，金价在4000-4050区间承压震荡；FOMC决议7/30凌晨公布，属预期内事件，无紧急声明",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 500,
+      "result": "波动 -0.75% < 1.5% 阈值，且无突发事件 → 未触发预警，静默跳过邮件"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 27500,
+    "alert_triggered": false
+  }
+}
