@@ -1,39 +1,39 @@
 {
   "date": "2026-07-29",
   "type": "inspection_pm",
-  "status": "no_action",
-  "summary": "晚间巡检：伦敦金 $4020.60，较7/28早报基线跌0.75%，中东局势为既有延续，FOMC决议明日凌晨公布，未触发预警。",
-  "timestamp": "21:35 CST",
+  "status": "partial",
+  "summary": "晚间巡检：伦敦金约$4008-4010日内跌0.5%-0.7%，FOMC决议今夜凌晨落地且金价贴4000关口，重大事件前夜触发预警邮件。",
+  "timestamp": "22:00 CST",
   "steps": [
     {
       "num": 1,
       "name": "价格查询",
       "status": "success",
-      "duration_ms": 12000,
-      "result": "当前金价 XAUUSD $4020.60（21:23），距7/28早报基线 $4050.90 变动 -0.75%（今日无早报，以最近一期早报为基线）",
+      "duration_ms": 9000,
+      "result": "当前金价 XAUUSD $4010.50（neodata 21:45），金投网实时 $4008.49（-0.49%），日内区间 4006.67-4047.58，振幅约1.0%；上海金 AU9999 878.40元/克（-0.41%）",
       "source": "neodata-financial-search"
     },
     {
       "num": 2,
       "name": "新闻扫描",
       "status": "success",
-      "duration_ms": 15000,
-      "result": "无重大突发：中东局势升温推动油价反弹属既有延续，金价在4000-4050区间承压震荡；FOMC决议7/30凌晨公布，属预期内事件，无紧急声明",
+      "duration_ms": 22000,
+      "result": "重大事件前夜：北京时间7/30凌晨FOMC决议公布，约1/3概率意外加息25bp，被称近二十年最不确定的决议；沃什废除前瞻指引；机构推演鹰派情景下测4000/3900，摩根大通极端预测3500；央行购金托底（Q1增储244吨、中国央行连续20个月增持）",
       "source": "WebSearch"
     },
     {
       "num": 3,
       "name": "预警判断",
       "status": "success",
-      "duration_ms": 500,
-      "result": "波动 -0.75% < 1.5% 阈值，且无突发事件 → 未触发预警，静默跳过邮件"
+      "duration_ms": 1000,
+      "result": "波动约1.0% < 1.5%阈值，但FOMC决议数小时后公布+金价贴4000生死关口，判定为重大事件 → 触发预警，邮件已发送至 2132049351@qq.com"
     }
   ],
   "summary_stats": {
     "total_steps": 3,
     "success_steps": 3,
     "failed_steps": 0,
-    "total_duration_ms": 27500,
-    "alert_triggered": false
+    "total_duration_ms": 32000,
+    "alert_triggered": true
   }
 }
