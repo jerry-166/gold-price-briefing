@@ -1,0 +1,39 @@
+{
+  "date": "2026-07-30",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "午后巡检：伦敦金 $4091.00（LIFFE 13:46），较早报 4125.5 回落 0.84%，低于 1.5% 阈值；FOMC 维持利率不变与美伊冲突均为早报已覆盖事件，无新突发，静默跳过。",
+  "timestamp": "14:02 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 32000,
+      "result": "当前金价 XAUUSD $4091.00（LIFFE 13:46），距早报 4125.5 变动 -0.84%；交叉源金投网现货 $4031.39 日内 -0.88%（口径不同，日内波幅一致）",
+      "source": "neodata-financial-search"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 25000,
+      "result": "无 09:00 早报后的新突发：FOMC 今晨维持3.50%-3.75%不变、特朗普威胁打击伊朗/布油涨8%均已在早报覆盖；现货黄金午后失守4050（证券时报12:54），属日内正常震荡",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 1000,
+      "result": "波动 -0.84%（同口径LIFFE）→ 未触发 1.5% 预警阈值，且无新突发事件，静默跳过不发邮件"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 58000,
+    "alert_triggered": false
+  }
+}
