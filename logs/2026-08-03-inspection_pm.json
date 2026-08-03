@@ -2,38 +2,15 @@
   "date": "2026-08-03",
   "type": "inspection_pm",
   "status": "no_action",
-  "summary": "午后巡检：伦敦金 XAUUSD $4117.30（NeoData LIFFE 13:47），较早报 7/31 $4150.60 回落 0.80%，远低于 1.5% 阈值；美伊紧张降温（特朗普取消打击、重启谈判）属避险压制而非升级，美联储鹰派余波为早报已覆盖事件，无新突发，静默跳过。",
-  "timestamp": "14:00 CST",
+  "summary": "伦敦金 $4029.69 日内 -0.28%，振幅约1.48%低于1.5%阈值；美伊谈判为日内已知事件已消化、美联储鹰派余波为既有因素，无今晚突发重大事件，静默跳过。",
+  "timestamp": "21:55 CST",
   "steps": [
-    {
-      "num": 1,
-      "name": "价格查询",
-      "status": "success",
-      "duration_ms": 15000,
-      "result": "当前金价 XAUUSD $4117.30（NeoData AUUSDO.LIFFE，行情时间 2026-08-03 13:47），距早报 7/31 $4150.60 变动 -0.80%",
-      "source": "neodata-financial-search"
-    },
-    {
-      "num": 2,
-      "name": "新闻扫描",
-      "status": "success",
-      "duration_ms": 9000,
-      "result": "美伊紧张局势降温（特朗普8/1取消对伊军事打击、计划8/3重启谈判），避险需求回落而非升级；美联储7月议息9:3维持利率、3人主张加息的鹰派余波持续，9月加息预期约68%，属7/31早报已覆盖事件。无紧急声明、无冲突升级等突发。",
-      "source": "WebSearch"
-    },
-    {
-      "num": 3,
-      "name": "预警判断",
-      "status": "success",
-      "duration_ms": 500,
-      "result": "波动 -0.80% < 1.5% 阈值，且无新突发重大事件 → 未触发预警"
-    }
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 3200, "result": "当前金价 XAUUSD $4029.69/oz（金投网21:54实时），日内 -0.28%；振幅约1.48%（最高4078.69/最低4019.09，昨收4041.09）；工行纸金4030.03、建行纸金4031.62 三源一致", "source": "WebSearch（金投网 m.cngold.org 实时报价）" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 3500, "result": "美伊新一轮谈判今晚启动（特朗普8/1宣布取消对伊打击，伊朗否认'请求暂停'）、美联储9:3鹰派余波+9月加息概率约65-85%、美债10Y收益率4.745%、布油跌逾7%、瑞银警告短期或回调至3850——均为日内/既有事件，无今晚突发", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 80, "result": "振幅约1.48% < 1.5% 阈值，且无今晚突发重大事件 → 未触发预警（静默）" }
   ],
   "summary_stats": {
-    "total_steps": 3,
-    "success_steps": 3,
-    "failed_steps": 0,
-    "total_duration_ms": 24500,
-    "alert_triggered": false
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 6780, "alert_triggered": false
   }
 }
