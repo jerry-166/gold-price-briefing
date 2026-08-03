@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-08-03",
+      "type": "inspection_pm",
+      "status": "no_action",
+      "summary": "午后巡检：伦敦金 $4117.30 较早报 7/31 回落 0.80%，低于 1.5% 阈值；美伊紧张降温（非升级）、美联储鹰派余波均为既有/已覆盖事件，无新突发，静默跳过。"
+    },
+    {
       "date": "2026-07-31",
       "type": "inspection_pm",
       "status": "partial",
