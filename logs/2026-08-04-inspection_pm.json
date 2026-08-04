@@ -1,0 +1,39 @@
+{
+  "date": "2026-08-04",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "晚间巡检：伦敦金 XAUUSD 现货约 $4087/oz，日内 +0.86%、振幅约 1.27% 低于 1.5% 阈值；美债收益率创新高与央行购金均为已知延续因素，无今晚突发重大事件，静默跳过。",
+  "timestamp": "21:55 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 3200,
+      "result": "现货黄金 XAUUSD $4087.46/oz（金投网 21:54），日内 +0.86%；最高 4093.39 / 最低 4042.09 / 昨收 4052.71，振幅约 1.27%。neodata 伦敦金 LIFFE $4142.40（含约 +$55 基差，口径偏高，与历史规律一致）。",
+      "source": "neodata-financial-search（金投网交叉验证）"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 2600,
+      "result": "无今晚突发重大事件。延续性因素：美联储 9 月加息概率约 67%、美债 10Y 4.74% / 30Y 突破 5.2%（2007 年来新高）压制金价；央行连续 20 个月增持（二季度净购 289 吨）、韩国央行 2013 年来首次恢复实物购金托底。金价维持 4000-4100 箱体，本周焦点 8/7 非农。",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 800,
+      "result": "现货 XAUUSD 振幅 1.27% < 1.5% 阈值，且无今晚突发重大事件 → 未触发预警阈值，静默。"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 6600,
+    "alert_triggered": false
+  }
+}
