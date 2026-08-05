@@ -2,15 +2,15 @@
   "date": "2026-08-05",
   "type": "inspection_pm",
   "status": "partial",
-  "summary": "午后金价较今早报上涨约 +1.95%（现货 4167 vs 早报 4087），突破 1.5% 预警阈值，已发邮件预警。",
-  "timestamp": "13:56 CST",
+  "summary": "晚间巡检：伦敦金 XAUUSD 现货约$4200/oz，日内+3.03%、振幅约3.64%远超1.5%阈值，美伊缓和→油价暴跌驱动金价夜盘续涨，触发预警邮件。",
+  "timestamp": "21:55 CST",
   "steps": [
-    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 3500, "result": "伦敦金 XAUUSD 现货 ≈ 4167 美元/盎司（金投网 13:55）；NeoData LIFFE 4218.10（含约 $55 溢价，趋势一致）。较早报 09:00 的 4087.3 变动约 +1.95%。", "source": "neodata-financial-search（金投网/金价查询网交叉验证）" },
-    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 2800, "result": "无突发地缘升级或美联储紧急声明。主线为美伊缓和→油价暴跌（布伦特跌超6%）→通胀与加息预期降温，叠加美元指数跌破100，推动金价走强。属预期驱动的修复行情。", "source": "WebSearch" },
-    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 600, "result": "现货 XAUUSD 较早报 +1.95% > 1.5% 阈值 → 触发预警，已发邮件至 2132049351@qq.com。" }
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 4200, "result": "伦敦金 XAUUSD 现货 ≈ $4200.80/oz（金投网 21:55，+3.03%，日内区间 $4064.90–$4213.29，昨收 $4077.12）；NeoData 伦敦金 LIFFE $4253.00（21:46，+2.42%，含约 +$52 溢价，趋势一致）。", "source": "neodata-financial-search" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 2800, "result": "金价夜盘延续强势，现货 XAUUSD 升至约 $4200，日内 +3.03%、振幅约 3.6%。驱动：美伊局势缓和预期→霍尔木兹通航谈判推进→油价暴跌（WTI/布伦特跌超5%）→通胀与加息预期降温，美元走弱、资金涌入；本周焦点 8/7 美国7月非农。属延续性风险偏好修复，无今晚突发紧急事件，但价格已显著突破阈值。", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 600, "result": "现货 XAUUSD 日内 +3.03%（振幅约 3.64%）> 1.5% 阈值 → 触发预警，已发邮件至 2132049351@qq.com。" }
   ],
   "summary_stats": {
     "total_steps": 3, "success_steps": 3, "failed_steps": 0,
-    "total_duration_ms": 6900, "alert_triggered": true
+    "total_duration_ms": 7600, "alert_triggered": true
   }
 }
