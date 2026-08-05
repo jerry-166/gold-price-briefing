@@ -1,0 +1,60 @@
+{
+  "date": "2026-08-05",
+  "type": "morning_briefing",
+  "status": "partial",
+  "summary": "早报已生成并推送，XAUUSD $4087.3(+0.25%)，积存金估算¥892.5/克，美伊缓和+油价暴跌压低加息预期。邮件待用户确认发送。",
+  "timestamp": "09:31 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 1500000,
+      "result": "XAUUSD $4087.30(+0.25%)，AU9999 ¥887.25(+0.48%)，USDCNY 6.7917(+0.03%)，获取4条核心新闻（美伊缓和/加息预期降温/机构看多/美股创新高），30日历史行情数据从pricegold.net获取",
+      "source": "neodata-financial-search + WebSearch + WebFetch(pricegold.net)"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 5000,
+      "result": "已写入 daily/2026-08-05.json"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 2000,
+      "result": "已追加 2026-08-05 记录到 manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 8000,
+      "result": "已提交并推送至 origin/master (b4a6b4c)"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "pending_confirm",
+      "duration_ms": 5000,
+      "result": "已提交至 2132049351@qq.com，等待用户确认",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "HTML格式早报：含金价快照（4品种）、昨夜大事（美联储/地缘/机构3条）、趋势建议（持有观望）、今日学一招（油价与金价跷跷板关系）、网站链接"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 4,
+    "failed_steps": 0,
+    "pending_steps": 1,
+    "total_duration_ms": 1520000,
+    "email_sent": false,
+    "git_pushed": true
+  }
+}

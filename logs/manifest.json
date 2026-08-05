@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-08-05",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "早报已生成并推送，XAUUSD $4087.3(+0.25%)，积存金估算¥892.5，美伊缓和+油价暴跌压低加息预期。邮件待用户确认。"
+    },
+    {
       "date": "2026-08-04",
       "type": "inspection_pm",
       "status": "no_action",
