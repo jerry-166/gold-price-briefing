@@ -2,38 +2,38 @@
   "date": "2026-08-06",
   "type": "inspection_pm",
   "status": "partial",
-  "summary": "午后巡检：伦敦金 XAUUSD 现货约$4267/oz，自上次早报(8/5 $4087.3)累计涨约+4.4%超1.5%阈值，逼近4300关口，ADP爆冷+美伊缓和+央行购金驱动，触发预警邮件。",
-  "timestamp": "13:55 CST",
+  "summary": "晚间巡检：伦敦金 XAUUSD 现货约$4265/oz，日内振幅约1.74%（4303.9~4230.1）超1.5%阈值，昨日+4%涨势延续、早盘冲高4300后回落；8/7非农前震荡，触发预警邮件。",
+  "timestamp": "22:00 CST",
   "steps": [
     {
       "num": 1,
       "name": "价格查询",
       "status": "success",
-      "duration_ms": 8200,
-      "result": "当前伦敦金 XAUUSD 现货 $4266.67（金投网 13:55），NeoData LIFFE $4325.40（含约$59溢价、趋势一致）；距上次早报(8/5 09:00 $4087.3)变动 +4.39%",
-      "source": "WebSearch + neodata-financial-search（交叉验证）"
+      "duration_ms": 9000,
+      "result": "当前伦敦金 XAUUSD 现货 $4264.55（金投网 21:54），日内 +0.41%；最高 4303.90 / 最低 4230.06 / 昨收 4247.00 → 振幅约 1.74%。NeoData LIFFE $4328.00（含约+$63 基差，趋势一致）。",
+      "source": "neodata-financial-search + 金投网 WebSearch（交叉验证）"
     },
     {
       "num": 2,
       "name": "新闻扫描",
       "status": "success",
-      "duration_ms": 4200,
-      "result": "重大驱动：美国7月ADP就业仅增4.4万远低预期→降息预期升温、持有黄金成本降；美伊谈判缓和、霍尔木兹海峡有望复航、油价连跌削弱通胀担忧；全球央行Q2购金同比+62%。无突发地缘冲突升级。明日(8/7 20:30)美国7月非农为关键变量。",
+      "duration_ms": 5000,
+      "result": "延续驱动：ADP爆冷(4.4万)、美伊/霍尔木兹协议接近敲定、9月加息预期降至55%、央行连续20月增持。今日金价触及七周新高、盘中破4300后回落至4265；无今晚突发紧急事件。明日(8/7 20:30)美国7月非农为关键变量。",
       "source": "WebSearch"
     },
     {
       "num": 3,
       "name": "预警判断",
       "status": "success",
-      "duration_ms": 600,
-      "result": "累计波动 +4.39% > 1.5% 阈值 → 触发预警（注：今日午后日内仅+0.46%，主涨幅来自8/5单日涨超4%的延续，已通过邮件说明口径）"
+      "duration_ms": 800,
+      "result": "日内振幅 1.74% > 1.5% 阈值 → 触发预警（注：日内净涨跌仅+0.41%，振幅主要来自早盘冲高4300后回落；今日午后已另发累计涨幅预警，本次为振幅口径触发）"
     }
   ],
   "summary_stats": {
     "total_steps": 3,
     "success_steps": 3,
     "failed_steps": 0,
-    "total_duration_ms": 13000,
+    "total_duration_ms": 14800,
     "alert_triggered": true
   }
 }
