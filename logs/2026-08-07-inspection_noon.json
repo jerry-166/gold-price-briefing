@@ -1,0 +1,39 @@
+{
+  "date": "2026-08-07",
+  "type": "inspection_noon",
+  "status": "no_action",
+  "summary": "午后巡检：伦敦金 XAUUSD 现货约$4275/oz，较今早报(9:00 $4291)变动约-0.36%、日内振幅约1.2%，均未超1.5%阈值；无突发紧急事件（今晚20:30非农为预期内既定变量），静默跳过。",
+  "timestamp": "14:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 9000,
+      "result": "当前伦敦金 XAUUSD 现货 $4275.53（金投网 13:54），日内 +0.84%；最高 4279.39 / 最低 4229.33 / 昨收 4239.78 → 振幅约 1.18%。交叉源金价查询网现货 $4269.77（+0.69%，振幅约0.97%）。NeoData LIFFE $4331.60（含约+$56 基差，折算现货≈$4275，趋势一致）。",
+      "source": "neodata-financial-search + 金投网/金价查询网 WebSearch（交叉验证）"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 5000,
+      "result": "无突发紧急事件。延续驱动：ADP爆冷(4.4万)、美联储9月加息预期降至约55%、美伊/霍尔木兹谈判进展、全球央行Q2购金同比+62%。金价在4300关口前窄幅震荡、多头获利了结。今晚(8/7 20:30)美国7月非农为关键变量，属预期内既定事件，非突发。",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 800,
+      "result": "较今早报 -0.36%、日内振幅约1.2%，均远低于 1.5% 阈值 → 未触发预警；无突发事件 → 静默跳过，不发邮件"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 14800,
+    "alert_triggered": false
+  }
+}
