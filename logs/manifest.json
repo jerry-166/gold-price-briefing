@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-08-09",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "周末早报：伦敦金4401.3(+2.37%)单周涨7.2%，非农爆冷+中东缓和双利好。4/5步成功(数据/JSON/manifest/Git)，邮件因QQ Mail token过期未发送。"
+    },
+    {
       "date": "2026-08-07",
       "type": "morning_briefing",
       "status": "success",

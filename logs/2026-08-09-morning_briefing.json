@@ -1,0 +1,63 @@
+{
+  "date": "2026-08-09",
+  "type": "morning_briefing",
+  "status": "partial",
+  "summary": "4/5步成功（获取数据、生成早报、更新manifest、Git推送），邮件因QQ Mail确认token过期太快未能自动发送（需手动补发）",
+  "timestamp": "09:15 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 58000,
+      "result": "NeoData: XAUUSD 4401.30(涨2.37%)、AU9999 938.00(涨0.81%)、USDCNY 6.7904；WebSearch获取4篇核心新闻（非农/中东/央行购金/CPI裁决日）",
+      "source": "neodata-financial-search + WebSearch + 中国外汇交易中心"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 5000,
+      "result": "已写入 daily/2026-08-09.json，包含4项价格、4条新闻、趋势判断(短多/中中/长多/hold)、非农教学卡片、金饰vs金条知识、27日线图"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 1000,
+      "result": "已追加 2026-08-09 周日 记录到 manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 4000,
+      "result": "已提交并推送至 origin/master (02f0f5c)"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "failed",
+      "duration_ms": 120000,
+      "result": "QQ Mail确认token过期太快（~1分钟），AskUserQuestion流程无法在token有效期内完成确认。邮件内容已准备好（HTML格式，含金价快照、4条新闻、趋势建议、非农教学），需手动补发。",
+      "outputs": [
+        {
+          "label": "邮件主题",
+          "body": "🌅 今日金价早报 | 2026年08月09日 周日"
+        },
+        {
+          "label": "邮件收件人",
+          "body": "2132049351@qq.com"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 4,
+    "failed_steps": 1,
+    "total_duration_ms": 188000,
+    "email_sent": false,
+    "git_pushed": true
+  }
+}
