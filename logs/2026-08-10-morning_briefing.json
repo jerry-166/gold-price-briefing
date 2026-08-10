@@ -1,0 +1,59 @@
+{
+  "date": "2026-08-10",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "早报已生成并推送，XAUUSD 4386.1(-0.31%)上周暴涨+7.17%后今早小幅回调，积存金估算957.5元/克，CPI前建议持有观望。5/5步全部成功，邮件已发送。",
+  "timestamp": "09:15 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 18500,
+      "result": "NeoData获取XAUUSD 4386.10(-0.31%)、AU9999 939.69(+0.99%)、USDCNY 6.79；GoldGramPrice获取30日K线；WebSearch获取非农爆冷+中东缓和+央行购金+CPI前瞻等新闻",
+      "source": "neodata-financial-search + WebSearch + GoldGramPrice"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 1200,
+      "result": "已写入 daily/2026-08-10.json，含4条价格、4条新闻、3条趋势判断、1条知识点、2条知识卡片、30日K线图"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 500,
+      "result": "已追加 2026-08-10 记录到 manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 3500,
+      "result": "已提交 (d245d96) 并推送到 origin/master"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 8500,
+      "result": "已发送至 2132049351@qq.com（QQ Mail connector，确认后发送成功）",
+      "outputs": [
+        {
+          "label": "邮件主题",
+          "body": "🌅 今日金价早报 | 2026年08月10日 周一"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 32200,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}

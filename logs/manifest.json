@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-08-10",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "早报已生成并推送，XAUUSD 4386.1(-0.31%)上周暴涨+7.17%后今早小幅回调，积存金估算957.5元/克，CPI前建议持有观望。5/5步全部成功，邮件已发送。"
+    },
+    {
       "date": "2026-08-09",
       "type": "morning_briefing",
       "status": "partial",
