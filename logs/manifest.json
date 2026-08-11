@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-08-11",
+      "type": "inspection_pm",
+      "status": "partial",
+      "summary": "午后巡检：现货黄金 XAUUSD $4372.69/oz，早盘冲高至 4434.84（约9周新高）后回落，日内振幅 1.56% 超 1.5% 阈值，触发预警邮件；日内涨跌仅 -0.36%，属 CPI 前获利了结而非趋势反转。"
+    },
+    {
       "date": "2026-08-10",
       "type": "inspection_pm",
       "status": "no_action",
