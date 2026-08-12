@@ -1,16 +1,16 @@
 {
   "date": "2026-08-12",
   "type": "inspection_pm",
-  "status": "no_action",
-  "summary": "伦敦金现报4388.63美元/盎司，较早报4381.6微涨0.16%，日内振幅1.29%，无突发事件，未触发预警阈值，静默跳过。",
-  "timestamp": "14:00 CST",
+  "status": "partial",
+  "summary": "晚间巡检：现货黄金 XAUUSD $4432.09/oz（21:54 金投网），日内 +1.44%、振幅约 1.86%（4439.81–4358.59）超 1.5% 阈值；叠加今晚20:30美国7月CPI落地（符合预期、加息概率47%→45%），金价深V反弹破4440创6月8日以来新高，触发预警邮件。",
+  "timestamp": "21:55 CST",
   "steps": [
-    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 2200, "result": "当前金价 XAUUSD $4388.63（金投网 13:55:02，现货口径：今开4366.83/最高4415.09/最低4358.59/昨收4369.14），距早报(4381.6)变动 +0.16%", "source": "金投网(cngold)/WebSearch" },
-    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 1200, "result": "无美联储紧急声明、无地缘突发升级；美伊僵局、联储内部分歧、今晚20:30美国7月CPI均为早报已覆盖的既有/预期内变量，无新增突发事件", "source": "WebSearch" },
-    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 8, "result": "波动 +0.16%（较基线）、日内振幅 1.29%，均 < 1.5% 阈值 → 未触发预警" }
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 2500, "result": "当前金价 XAUUSD $4432.09（金投网 21:54:37，现货口径：今开4366.83/最高4439.81/最低4358.59/昨收4369.14），日内 +1.44%；工行纸金国际4431.12(+1.19%)、建行纸金国际4427.85(+1.00%) 交叉一致", "source": "金投网(cngold)/WebSearch" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 1500, "result": "今晚20:30美国7月CPI落地：同比+3.4%符合预期（前值3.5%）、核心+2.5%为2月来最小增幅，9月加息概率47%→45%，金价深V反弹突破4440创6月8日以来新高（盘中最高4441.07）；无新增地缘突发升级", "source": "WebSearch/新浪财经/财联社" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 10, "result": "振幅 1.86% > 1.5% 阈值 + 重大CPI事件 → 触发预警，已发邮件至 2132049351@qq.com（主题'⚠️ 金价预警 | 晚间播报'）" }
   ],
   "summary_stats": {
     "total_steps": 3, "success_steps": 3, "failed_steps": 0,
-    "total_duration_ms": 3408, "alert_triggered": false
+    "total_duration_ms": 4010, "alert_triggered": true
   }
 }

@@ -2,13 +2,19 @@
   "logs": [
     {
       "date": "2026-08-12",
+      "type": "inspection_pm",
+      "status": "partial",
+      "summary": "晚间巡检：现货黄金 XAUUSD $4432.09/oz（21:54 金投网），日内 +1.44%、振幅约 1.86%（4439.81–4358.59）超 1.5% 阈值；叠加今晚美国7月CPI落地（符合预期、加息概率47%→45%），金价深V反弹破4440创6月8日以来新高，触发预警邮件。"
+    },
+    {
+      "date": "2026-08-12",
       "type": "morning_briefing",
       "status": "partial",
       "summary": "CPI前金价4381.6微涨0.28%，积存金估算956.6元/克。4/5步成功，邮件因QQ Mail token过期未发出。"
     },
     {
       "date": "2026-08-12",
-      "type": "inspection_pm",
+      "type": "inspection_noon",
       "status": "no_action",
       "summary": "午后巡检：伦敦金现货 XAUUSD $4388.63/oz，较今早报(4381.6)变动 +0.16%、日内振幅 1.29%，均低于 1.5% 阈值；无美联储紧急声明、无地缘突发升级，静默跳过未发邮件。"
     },
