@@ -1,0 +1,16 @@
+{
+  "date": "2026-08-12",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "伦敦金现报4388.63美元/盎司，较早报4381.6微涨0.16%，日内振幅1.29%，无突发事件，未触发预警阈值，静默跳过。",
+  "timestamp": "14:00 CST",
+  "steps": [
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 2200, "result": "当前金价 XAUUSD $4388.63（金投网 13:55:02，现货口径：今开4366.83/最高4415.09/最低4358.59/昨收4369.14），距早报(4381.6)变动 +0.16%", "source": "金投网(cngold)/WebSearch" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 1200, "result": "无美联储紧急声明、无地缘突发升级；美伊僵局、联储内部分歧、今晚20:30美国7月CPI均为早报已覆盖的既有/预期内变量，无新增突发事件", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 8, "result": "波动 +0.16%（较基线）、日内振幅 1.29%，均 < 1.5% 阈值 → 未触发预警" }
+  ],
+  "summary_stats": {
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 3408, "alert_triggered": false
+  }
+}

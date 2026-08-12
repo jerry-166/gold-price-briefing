@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-08-12",
+      "type": "inspection_pm",
+      "status": "no_action",
+      "summary": "午后巡检：伦敦金现货 XAUUSD $4388.63/oz，较今早报(4381.6)变动 +0.16%、日内振幅 1.29%，均低于 1.5% 阈值；无美联储紧急声明、无地缘突发升级，静默跳过未发邮件。"
+    },
+    {
       "date": "2026-08-11",
       "type": "inspection_pm",
       "status": "partial",
