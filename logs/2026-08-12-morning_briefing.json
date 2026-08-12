@@ -1,0 +1,18 @@
+{
+  "date": "2026-08-12",
+  "type": "morning_briefing",
+  "status": "partial",
+  "summary": "CPI前金价4381.6微涨0.28%，早报数据完整但邮件因QQ Mail token频繁过期未发出（4次尝试后用户取消）。4/5步成功。",
+  "timestamp": "09:05 CST",
+  "steps": [
+    { "num": 1, "name": "获取数据", "status": "success", "duration_ms": 28000, "result": "XAUUSD 4381.6(+0.28%)、AU9999 950.0(+0.35%)、USDCNY 6.79(+0.02%)、积存金估算956.6；新闻4条（CPI决战/美伊僵局/联储分歧/央行购金）；30日K线数据", "source": "neodata-financial-search + WebSearch（金投网/金十/汇通/证券日报/新浪财经）" },
+    { "num": 2, "name": "生成早报JSON", "status": "success", "duration_ms": 3200, "result": "已写入 daily/2026-08-12.json" },
+    { "num": 3, "name": "更新manifest", "status": "success", "duration_ms": 1200, "result": "已追加 2026-08-12 记录到 manifest.json" },
+    { "num": 4, "name": "Git推送", "status": "success", "duration_ms": 4500, "result": "已提交并推送 (34ab602)" },
+    { "num": 5, "name": "发送邮件", "status": "failed", "duration_ms": 420000, "result": "QQ Mail confirmation token频繁过期（4次尝试均失败），用户取消发送", "outputs": [] }
+  ],
+  "summary_stats": {
+    "total_steps": 5, "success_steps": 4, "failed_steps": 1,
+    "total_duration_ms": 457000, "email_sent": false, "git_pushed": true
+  }
+}
