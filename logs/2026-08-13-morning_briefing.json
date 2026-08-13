@@ -1,0 +1,18 @@
+{
+  "date": "2026-08-13",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "CPI温和落地（同比3.4%符合预期），9月加息概率降至40%，金价创两月新高，伦敦金4496.9(+0.66%)，积存金估算981.7元/克。5/5步全部成功，邮件已发送。",
+  "timestamp": "09:05 CST",
+  "steps": [
+    { "num": 1, "name": "获取数据", "status": "success", "duration_ms": 46000, "result": "XAUUSD 4496.90(+0.66%)、AU9999 955.00(-0.08%)、USDCNY 6.79(-18基点)、积存金估算981.7；新闻4条（CPI落地/金价新高/中东油价/央行购金）；30日K线延续", "source": "neodata-financial-search + WebSearch（每日经济新闻/汇通财经/中新经纬/证券日报）" },
+    { "num": 2, "name": "生成早报JSON", "status": "success", "duration_ms": 6200, "result": "已写入 daily/2026-08-13.json" },
+    { "num": 3, "name": "更新manifest", "status": "success", "duration_ms": 1500, "result": "已追加 2026-08-13 记录到 manifest.json" },
+    { "num": 4, "name": "Git推送", "status": "success", "duration_ms": 5200, "result": "已提交并推送 (b77a791)" },
+    { "num": 5, "name": "发送邮件", "status": "success", "duration_ms": 12000, "result": "已发送至 2132049351@qq.com", "outputs": [{ "label": "邮件内容", "body": "主题：🌅 今日金价早报 | 2026年08月13日 周四。金价快照：招行积存金¥981.7/克(+0.66%)、上海金AU9999 ¥955.0(-0.08%)、美元汇率6.79、伦敦金$4496.9(+0.66%)。昨夜大事：①CPI温和落地（同比3.4%、核心2.5%创近5年新低→加息预期降至40%）；②金价创两月新高（现货突破4400、COMEX一度4500）；③中东油价隐忧（霍尔木兹封锁延续）；④央行连续21月购金。趋势：持有观望(hold)，不追高，今晚关注7月PPI。今日学一招：PPI vs CPI区别。附网站链接。" }] }
+  ],
+  "summary_stats": {
+    "total_steps": 5, "success_steps": 5, "failed_steps": 0,
+    "total_duration_ms": 70900, "email_sent": true, "git_pushed": true
+  }
+}
