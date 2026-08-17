@@ -1,0 +1,39 @@
+{
+  "date": "2026-08-17",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "午后巡检：现货黄金 XAUUSD $4393.99/oz（金投网13:55），日内仅+0.43%；较最近一期早报（8/13，标注4496.9存COMEX口径隐患）及上周五收盘（4384.80）均仅小幅波动，无美联储紧急声明、无地缘突发升级，静默跳过。",
+  "timestamp": "13:55 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 1200,
+      "result": "当前金价 XAUUSD $4393.99/oz（金投网13:55:45），日内+0.43%（昨收4375.29），区间4366.69–4416.32；交叉验证 exchangerates.org.uk 4403.83(+0.76%)、路透4391.07(+0.4%)一致。",
+      "source": "金投网/WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 2600,
+      "result": "无重大突发。现货重返4400为延续性反弹（CPI温和+零售销售弱+加息概率降至30-33%+美元走弱+央行购金）；美联储7月纪要周三公布属预期内；美伊/加沙为既有延续无升级；无美联储紧急声明。",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 300,
+      "result": "日内波动+0.43%远低于1.5%阈值；vs上周五收盘4384.80仅+0.21%；无突发事件→未触发预警阈值，静默跳过。"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 4100,
+    "alert_triggered": false
+  }
+}
