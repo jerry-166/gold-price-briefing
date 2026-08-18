@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-08-18",
+      "type": "inspection_pm",
+      "status": "no_action",
+      "summary": "午后巡检：现货黄金 XAUUSD $4395.85/oz（金投网13:53），日内 -0.46%、振幅约1.13% 低于1.5%阈值；无美联储紧急声明、无地缘突发升级，静默跳过。"
+    },
+    {
       "date": "2026-08-17",
       "type": "inspection_pm",
       "status": "no_action",
