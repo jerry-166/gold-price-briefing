@@ -8,6 +8,45 @@ let state = {
   kbFilter: '全部',
 };
 
+// ===== Theme =====
+const THEME_ORDER = ['auto', 'light', 'dark'];
+const THEME_LABELS = { auto: '自动（跟随系统）', light: '浅色', dark: '深色' };
+
+function getTheme() {
+  return document.documentElement.getAttribute('data-theme') || 'auto';
+}
+function isDarkMode() {
+  const t = getTheme();
+  if (t === 'dark') return true;
+  if (t === 'light') return false;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  try { localStorage.setItem('gold-theme', t); } catch (e) {}
+  updateThemeToggle();
+}
+function updateThemeToggle() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  btn.setAttribute('title', '主题：' + (THEME_LABELS[getTheme()] || getTheme()) + '（点击切换）');
+}
+function bindThemeToggle() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const cur = getTheme();
+    const next = THEME_ORDER[(THEME_ORDER.indexOf(cur) + 1) % THEME_ORDER.length];
+    setTheme(next);
+    // 若走势图已渲染，按新主题重绘网格颜色
+    if (state.chartInstance) renderChart();
+  });
+  // 系统主题变化时，若处于 auto 模式则同步刷新图表
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (getTheme() === 'auto' && state.chartInstance) renderChart();
+  });
+}
+
 // ===== Helpers =====
 function chgClass(n) {
   if (n > 0) return 'up';
@@ -342,7 +381,7 @@ function renderChart() {
 
   const ctx = document.getElementById('gold-chart').getContext('2d');
   const eventIdxs = (chart.events || []).map(e => e.index);
-  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = isDarkMode();
   const gridColor = isDark ? 'oklch(0.28 0.006 250)' : 'oklch(0.92 0.003 250)';
   const tickColor = isDark ? 'oklch(0.65 0.008 250)' : 'oklch(0.50 0.01 250)';
 
@@ -665,6 +704,10 @@ async function init() {
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => showPage(btn.dataset.page));
   });
+
+  // Theme toggle
+  bindThemeToggle();
+  updateThemeToggle();
 
   // Load data
   await loadLatestBriefing();

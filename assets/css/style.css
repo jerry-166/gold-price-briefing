@@ -1,31 +1,34 @@
 /* ===== 每日金价资讯 · 生产版样式 v2 (响应式重做) ===== */
 
 :root {
-  /* Colors - Gold theme */
-  --gold: oklch(0.72 0.15 75);
-  --gold-soft: oklch(0.82 0.12 75);
-  --gold-light: oklch(0.94 0.05 75);
-  --gold-bg: oklch(0.97 0.03 75);
-  --accent: oklch(0.58 0.14 50);
-  --accent-light: oklch(0.95 0.04 50);
+  /* 主题模式：auto(跟随系统) | light | dark，由 html[data-theme] 控制 */
+  color-scheme: light dark;
 
-  /* Semantic */
-  --up: oklch(0.55 0.20 27);
-  --up-bg: oklch(0.96 0.04 27);
-  --down: oklch(0.52 0.14 155);
-  --down-bg: oklch(0.96 0.03 155);
-  --warn: oklch(0.62 0.14 75);
-  --warn-bg: oklch(0.96 0.04 75);
+  /* Colors - Gold theme */
+  --gold: light-dark(oklch(0.72 0.15 75), oklch(0.80 0.14 75));
+  --gold-soft: light-dark(oklch(0.82 0.12 75), oklch(0.70 0.10 75));
+  --gold-light: light-dark(oklch(0.94 0.05 75), oklch(0.30 0.05 75));
+  --gold-bg: light-dark(oklch(0.97 0.03 75), oklch(0.22 0.03 75));
+  --accent: light-dark(oklch(0.58 0.14 50), oklch(0.70 0.13 50));
+  --accent-light: light-dark(oklch(0.95 0.04 50), oklch(0.28 0.04 50));
+
+  /* Semantic（深色下提亮，保证深底可读性） */
+  --up: light-dark(oklch(0.55 0.20 27), oklch(0.70 0.16 27));
+  --up-bg: light-dark(oklch(0.96 0.04 27), oklch(0.28 0.05 27));
+  --down: light-dark(oklch(0.52 0.14 155), oklch(0.70 0.13 155));
+  --down-bg: light-dark(oklch(0.96 0.03 155), oklch(0.26 0.04 155));
+  --warn: light-dark(oklch(0.62 0.14 75), oklch(0.72 0.13 75));
+  --warn-bg: light-dark(oklch(0.96 0.04 75), oklch(0.26 0.04 75));
 
   /* Surface */
-  --bg: oklch(0.985 0.002 240);
-  --bg-card: oklch(1 0 0);
-  --bg-hover: oklch(0.96 0.001 240);
-  --fg: oklch(0.18 0.01 250);
-  --fg-muted: oklch(0.50 0.01 250);
-  --fg-subtle: oklch(0.65 0.005 250);
-  --border: oklch(0.92 0.003 250);
-  --border-strong: oklch(0.85 0.005 250);
+  --bg: light-dark(oklch(0.985 0.002 240), oklch(0.16 0.005 250));
+  --bg-card: light-dark(oklch(1 0 0), oklch(0.20 0.006 250));
+  --bg-hover: light-dark(oklch(0.96 0.001 240), oklch(0.24 0.007 250));
+  --fg: light-dark(oklch(0.18 0.01 250), oklch(0.93 0.005 250));
+  --fg-muted: light-dark(oklch(0.50 0.01 250), oklch(0.65 0.008 250));
+  --fg-subtle: light-dark(oklch(0.65 0.005 250), oklch(0.50 0.006 250));
+  --border: light-dark(oklch(0.92 0.003 250), oklch(0.28 0.006 250));
+  --border-strong: light-dark(oklch(0.85 0.005 250), oklch(0.35 0.008 250));
 
   /* Layout */
   --radius: 14px;
@@ -47,25 +50,19 @@
   --safe-b: env(safe-area-inset-bottom, 0px);
 }
 
-/* Dark Mode */
+/* 手动强制主题（light-dark() 依据 color-scheme 自动取值） */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
+/* 深色投影：手动 dark 与跟随系统 auto 两种场景（light-dark 无法承载多层阴影） */
+:root[data-theme="dark"] {
+  --shadow-xs: 0 1px 2px oklch(0 0 0 / 0.2);
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.3);
+  --shadow: 0 4px 6px -1px oklch(0 0 0 / 0.3), 0 2px 4px -2px oklch(0 0 0 / 0.2);
+  --shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.3);
+}
 @media (prefers-color-scheme: dark) {
-  :root {
-    --gold: oklch(0.80 0.14 75);
-    --gold-soft: oklch(0.70 0.10 75);
-    --gold-light: oklch(0.30 0.05 75);
-    --gold-bg: oklch(0.22 0.03 75);
-    --accent: oklch(0.70 0.13 50);
-    --accent-light: oklch(0.28 0.04 50);
-
-    --bg: oklch(0.16 0.005 250);
-    --bg-card: oklch(0.20 0.006 250);
-    --bg-hover: oklch(0.24 0.007 250);
-    --fg: oklch(0.93 0.005 250);
-    --fg-muted: oklch(0.65 0.008 250);
-    --fg-subtle: oklch(0.50 0.006 250);
-    --border: oklch(0.28 0.006 250);
-    --border-strong: oklch(0.35 0.008 250);
-
+  :root[data-theme="auto"] {
     --shadow-xs: 0 1px 2px oklch(0 0 0 / 0.2);
     --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.3);
     --shadow: 0 4px 6px -1px oklch(0 0 0 / 0.3), 0 2px 4px -2px oklch(0 0 0 / 0.2);
@@ -137,6 +134,48 @@ img { max-width: 100%; display: block; }
   color: var(--fg-muted);
   font-weight: 500;
 }
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== 主题切换按钮 ===== */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition), background var(--transition), transform var(--transition);
+}
+.theme-toggle:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  transform: rotate(15deg);
+}
+.theme-toggle:active { transform: scale(0.92); }
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* 三态图标切换 */
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: none; }
+.theme-toggle .icon-auto { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+:root[data-theme="auto"] .theme-toggle .icon-auto { display: block; }
 
 /* ===== Pages ===== */
 .page { display: none; padding: 16px 18px 20px; }
