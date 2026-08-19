@@ -56,7 +56,8 @@ async function loadLatestBriefing() {
     renderEmptyHome();
     return;
   }
-  const latest = briefings[briefings.length - 1];
+  // 按日期降序取最新一条（manifest 数组顺序不固定，不能依赖下标）
+  const latest = [...briefings].sort((a, b) => b.date.localeCompare(a.date))[0];
   await loadBriefing(latest.date);
   renderHome();
 }
@@ -416,8 +417,8 @@ function renderArchive() {
     `;
     return;
   }
-  const reversed = [...briefings].reverse();
-  document.getElementById('archive-list').innerHTML = reversed.map(b => `
+  const sorted = [...briefings].sort((a, b) => b.date.localeCompare(a.date));
+  document.getElementById('archive-list').innerHTML = sorted.map(b => `
     <div class="archive-item" data-date="${b.date}">
       <div>
         <div class="archive-date">${b.date}</div>
