@@ -1,0 +1,18 @@
+{
+  "date": "2026-08-19",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "早报已生成并推送，伦敦金4355.9(+0.53%)，长债收益率飙近19年新高压制金价回调，积存金估算953.2元/克，杰克逊霍尔年会前建议持有观望。5/5步全部成功，邮件已发送。",
+  "timestamp": "09:10 CST",
+  "steps": [
+    { "num": 1, "name": "获取数据", "status": "success", "duration_ms": 38000, "result": "XAUUSD 4355.85(+0.53%)、AU9999 945.40(-1.02%)、USDCNY中间价6.8065(+0.24%)、积存金估算953.2；新闻4条（美债收益率/中东局势/高位震荡/杰克逊霍尔）；30日K线延续", "source": "neodata-financial-search + WebSearch（金投网/上海黄金交易所/财联社/每日经济新闻/Investing.com）" },
+    { "num": 2, "name": "生成早报JSON", "status": "success", "duration_ms": 5200, "result": "已写入 daily/2026-08-19.json" },
+    { "num": 3, "name": "更新manifest", "status": "success", "duration_ms": 1400, "result": "已追加 2026-08-19 记录到 manifest.json" },
+    { "num": 4, "name": "Git推送", "status": "success", "duration_ms": 4800, "result": "已提交并推送 (58fc5f6)" },
+    { "num": 5, "name": "发送邮件", "status": "success", "duration_ms": 9000, "result": "已发送至 2132049351@qq.com", "outputs": [{ "label": "邮件内容", "body": "主题：🌅 今日金价早报 | 2026年08月19日 周三。金价快照：招行积存金¥953.2/克(+0.53%)、上海金AU9999 ¥945.4(-1.02%)、美元汇率6.81、伦敦金$4355.9(+0.53%)。昨夜大事：①美债收益率飙近19年新高→金价回调；②霍尔木兹海峡封锁延续→油价91美元；③4400反复拉锯'利多不续涨'；④杰克逊霍尔年会8/27-29临近Warsh首度讲话。趋势：持有观望(hold)，空仓者等4200-4300分批布局。今日学一招：美债收益率涨金价为何跌。附网站链接。" }] }
+  ],
+  "summary_stats": {
+    "total_steps": 5, "success_steps": 5, "failed_steps": 0,
+    "total_duration_ms": 58400, "email_sent": true, "git_pushed": true
+  }
+}
