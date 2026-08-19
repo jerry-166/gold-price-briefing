@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-08-19",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "早报已生成并推送，伦敦金4355.9(+0.53%)，长债收益率飙近19年新高压制金价，积存金估算953.2元/克。5/5步成功，邮件已发送。"
+    },
+    {
       "date": "2026-08-18",
       "type": "inspection_pm",
       "status": "partial",
