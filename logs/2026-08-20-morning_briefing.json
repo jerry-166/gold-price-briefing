@@ -1,0 +1,18 @@
+{
+  "date": "2026-08-20",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "早报已生成并推送，伦敦金昨夜暴涨4.35%破4500创6月以来新高，今早4516.9(-0.13%)，积存金估算985.4元/克，美财政部扩大长债回购+美联储纪要偏鹰+美元破99驱动。5/5步成功，邮件已发送。",
+  "timestamp": "09:05 CST",
+  "steps": [
+    { "num": 1, "name": "获取数据", "status": "success", "duration_ms": 52000, "result": "XAUUSD 昨收4522.78(+4.35%)今早4516.94(-0.13%)、AU9999 972.0(+2.83%)、USDCNY中间价6.7854(调升51基点)、积存金估算985.4；新闻4条（财政部回购/美联储纪要/美元破99/中东局势）；30日K线延续", "source": "WebSearch（金投网/上海黄金交易所/金十数据/金价查询网/腾讯财经/网易财经）" },
+    { "num": 2, "name": "生成早报JSON", "status": "success", "duration_ms": 3800, "result": "已写入 daily/2026-08-20.json" },
+    { "num": 3, "name": "更新manifest", "status": "success", "duration_ms": 1100, "result": "已追加 2026-08-20 记录到 manifest.json" },
+    { "num": 4, "name": "Git推送", "status": "success", "duration_ms": 5200, "result": "已提交并推送 (0d54333)" },
+    { "num": 5, "name": "发送邮件", "status": "success", "duration_ms": 9500, "result": "已发送至 2132049351@qq.com", "outputs": [{ "label": "邮件内容", "body": "主题：🌅 今日金价早报 | 2026年08月20日 周四。金价快照：招行积存金¥985.4/克(估算)、上海金AU9999 ¥972.0(+2.83%)、美元汇率6.79(-0.08%)、伦敦金$4516.9(-0.13%)。昨夜大事：①财政部扩大长债回购→金价暴涨4.35%破4500；②美联储纪要偏鹰但市场已消化→9月加息概率降至32%；③美元破99、人民币中间价6.7854；④中东霍尔木兹对峙延续→油价91美元。趋势：持有观望(hold)，不建议追高，空仓等回踩4300-4400分批。今日学一招：财政部回购国债为何让金价暴涨。附网站链接。" }] }
+  ],
+  "summary_stats": {
+    "total_steps": 5, "success_steps": 5, "failed_steps": 0,
+    "total_duration_ms": 71600, "email_sent": true, "git_pushed": true
+  }
+}
