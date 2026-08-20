@@ -1,0 +1,39 @@
+{
+  "date": "2026-08-20",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "午后巡检：现货黄金 XAUUSD $4481.96/oz（金投网13:59），较早报4516.9变动 -0.77%、日内 -0.87%、振幅约1.09%，均低于1.5%阈值；昨夜+4.35%暴涨后正常高位回吐，美债回购/美联储纪要/对伊制裁均为早报已覆盖的延续事件、无全新突发升级（鲍威尔杰克逊霍尔讲话8/21-22为未来变量），静默跳过未发邮件。",
+  "timestamp": "14:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 3200,
+      "result": "当前金价 XAUUSD $4481.96/oz（金投网13:59:36，涨跌-39.53/-0.87%，最高4525.79/最低4477.08/昨收4521.49），距早报4516.9变动 -0.77%",
+      "source": "WebSearch（金投网 / 东方财富交叉验证）"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 4100,
+      "result": "无全新突发重大事件；美债回购翻倍、美联储7月纪要偏鹰、特朗普对伊'最严厉经济行动'均为8/19-8/20凌晨已落地/早报已覆盖的延续因素；鲍威尔杰克逊霍尔讲话(8/21-22)为未来变量",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 420,
+      "result": "较今早报变动 -0.77%、日内 -0.87%、振幅约1.09% → 均低于1.5%阈值，未触发预警"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 7720,
+    "alert_triggered": false
+  }
+}
