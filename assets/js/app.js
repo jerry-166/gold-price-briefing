@@ -181,6 +181,33 @@ function renderHome() {
     </div>
   `;
 
+  // Plan (buy/sell timing)
+  const plan = b.plan;
+  const planEl = document.getElementById('plan-box');
+  if (plan && (plan.buy || plan.sell)) {
+    const buy = plan.buy || {};
+    const sell = plan.sell || {};
+    planEl.innerHTML = `
+      <div class="plan-grid">
+        <div class="plan-card plan-buy">
+          <div class="plan-tag">🟢 什么时候买</div>
+          <div class="plan-price">${buy.price || '—'}</div>
+          <div class="plan-trigger">${buy.trigger || ''}</div>
+          ${buy.reason ? `<div class="plan-reason">💡 ${buy.reason}</div>` : ''}
+        </div>
+        <div class="plan-card plan-sell">
+          <div class="plan-tag">🔴 什么时候卖</div>
+          <div class="plan-price">${sell.price || '—'}</div>
+          <div class="plan-trigger">${sell.trigger || ''}</div>
+          ${sell.reason ? `<div class="plan-reason">💡 ${sell.reason}</div>` : ''}
+        </div>
+      </div>
+      ${plan.note ? `<div class="plan-note">⚠️ ${plan.note}</div>` : ''}
+    `;
+  } else {
+    planEl.innerHTML = '';
+  }
+
   // Teaching
   const teach = b.teach || {};
   document.getElementById('teach-box').innerHTML = `
@@ -220,6 +247,7 @@ function renderEmptyHome() {
   document.getElementById('news-list').innerHTML = '';
   document.getElementById('trend-grid').innerHTML = '';
   document.getElementById('advice-box').innerHTML = '';
+  document.getElementById('plan-box').innerHTML = '';
   document.getElementById('teach-box').innerHTML = '';
 }
 

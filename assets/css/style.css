@@ -420,6 +420,64 @@ img { max-width: 100%; display: block; }
 .advice-card.buy .advice-text strong { color: var(--up); }
 .advice-card.watch .advice-text strong { color: var(--warn); }
 
+/* ===== Plan (买卖时机) ===== */
+.plan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.plan-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow-xs);
+}
+.plan-buy { border-top: 3px solid var(--down); }
+.plan-sell { border-top: 3px solid var(--up); }
+.plan-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--fg);
+}
+.plan-price {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.plan-buy .plan-price { color: var(--down); }
+.plan-sell .plan-price { color: var(--up); }
+.plan-trigger {
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+  line-height: 1.6;
+}
+.plan-reason {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+  font-size: 0.72rem;
+  color: var(--fg-subtle);
+  line-height: 1.5;
+}
+.plan-note {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: var(--warn);
+  background: var(--warn-bg);
+  border: 1px solid color-mix(in oklch, var(--warn) 20%, var(--border));
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  line-height: 1.5;
+}
+@media (max-width: 480px) {
+  .plan-grid { grid-template-columns: 1fr; }
+}
+
 /* ===== Teaching Card ===== */
 .teach-card {
   background: linear-gradient(135deg, var(--gold-bg), var(--bg-card));
