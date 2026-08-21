@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-08-21",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "早报已生成并推送，伦敦金4518.8美元/盎司微跌0.09%，4500上方高位震荡，积存金估算985.1元/克。5/5步成功，邮件已发送。"
+    },
+    {
       "date": "2026-08-20",
       "type": "inspection_pm",
       "status": "partial",

@@ -1,0 +1,59 @@
+{
+  "date": "2026-08-21",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "早报已生成并推送，伦敦金4518.8美元/盎司微跌0.09%，4500上方高位震荡，积存金估算985.1元/克。5/5步成功，邮件已发送。",
+  "timestamp": "09:11 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 18400,
+      "result": "XAUUSD 4518.8(-0.09%)、AU9999 975.8(+0.79%)、USDCNY中间价6.7808(调升46基点)、积存金估算985.1；新闻4条(美联储纪要偏鹰/美债40万亿/中东局势/人民币升值)",
+      "source": "WebSearch（金价查询网/上海黄金交易所/陆家嘴财经早餐/FX168/同花顺）"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 1500,
+      "result": "已写入 daily/2026-08-21.json"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 300,
+      "result": "已追加记录到 manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 4200,
+      "result": "已提交并推送 (commit f937d7d)"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 800,
+      "result": "已发送至 2132049351@qq.com",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 | 2026年08月21日 周五：招行积存金985.1¥/克(▼0.09%)、上海金AU9999 975.8¥/克(▲0.79%)、美元汇率6.78、伦敦金4518.8$/盎司(▼0.09%)。昨夜大事：美联储纪要偏鹰、美债突破40万亿、中东局势升温、人民币续创新高。建议：短期看平、忌追高，中长期看好。"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 25200,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}
