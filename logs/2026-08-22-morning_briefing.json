@@ -1,0 +1,62 @@
+{
+  "date": "2026-08-22",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "周六休市，基于周五收盘数据：伦敦金4602.1(+1.85%)破4600创三个月新高，沪金破1000元/克，积存金估算1003.4元/克。5/5步成功，邮件已发送。",
+  "timestamp": "09:15 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 21432,
+      "result": "XAUUSD 4602.1(+1.85%)、AU9999 999.0(+1.57%)、USDCNY中间价6.7817(调贬9基点)、4条新闻（金价破4630创三月新高/达利欧债务警告/人民币创新高/杰克逊霍尔年会前瞻）",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 4862,
+      "result": "已写入 daily/2026-08-22.json",
+      "source": "金投网/上海金交所/中国外汇交易中心/中国经济网/腾讯新闻/网易财经"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 1024,
+      "result": "已追加记录到 manifest.json",
+      "source": "manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 8365,
+      "result": "已提交并推送（commit 1f0cae2）",
+      "source": "github.com/jerry-166/gold-price-briefing"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 6180,
+      "result": "已发送至 2132049351@qq.com",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 | 2026年08月22日 周六：金价快照（积存金估算1003.4¥/克▲1.86%、AU9999 999.0¥/克▲1.57%、美元6.78、伦敦金4602.1$/盎司▲1.85%）；昨夜大事（金价破4600创三月新高/达利欧债务警告/人民币创新高/下周杰克逊霍尔年会）；趋势建议（短期偏强忌追高、中期偏多、长期看涨、已持有继续拿住）；买卖时机（回踩4450-4550$/盎司分批买、4750-4800止盈、跌破4400止损）；今日学一招：杰克逊霍尔年会"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 41863,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}

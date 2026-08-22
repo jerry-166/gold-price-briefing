@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-08-22",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "周六休市，基于周五收盘数据：伦敦金4602.1(+1.85%)破4600创三个月新高，沪金破1000元/克，积存金估算1003.4元/克。5/5步成功，邮件已发送。"
+    },
+    {
       "date": "2026-08-21",
       "type": "inspection_noon",
       "status": "no_action",
