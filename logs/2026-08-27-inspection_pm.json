@@ -1,0 +1,39 @@
+{
+  "date": "2026-08-27",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检（22:00）：现货黄金 XAUUSD 约 $4630.5/oz（金投网最新可检索报价10:31），日内振幅约1.94%（4583.10–4673.66）超1.5%阈值，触发预警邮件；PCE超预期/霍尔木兹缓和/初请均为早报已覆盖或常规数据、无今晚全新突发升级。",
+  "timestamp": "22:05 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 1850,
+      "result": "当前金价 XAUUSD 约 $4630.5/oz（金投网实时，更新10:31）；日内最高4673.66、最低4583.10，基准昨收(8/26)4658.65，净涨跌约-0.60%（全口径）/-0.80%振幅口径+0.80%；波动来源为8/26美国7月PCE超预期后夜盘跳水。注：22:00实时tick未被索引源捕获，采用最新可检索报价。",
+      "source": "WebSearch / 金投网 cngold"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 2100,
+      "result": "无今晚全新突发重大事件：美国7月PCE超预期（8/26落地，早报已覆盖）、伊朗-阿曼就霍尔木兹海峡通航占比达成协议（避险降温，延续因素）、今晚20:30美国初请失业金为常规数据、美联储主席沃什Jackson Hole主旨讲话在8/28（非今晚）。9月加息概率回升至约42%。",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 380,
+      "result": "日内振幅约1.94%（4673.66–4583.10，基准4658.65）> 1.5%阈值 → 触发波动型预警（非全新突发事件）；alert_triggered=true。"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 4330,
+    "alert_triggered": true
+  }
+}
