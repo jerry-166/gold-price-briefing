@@ -1,0 +1,62 @@
+{
+  "date": "2026-08-27",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "早报已生成并推送：伦敦金4637.8(+0.96%)昨夜PCE超预期跳水跌破4590后今晨反弹，9月加息概率回升至42%，杰克逊霍尔年会今日开幕。积存金估算1011.5元/克。5/5步成功，邮件已发送。",
+  "timestamp": "10:27 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 24750,
+      "result": "XAUUSD 4637.8(+0.96%)、AU9999 1001.4(+0.07%)、USDCNY中间价6.7840(调贬11基点)、4条新闻（PCE超预期加息概率回升/杰克逊霍尔开幕/霍尔木兹缓和/人民币小幅贬值）",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 5120,
+      "result": "已写入 daily/2026-08-27.json",
+      "source": "金投网/上海金交所/中国外汇交易中心/金价查询网/第一财经/腾讯新闻"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 1030,
+      "result": "已追加记录到 manifest.json",
+      "source": "manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 8620,
+      "result": "已提交并推送（commit 5884278）",
+      "source": "github.com/jerry-166/gold-price-briefing"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 6350,
+      "result": "已发送至 2132049351@qq.com",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 | 2026年08月27日 周四：金价快照（积存金估算1011.5¥/克▲0.96%、AU9999 1001.4¥/克▲0.07%、美元6.78、伦敦金4637.8$/盎司▲0.96%）；昨夜大事（PCE超预期加息概率回升42%/杰克逊霍尔年会今日开幕/霍尔木兹缓和避险降温/人民币调贬11基点）；趋势建议（短线巨震观望、中期震荡、长期看涨）；买卖时机（回踩4550-4600$/盎司分批买、4700-4750止盈、跌破4500止损）；今日学一招：PCE物价指数"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 45870,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}
