@@ -1,0 +1,59 @@
+{
+  "date": "2026-08-30",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "周日早报（基于8/28收盘+8/29行情补跑）：沃什杰克逊霍尔首秀放鹰→9月加息概率跳升至近60%→现货黄金单日暴跌3%收4454.3，上海金AU9999跌至965.0，积存金估算971.1元/克。5/5步成功，邮件已发送。",
+  "timestamp": "23:57 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 165000,
+      "result": "伦敦金XAUUSD 4454.3(-3.17%)、上海金AU9999 965.0(-3.02%)、人民币中间价6.7811(调升29点)、新闻4条（沃什放鹰/机构激辩/央行购金/人民币升值）",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 8000,
+      "result": "已写入 daily/2026-08-30.json"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 2000,
+      "result": "已追加记录到 manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 9000,
+      "result": "已提交并推送（951b4a3）"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 6000,
+      "result": "已发送至 2132049351@qq.com",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 2026-08-30 周日：金价快照（积存金971.1¥/克 -3.17%、AU9999 965.0 -3.02%、伦敦金4454.3$/oz -3.17%、汇率6.78）；昨夜大事：沃什杰克逊霍尔放鹰致金价暴跌3%、机构激辩短空长多、央行购金289吨托底、人民币中间价调升29点；趋势观望；买卖时机：回踩4400-4450买入、反弹4500-4550止盈、跌破4350止损；今日学一招：杰克逊霍尔年会与放鹰放鸽"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 190000,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}
