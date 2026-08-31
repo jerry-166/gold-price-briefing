@@ -1,0 +1,59 @@
+{
+  "date": "2026-08-31",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "周一早报：沃什放鹰余波未平，9月加息概率升至56.9%，现货黄金周五暴跌3%失守4500后今晨4440下方弱势整理，上海金AU9999 962.0(-3.32%)，积存金估算967.3元/克。5/5步成功，邮件已发送。",
+  "timestamp": "09:15 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 80000,
+      "result": "伦敦金XAUUSD 4436.9(-0.39%)金投网实时、上海金AU9999 962.0(-3.32%)、人民币中间价6.7811(8/28调升29点)、新闻4条（沃什放鹰余波/布拉德爆FOMC分裂/美伊再互袭/瑞银高盛看多）",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 6000,
+      "result": "已写入 daily/2026-08-31.json"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 2000,
+      "result": "已追加记录到 manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 9000,
+      "result": "已提交并推送（6972df9）"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 5000,
+      "result": "已发送至 2132049351@qq.com",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 2026-08-31 周一：金价快照（积存金估算967.3¥/克 -0.39%、AU9999 962.0 -3.32%、伦敦金4436.9$/oz -0.39%、汇率6.78）；昨夜大事：沃什放鹰余波9月加息概率56.9%、FOMC内部10:9分裂、美伊再互袭、瑞银年底4600/高盛4900；趋势观望（短空中平长多）；买卖时机：回踩4350-4400买入、反弹4500-4550止盈、跌破4320止损；今日学一招：为什么央行行长一开口金价就跳水"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 102000,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}
