@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-09-07",
+      "type": "inspection_pm",
+      "status": "no_action",
+      "summary": "午后巡检（14:00定时，16:57延迟执行）：XAUUSD $4410.56/oz 较早报$4430.5变动-0.45%、日内振幅约1.12%均低于1.5%阈值；美伊霍尔木兹周末交火为既有延续、金价反跌未现避险跳涨，无美联储紧急声明，静默跳过。"
+    },
+    {
       "date": "2026-09-05",
       "type": "morning_briefing",
       "status": "success",
