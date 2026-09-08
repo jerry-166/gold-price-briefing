@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-08",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "午后巡检（14:00定时，21:17延迟执行）：XAUUSD $4408.65/oz 较早报$4434.0变动-0.57%、日内振幅约1.30%均低于1.5%阈值；美伊冲突升级/布油逼近100美元为早报已覆盖延续因素且金价未现避险跳涨，无美联储紧急声明，静默跳过。",
+  "timestamp": "21:17 CST",
+  "steps": [
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 4200, "result": "当前金价 XAUUSD $4408.65（金投网21:17，昨收4405.55，日内+0.07%），距早报$4434.0变动 -0.57%；NeoData伦敦金报4447.90（21:07，昨结4476.60，口径与早报基准不一致，采用金投网口径）", "source": "neodata-financial-search + 金投网" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 6800, "result": "无重大全新突发：美伊海上冲突升级、布油98.63逼近100美元、挪威主权基金拟减持800亿美债均为早报已覆盖事件或延续性消息，金价未现避险跳涨（日内仅+0.07%），无美联储紧急声明", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 500, "result": "波动 -0.57%（较早报）、日内振幅约1.30%（4442.86-4385.40），均未触发1.5%预警阈值，且无重大突发事件 → 未触发预警" }
+  ],
+  "summary_stats": {
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 11500, "alert_triggered": false
+  }
+}
