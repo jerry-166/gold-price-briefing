@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-08",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "周二早报（09:30延迟触发）：周一美劳动节淡市现货金失守4400获承接收4406，今晨反弹0.65%至4434.0；上海金957.5(+0.84%)、中间价6.7804。9月加息概率约60%，本周四PPI/周五CPI定方向。5/5步成功，已推送并发送邮件。",
+  "timestamp": "09:38 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 180000,
+      "result": "XAUUSD现货今晨4434.0(+0.65%，金投网09:30)、周一收4406(-0.54%金十)；AU9999 957.5(+0.84%昨结949.6，NeoData 09:30)；USDCNY中间价6.7804(+9基点，NeoData)；新闻5条（加息概率60%/PPI-CPI/瑞银改口/中东油价/央行22个月增持）",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 45000,
+      "result": "已写入 daily/2026-09-08.json（30日图表 08-10~09-08，9/6为周末沿用值、9/7回填真实收盘4406.4）"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 20000,
+      "result": "已追加记录到 manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 25000,
+      "result": "已提交并推送（commit b3bd715）"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 30000,
+      "result": "已发送至 2132049351@qq.com",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 | 2026年09月08日 周二 — 积存金估算966.6元/克(+0.65%)；金价快照(AU9999 957.5/伦敦金4434.0/汇率6.78)；昨夜大事(劳动节淡市4400拉锯、加息概率60%、瑞银改口、中东油价、央行增持)；趋势watch；买卖时机(回踩4330-4380买/4460-4500止盈/4310止损)；今日学一招(现货vs期货vs上海金)；底部附网站链接"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 300000,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}
