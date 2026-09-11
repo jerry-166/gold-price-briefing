@@ -1,0 +1,32 @@
+{
+  "Edit: File has not been read yet: D:\\workspace\\每日金价资讯\\logs\\N-N-N-inspection_noon.": {
+    "count": 2,
+    "last_error": "File has not been read yet: D:\\workspace\\每日金价资讯\\logs\\2026-09-07-inspection_noon.json. Read it first before writing to it.",
+    "last_time": "2026-09-07T14:01:36.760Z"
+  },
+  "Edit: Edit error on D:\\workspace\\每日金价资讯\\logs\\manifest.json: String to replace not foun": {
+    "count": 1,
+    "last_error": "Edit error on D:\\workspace\\每日金价资讯\\logs\\manifest.json: String to replace not found in file.\nString: \"    {\n      \"date\": \"2026-08-20\",\n      \"type\": \"inspection_pm\",\n      \"status\": \"no_action\",\n      \"summary\": \"午后巡检：现货黄金 XAUUSD $4481.96/oz（金投网13:59），较早报4516.9变动 -0.77%、日内 -0.87%、振幅约1.09%，均低于1.5%阈值；昨",
+    "last_time": "2026-08-20T14:02:54.254Z"
+  },
+  "Edit: File has not been read yet: D:\\workspace\\每日金价资讯\\daily\\N-N-N.json. Read it f": {
+    "count": 1,
+    "last_error": "File has not been read yet: D:\\workspace\\每日金价资讯\\daily\\2026-08-21.json. Read it first before writing to it.",
+    "last_time": "2026-08-21T01:25:46.201Z"
+  },
+  "Write: File has not been read yet: D:\\workspace\\每日金价资讯\\.buglog\\stats.json. Read it firs": {
+    "count": 2,
+    "last_error": "File has not been read yet: D:\\workspace\\每日金价资讯\\.buglog\\stats.json. Read it first before writing to it.",
+    "last_time": "2026-09-11T06:12:57.300Z"
+  },
+  "cd \"C:/Users/ASUS/.workbuddy/plugins/cache/cb_teams_marketplace/finance-data/1.5.0/skills/neodata-financial-search\" && \"C:/Users/ASUS/.workbuddy/binaries/python/versions/3.13.12/python.exe\" scripts/query.py --query \"伦敦金 现货黄金 最近30个交易日 每日收盘价 历史行情\" 2>&1 | head -120": {
+    "count": 1,
+    "last_error": "spawn UNKNOWN",
+    "last_time": "2026-09-10T03:45:18.569Z"
+  },
+  "Write: File has not been read yet: D:\\workspace\\每日金价资讯\\.buglog\\index.md. Read it first ": {
+    "count": 1,
+    "last_error": "File has not been read yet: D:\\workspace\\每日金价资讯\\.buglog\\index.md. Read it first before writing to it.",
+    "last_time": "2026-09-11T06:12:57.213Z"
+  }
+}
