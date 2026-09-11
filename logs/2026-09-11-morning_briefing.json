@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-11",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "周五早报（09:01定时触发）：美国8月PPI同比5.4%超预期引爆加息押注(概率62%→70%)，现货黄金9/10暴跌1.91%至4316.72、今晨亚市反抽4332.7(+0.35%)；AU9999 938.99(-1.47%)、中间价6.7766，积存金估算944.0元/克。今晚20:30 CPI定方向。5/5步成功，已推送并发送邮件。",
+  "timestamp": "09:06 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 155000,
+      "result": "XAUUSD现货4332.71(+0.35%，金投网9/11 09:02，昨收4317.48；9/10美盘收跌1.91%至4316.72)；AU9999 938.99(-1.47%昨结952.99，NeoData 09:02)；USDCNY中间价6.7766(9/10调升3基点，中国外汇交易中心)；新闻6条（PPI爆表加息概率70%、金价暴跌1.91%+白银-5.48%、美债收益率4.967%创近三年新高、欧央行加息25bp、中东油价破百、今晚CPI）",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 55000,
+      "result": "已写入 daily/2026-09-11.json（30日图表 08-13~09-11，09-10回填收盘4316.7、09-11为实时价4332.7）"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 12000,
+      "result": "已追加记录到 manifest.json（briefings 数组最前）"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 35000,
+      "result": "已提交并推送（commit 01c7db8；HTTPS凭据失败→走SSH URL推送成功 1a289d0..01c7db8）"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 30000,
+      "result": "已发送至 2132049351@qq.com",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 | 2026年09月11日 周五 — 金价快照(积存金估算944.0元/克+0.35%、AU9999 938.99/伦敦金4332.7/中间价6.7766)；昨夜大事(PPI爆表加息概率70%、金价暴跌1.91%白银-5.48%、美债收益率4.967%创近三年新高、欧央行加息25bp、中东油价破百、今晚20:30 CPI)；趋势建议(短空/中空/长多，watch观望)；买卖时机(回踩4300-4317买/4396-4450止盈/4300止损)；今日学一招(100日均线4339是黄金生命线)；底部附网站链接"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 287000,
+    "email_sent": true,
+    "git_pushed": true
+  }
+}
