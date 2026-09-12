@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-12",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检(22:00定时，09:12提前触发)：XAUUSD $4347.98/oz 日内+0.71%、振幅约2.53%超1.5%阈值；核心CPI超预期推升9月加息概率至约90%+下周四利率决议为重大事件，触发预警邮件。",
+  "timestamp": "09:12 CST",
+  "steps": [
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 3051, "result": "当前金价 XAUUSD $4347.98/oz，日内波动 +0.71%（+$30.50），振幅约2.53%（高4402.21/低4292.97）", "source": "金投网(WebSearch)" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 4187, "result": "美国8月核心CPI超预期→美联储9月加息概率升至约90%，高盛等预计下周加息25bp，下周四利率决议；沙特东西输油管道遭无人机袭击后预防性关闭、霍尔木兹不确定性仍存；无美联储紧急声明或全新突发。", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 502, "result": "振幅2.53%超1.5%阈值 + 重大事件（加息概率约90%/利率决议窗口）→ 触发预警" }
+  ],
+  "summary_stats": {
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 7740, "alert_triggered": true
+  }
+}

@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-09-12",
+      "type": "inspection_pm",
+      "status": "partial",
+      "summary": "晚间巡检(22:00定时，09:12提前触发)：XAUUSD $4347.98/oz 日内+0.71%、振幅约2.53%超1.5%阈值；核心CPI超预期推升9月加息概率至约90%+下周四利率决议为重大事件，触发预警邮件。"
+    },
+    {
       "date": "2026-09-11",
       "type": "inspection_noon",
       "status": "no_action",
