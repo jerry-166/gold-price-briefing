@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-12",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "周六早报（09:00定时触发）：美国8月核心CPI环比+0.3%超预期，9月加息概率飙升至约90%；金价V型反转，现货黄金收涨0.72%报4347.52美元/盎司（盘中最低4292.97/最高4402.21，振幅2.53%）；AU9999 940.00(+0.05%)、中间价6.7743(人民币上调23基点)，积存金估算947.0元/克。周末休市，方向待下周四凌晨FOMC决议。5/5步成功，邮件已发送。",
+  "timestamp": "09:18 CST",
+  "steps": [
+    { "num": 1, "name": "获取数据", "status": "success", "duration_ms": 52400, "result": "伦敦金现4347.98美元(+0.71%，金投网9/12 04:59，昨收4317.48)；上海金AU9999 940.00元/克(+0.05%，NeoData 9/12 02:20，昨结939.54)；美元人民币中间价6.7743(9/11，人民币上调23基点)；新闻：8月CPI整体符合预期/核心环比+0.3%超预期、9月加息概率升至88.8%、金价V型反转、油价回落、8月黄金ETF净流入179亿美元", "source": "neodata-financial-search + WebSearch" },
+    { "num": 2, "name": "生成早报JSON", "status": "success", "duration_ms": 9200, "result": "已写入 daily/2026-09-12.json（含6条新闻、3条知识、30日走势图，trend短0/中0/长1，action=watch）" },
+    { "num": 3, "name": "更新manifest", "status": "success", "duration_ms": 1300, "result": "已追加 2026-09-12（周六）记录到 manifest.json 顶部" },
+    { "num": 4, "name": "Git推送", "status": "success", "duration_ms": 6400, "result": "已提交并推送（commit fbc660f，SSH 推送至 jerry-166/gold-price-briefing master）" },
+    { "num": 5, "name": "发送邮件", "status": "success", "duration_ms": 7300, "result": "已发送至 2132049351@qq.com", "outputs": [{ "label": "邮件内容", "body": "主题：🌅 今日金价早报 | 2026年09月12日 周六。正文含：金价快照（积存金估算947.0元/克+0.71%、AU9999 940.00、汇率6.77、伦敦金4348.0）、昨夜大事5条（CPI核心超预期/金价V反转/油价回落/下周FOMC/ETF抢筹）、趋势建议（短震荡·中中性·长看多，观望为主）、买卖时机（买4300-4320美元·积存金936-941元/克；卖4400-4420美元·积存金958-963元/克；止损4290）、今日学一招（买预期卖事实）、底部网站链接 https://jerry-166.github.io/gold-price-briefing/" }] }
+  ],
+  "summary_stats": {
+    "total_steps": 5, "success_steps": 5, "failed_steps": 0,
+    "total_duration_ms": 76600, "email_sent": true, "git_pushed": true
+  }
+}
