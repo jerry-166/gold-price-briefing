@@ -1,0 +1,39 @@
+{
+  "date": "2026-09-14",
+  "type": "inspection_noon",
+  "status": "no_action",
+  "summary": "午后巡检（14:00）：XAUUSD $4337.37/oz 较早报$4332.4变动+0.11%、日内-0.24%、振幅约0.77%均低于1.5%阈值；FOMC加息概率~90%/布油107均为早报(9/14)已覆盖延续因素、无美联储紧急声明或全新突发，静默跳过。",
+  "timestamp": "14:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 8000,
+      "result": "金投网现货黄金 XAUUSD 14:00:36 报 $4337.37/oz（昨收 4347.98，日内 -0.24%/-10.61；高 4355.19 / 低 4321.86，振幅约 0.77%）。较早报基准 $4332.4（金投网09:18）变动 +0.11%。同口径金投网现货，昨收一致无偏差。",
+      "source": "WebSearch (金投网实时行情页)"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 6000,
+      "result": "FOMC 9/15-16议息、加息概率约90%（高盛转鹰/白宫施压）、布油重回107美元—均为早报(9/14)已覆盖延续因素；无美联储紧急声明、无地缘突发升级（美伊冲突延续但无全新恶化）。无全新重大突发事件。",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 1000,
+      "result": "波动指标：较早报+0.11% / 日内-0.24% / 振幅~0.77%，全部远低于1.5%阈值；新闻侧无重大突发 → 未触发预警，静默跳过。"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 15000,
+    "alert_triggered": false
+  }
+}
