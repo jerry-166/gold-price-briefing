@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-14",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检(22:00)：XAUUSD 振幅约2.34%超1.5%阈值触发预警（金投网4271.57/oz、日内-1.76%；NeoData伦敦金4319.30/oz、日内-2.03%）；中东升级+油价飙升+加息概率90%为延续因素、无全新突发。⚠️预警邮件发送失败（agent-mail 未绑定 / qq-mail MCP 未就绪），需人工补发。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 3520, "result": "XAUUSD 伦敦金 $4319.30/oz（NeoData 21:52，日内 -2.03%）；金投网 $4271.57/oz（22:00，振幅约2.34% 高4355.19/低4253.62）超1.5%阈值", "source": "neodata-financial-search" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 4102, "result": "延续因素为主：CME FedWatch 本周加息25bp概率约86-90%、中东升级（胡塞袭沙特/伊朗攻海湾船只致WTI+4.38%报104.43、Brent+4.56%报109.134、沙特关键油管关闭）推升通胀与加息预期；中国央行连续22月增持、机构维持年底目标价（高盛4900）。无美联储今晚紧急声明或全新突发，FOMC 9/15-16决议为既定变量（早报已覆盖）。", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 311, "result": "振幅2.34%超1.5%阈值（价格型越线）+ 重大事件为延续因素无全新突发 → 触发预警（价格波动主导）" }
+  ],
+  "summary_stats": {
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 7933, "alert_triggered": true
+  }
+}
