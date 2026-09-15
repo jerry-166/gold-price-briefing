@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-15",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "晚间巡检(22:00)：金投网现货 XAUUSD $4294.69/oz 日内-0.10%、振幅约1.30%（高4317.25/低4261.20）低于1.5%阈值；NeoData伦敦金 $4335.80/oz 日内-0.37%（无高低）。FOMC 9/15-16议息(9/17凌晨公布)+加息概率92%-93%/美债破5%/美元99.5偏强/中东油价升级均为早报(9/15)已覆盖延续因素、无美联储紧急声明或全新突发，静默跳过。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 8100, "result": "XAUUSD 伦敦金 $4335.80/oz（NeoData AUUSDO.LIFFE 21:52，日内 -0.37%、昨结4351.90）；金投网现货 $4294.69/oz（22:00，日内 -0.10%、振幅约1.30% 高4317.25/低4261.20）低于1.5%阈值。NeoData令牌过期已自动刷新重查成功。", "source": "neodata-financial-search" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 3900, "result": "未检出全新突发：FOMC 9/15-16议息（9/17凌晨公布、加息25bp概率92%-93%）、美债破5%、美元指数99.5偏强、中东升级推高油价（布油破107/WTI破100）均为早报(9/15)已覆盖延续因素；同花顺晚评分析'沃什进退两难'属决议前既有预期。无美联储今晚紧急声明、无地缘全新升级，市场处决议前观望拉锯。", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 380, "result": "振幅1.30%（金投网基准）/日内-0.10%，全部未超1.5%阈值；新闻侧无全新突发 → 未触发预警阈值（静默）。" }
+  ],
+  "summary_stats": {
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 12380, "alert_triggered": false
+  }
+}
