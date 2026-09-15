@@ -1,6 +1,6 @@
 # Buglog 索引
 
-Open: 5 | Fixed: 2 | Total: 7
+Open: 6 | Fixed: 2 | Total: 8
 
 | ID | Title | Severity | Status |
 |---|---|---|---|
@@ -11,3 +11,4 @@ Open: 5 | Fixed: 2 | Total: 7
 | BUG-005 | 午后巡检误标为 inspection_pm 并延迟触发，污染晚间巡检日志与 manifest | major | fixed |
 | BUG-006 | 金价巡检预警邮件无法发送（mail connector 不可用） | major | open |
 | BUG-007 | NeoData 上海金 AU9999 返回字段异常（今开价明显不合理），且与上金所公开口径存在 2 元/克偏差 | minor | open |
+| BUG-008 | NeoData 技能令牌过期（TOKEN_EXPIRED），无人值守巡检无法以 NeoData 为优先数据源 | minor | open |
