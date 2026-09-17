@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-17",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检(22:00)：XAUUSD 现货 $4366.92/oz 日涨+2.43%、日内振幅约2.91%(高4381.16/低4257.26)超1.5%阈值，触发波动型预警；美联储9/17凌晨加息25bp属早报已覆盖既定事件，今晚为鹰派点阵图后续消化、无全新突发。⚠️预警邮件发送失败（agent-mail 未绑定 + qq-mail 通道无可用MCP工具，双通道不可用），需人工补发。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 4200, "result": "当前金价 XAUUSD $4366.92/oz（金投网 21:59），日内波动 +2.43%；最高 4381.16 / 最低 4257.26 / 昨收 4263.46，振幅约 2.91%", "source": "WebSearch（金投网现货）" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 4100, "result": "美联储 9/17 凌晨加息 25bp（三年多首次、全票通过、点阵图更鹰派）为早报已覆盖既定事件；今晚汇通/Plotio 等报道为“鹰派点阵图超预期、利空出尽反弹”的后续消化，无美联储紧急声明或全新地缘突发", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 60, "result": "振幅 2.91% 越 1.5% 阈值 → 触发预警（价格波动主导）；预警邮件因双邮件通道均不可用未能发出", "source": "本地判断" }
+  ],
+  "summary_stats": {
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 8360, "alert_triggered": true
+  }
+}
