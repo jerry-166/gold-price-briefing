@@ -1,11 +1,11 @@
 {
   "file_edit_counts": {
-    "D:\\workspace\\每日金价资讯\\manifest.json": 8,
+    "D:\\workspace\\每日金价资讯\\manifest.json": 10,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-10-morning_briefing.json": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-10.md": 1,
-    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188098041\\memory.md": 8,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188098041\\memory.md": 10,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-10-inspection_pm.json": 1,
-    "D:\\workspace\\每日金价资讯\\logs\\manifest.json": 17,
+    "D:\\workspace\\每日金价资讯\\logs\\manifest.json": 19,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188108172\\memory.md": 5,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-11-inspection_pm.json": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188114610\\memory.md": 5,
@@ -15,15 +15,15 @@
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-11-inspection_noon.json": 1,
     "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-08-inspection-type-mislabel-duplicate.md": 2,
     "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-08-git-push-noninteractive-failure.md": 1,
-    "D:\\workspace\\每日金价资讯\\.buglog\\index.md": 6,
-    "D:\\workspace\\每日金价资讯\\.buglog\\stats.json": 5,
+    "D:\\workspace\\每日金价资讯\\.buglog\\index.md": 8,
+    "D:\\workspace\\每日金价资讯\\.buglog\\stats.json": 6,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-12-inspection_pm.json": 1,
     "D:\\workspace\\每日金价资讯\\daily\\2026-09-12.json": 1,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-12-morning_briefing.json": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-12.md": 1,
     "D:\\workspace\\每日金价资讯\\daily\\2026-09-13.json": 1,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-13-morning_briefing.json": 1,
-    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-08-briefing-scheduler-missed-days.md": 7,
+    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-08-briefing-scheduler-missed-days.md": 9,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-13.md": 1,
     "D:\\workspace\\每日金价资讯\\daily\\2026-09-14.json": 1,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-14-morning_briefing.json": 1,
@@ -33,10 +33,10 @@
     "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-14-inspection-email-connector-down.md": 2,
     "D:\\workspace\\每日金价资讯\\daily\\2026-09-15.json": 1,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-15-morning_briefing.json": 1,
-    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-15-neodata-au9999-field-anomaly.md": 4,
+    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-15-neodata-au9999-field-anomaly.md": 5,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-15.md": 1,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-15-inspection_noon.json": 1,
-    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-15-neodata-token-expired-unattended.md": 3,
+    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-15-neodata-token-expired-unattended.md": 4,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-15-inspection_pm.json": 1,
     "D:\\workspace\\每日金价资讯\\daily\\2026-09-16.json": 1,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-16-morning_briefing.json": 1,
@@ -48,7 +48,13 @@
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-17-inspection_noon.json": 1,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-17-inspection_pm.json": 1,
     "D:\\workspace\\每日金价资讯\\daily\\2026-09-18.json": 1,
-    "D:\\workspace\\每日金价资讯\\logs\\2026-09-18-morning_briefing.json": 1
+    "D:\\workspace\\每日金价资讯\\logs\\2026-09-18-morning_briefing.json": 1,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-18.md": 1,
+    "D:\\workspace\\每日金价资讯\\daily\\2026-09-19.json": 1,
+    "D:\\workspace\\每日金价资讯\\logs\\2026-09-19-morning_briefing.json": 1,
+    "D:\\workspace\\每日金价资讯\\daily\\2026-09-20.json": 2,
+    "D:\\workspace\\每日金价资讯\\logs\\2026-09-20-morning_briefing.json": 2,
+    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-20-manual-entry-typos.md": 1
   },
   "triggered_files": {
     "__cross_file__": true,
@@ -66,6 +72,8 @@
     "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-15-neodata-au9999-field-anomaly.md": true,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-17-morning_briefing.json": true,
     "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-14-inspection-email-connector-down.md": true,
-    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-15-neodata-token-expired-unattended.md": true
+    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-15-neodata-token-expired-unattended.md": true,
+    "D:\\workspace\\每日金价资讯\\daily\\2026-09-20.json": true,
+    "D:\\workspace\\每日金价资讯\\logs\\2026-09-20-morning_briefing.json": true
   }
 }
