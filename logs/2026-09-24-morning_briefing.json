@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-24",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "早报生成并推送成功：伦敦金破位暴跌1.65%收4286.3美元，积存金估算回落至929.8元/克，邮件已发送",
+  "timestamp": "10:20 CST",
+  "steps": [
+    { "num": 1, "name": "获取数据", "status": "success", "duration_ms": 214000, "result": "获取到：伦敦金9/23纽约尾盘收4286.30美元/盎司(-1.65%，跌71.23，日内高4369.45/低4273.50)；9/24亚市金投网10:20报4284.71(-0.07%)。AU9999 9/23日盘收盘934.00元/克(+0.22%，昨结算931.98)。人民币中间价9/23报6.7468(调降9基点，终结连续七日调升)。SPDR黄金ETF增持0.855吨至1056.836吨。新闻5条：美国9月PMI 58.4创新高推动10月加息概率升至约70%、美元指数破101、10年期美债触及5.13%创近19年新高、伊朗总统联大「永不投降」致布油涨3.86%、SPDR逆势增持", "source": "neodata-financial-search + WebSearch" },
+    { "num": 2, "name": "生成早报JSON", "status": "success", "duration_ms": 156000, "result": "已写入 daily/2026-09-24.json（含4个price、5条news、三周期trend、三档plan、teach、3条knowledge、30日chart）" },
+    { "num": 3, "name": "更新manifest", "status": "success", "duration_ms": 4200, "result": "已在 briefings 数组头部追加 2026-09-24 记录，总数36条" },
+    { "num": 4, "name": "Git推送", "status": "success", "duration_ms": 11200, "result": "已提交 b8b9987 并推送至 master（走 SSH）" },
+    { "num": 5, "name": "发送邮件", "status": "success", "duration_ms": 9800, "result": "已发送至 2132049351@qq.com", "outputs": [{ "label": "邮件内容", "body": "主题：🌅 今日金价早报 | 2026年09月24日 周四。正文为HTML格式，含：①金价快照表（招行积存金¥929.8/g -1.65%、上海金AU9999 ¥934.0/g +0.22%、美元汇率6.75 -0.01%、伦敦金$4286.3/oz -1.65%）；②昨夜大事5条（美国9月PMI 58.4创四年新高致10月加息概率升至70%、美元破101与美债5.13%、伊朗总统联大强硬表态致布油涨3.86%、人民币中间价6.7468调降9基点、SPDR逆势增持0.855吨）；③趋势三周期（短空/中震荡/长多，action=watch）；④买卖时机（买入三档：4250-4280美元约922-929元/克、4200-4235约911-919元/克、4130-4170约896-905元/克；卖出：反弹4322-4369约938-948元/克止盈，止损4200约911元/克、4060约881元/克）；⑤今日学一招「为什么油价大涨黄金反而暴跌」；底部附网站链接 https://jerry-166.github.io/gold-price-briefing/" }] }
+  ],
+  "summary_stats": {
+    "total_steps": 5, "success_steps": 5, "failed_steps": 0,
+    "total_duration_ms": 385200, "email_sent": true, "git_pushed": true
+  }
+}
