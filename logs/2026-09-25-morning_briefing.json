@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-25",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "周五早报（09:38 执行，较计划延迟约 38 分钟，属 BUG-003 既有区间、非缺跑）：9/24现货金一度探至4244.16美元创9/16以来最低、尾盘收复跌幅收4274.58（-0.27%），9/25亚市反弹至4293.63（+0.43%）；AU9999报926.01（-0.86%）、中间价6.7489（人民币调贬21基点）；核心压制为美联储四官员集体放鹰（CME 10月加息概率55.4%→67.5%）、美元五连涨至101.30、10Y美债5.058%创2007年来最高与30Y 5.472%创2004年来最高；4235前低为多空分界线。5步全部成功，邮件已发送，代码已推送。",
+  "timestamp": "09:39 CST",
+  "steps": [
+    { "num": 1, "name": "获取数据", "status": "success", "duration_ms": 148000, "result": "伦敦金现货9/24收4274.58(-0.27%)、9/25亚市09:36报4293.63(+0.43%)；AU9999 9/24日盘收926.01(-0.86%，昨结934.00)；人民币中间价9/24为6.7489(调贬21基点)；新闻5条覆盖美联储四官员放鹰(CME 10月概率67.5%)、美元五连涨101.30与美债长端创多年新高、胡塞袭沙特与美伊分阶段重开霍尔木兹、金价创一周低点及盛宝银行点名4235防线、中国前8个月进口黄金超1000吨与央行购金约80吨。NeoData返回TOKEN_EXPIRED，经续期后三路查询全部成功", "source": "neodata-financial-search + WebSearch" },
+    { "num": 2, "name": "生成早报JSON", "status": "success", "duration_ms": 46000, "result": "已写入 daily/2026-09-25.json（4个价格、5条新闻、3组趋势、3条知识点、30点图表+22个事件）。提交前自检六项一次通过：json.load、date/weekday、labels与values各30、events索引与日期对应、news url前缀、hero复算931.6、advice 184字、dataSources域名白名单", "source": "本地生成" },
+    { "num": 3, "name": "更新manifest", "status": "success", "duration_ms": 11800, "result": "已把 2026-09-25 记录插入 manifest.json 的 briefings 数组头部（现共37条）", "source": "本地编辑" },
+    { "num": 4, "name": "Git推送", "status": "success", "duration_ms": 13200, "result": "已提交并推送：commit d25c179（每日早报 2026-09-25，2 files changed/376 insertions），SSH 推送 1413a61..d25c179 master", "source": "git push git@github.com:jerry-166/gold-price-briefing.git master" },
+    { "num": 5, "name": "发送邮件", "status": "success", "duration_ms": 11500, "result": "已发送至 2132049351@qq.com", "source": "QQ Mail SendMessage（skip_confirmation: true）", "outputs": [{ "label": "邮件内容", "body": "主题：🌅 今日金价早报 | 2026年09月25日 周五。正文为HTML格式，含：①一句话总结；②金价快照表（招行积存金¥931.6/g +0.44%、上海金AU9999 ¥926.0/g -0.86%、美元汇率6.75 +0.03%、伦敦金$4293.6/oz +0.44%，并注明按中国市场惯例红色为涨、绿色为跌）；③昨夜大事5条（美联储四官员集体放鹰致10月加息概率升至67.5%、美元五连涨与美债10Y 5.058%/30Y 5.472%创多年新高、胡塞袭沙特推高油价后又被美伊谈判压回、金价盘中创一周新低4244并获盛宝银行点名4235防线、中国前8个月进口黄金超1000吨与央行购金约80吨）；④趋势三周期（短空/中震荡4180-4360/长多，action=watch）；⑤买卖时机（买入三档：4240-4260美元约920-924元/克、4180-4210约907-914元/克、4100-4130约890-896元/克；卖出：反弹4310-4322约935-938元/克止盈、站回4360约946元/克再谈修复，止损4180约907元/克、4100约890元/克）；⑥今日学一招「为什么4235美元成了黄金的生死线——前低与关键支撑」；底部附网站链接 https://jerry-166.github.io/gold-price-briefing/" }] }
+  ],
+  "summary_stats": {
+    "total_steps": 5, "success_steps": 5, "failed_steps": 0,
+    "total_duration_ms": 230500, "email_sent": true, "git_pushed": true
+  }
+}
