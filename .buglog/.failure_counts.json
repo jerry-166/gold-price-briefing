@@ -25,8 +25,13 @@
     "last_time": "2026-09-10T03:45:18.569Z"
   },
   "Write: File has not been read yet: D:\\workspace\\每日金价资讯\\.buglog\\index.md. Read it first ": {
-    "count": 3,
+    "count": 4,
     "last_error": "File has not been read yet: D:\\workspace\\每日金价资讯\\.buglog\\index.md. Read it first before writing to it.",
-    "last_time": "2026-09-15T01:34:22.569Z"
+    "last_time": "2026-09-25T01:40:33.528Z"
+  },
+  "Write: File has not been read yet: C:\\Users\\ASUS\\.workbuddy\\plugins\\cache\\cb_teams_mark": {
+    "count": 1,
+    "last_error": "File has not been read yet: C:\\Users\\ASUS\\.workbuddy\\plugins\\cache\\cb_teams_marketplace\\finance-data\\1.6.0\\skills\\.neodata_token. Read it first before writing to it.",
+    "last_time": "2026-09-25T01:35:50.856Z"
   }
 }
