@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-09-25",
+      "type": "inspection_pm",
+      "status": "no_action",
+      "summary": "晚间巡检(09:31提前触发)：金投网现货 XAUUSD $4292.43/oz 日内+0.40%、振幅约0.70%低于1.5%阈值；胡塞袭沙特+美联储放鹰+美元五连涨均为延续因素、无全新突发，静默跳过。"
+    },
+    {
       "date": "2026-09-24",
       "type": "morning_briefing",
       "status": "success",

@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-25",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "晚间巡检(22:00定时，09:31提前触发)：金投网现货 XAUUSD $4292.43/oz 日内+0.40%、振幅约0.70%（高4294.20/低4264.22）低于1.5%阈值；胡塞袭沙特推油价+美联储集体放鹰+美元五连涨至101.30为延续因素、无今晚全新突发，静默跳过。",
+  "timestamp": "09:31 CST",
+  "steps": [
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 3200, "result": "当前金价 XAUUSD $4292.43/oz（金投网 09:31），日内+0.40%、振幅约0.70%；最高4294.20/最低4264.22/昨收4275.25", "source": "WebSearch（金投网 cngold.org 现货）" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 2600, "result": "胡塞武装袭沙特致布油+3.4%至106.60、美联储官员密集放鹰、美元指数五连涨至101.30、美债10Y 5.058%创2007年来新高，均为早报及近期已覆盖延续因素；无美联储今晚紧急声明或全新地缘突发", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 400, "result": "振幅0.70%未越1.5%阈值 + 无重大突发事件 → 未触发预警，静默" }
+  ],
+  "summary_stats": {
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 6200, "alert_triggered": false
+  }
+}
