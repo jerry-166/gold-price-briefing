@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-10-04",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "早报 5 步全部成功：数据获取（国庆假期第四日／周末休市，国内沿用 9/30、金价沿用上周五收盘 4140.1 美元）→生成 daily/2026-10-04.json→更新 manifest→SSH 推送成功→邮件已发送，日志已记录。"
+    },
+    {
       "date": "2026-10-03",
       "type": "morning_briefing",
       "status": "success",
