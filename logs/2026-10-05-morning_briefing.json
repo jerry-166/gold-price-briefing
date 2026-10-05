@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-05",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "早报全部 5 步成功：完成三路金融数据与新闻检索（周一国际盘重新开市、亚市反弹，现货金 4161.4 美元/+0.52%；国内仍在国庆长假，上海金与中间价沿用 9/30 口径），生成 daily/2026-10-05.json、追加 manifest.json、SSH 推送成功（commit ecaedbc）、邮件已发送至 2132049351@qq.com，日志与 logs/manifest.json 已更新。",
+  "timestamp": "10:26 CST",
+  "gap_check": {
+    "last_success_date": "2026-10-04",
+    "missed_trading_days": [],
+    "crossed_trading_days": 1,
+    "note": "上次成功为 10月4日（周日），本次为 10月5日（周一），中间无缺失交易日（10/3、10/4 为周末且国际盘休市），无断档、未标注——BUG-003 建议④的兜底检查连续第七次实际执行并验证可用。跨过的 1 个交易日为 10月5日国际盘本身（本日已恢复交易）。"
+  },
+  "steps": [
+    { "num": 1, "name": "获取数据", "status": "success", "duration_ms": 163000, "result": "三路查询全部成功：①伦敦金现货——金投网10:26报4161.44美元（+0.44%），交叉源随时点递增且趋势一致（汇通早评4144.52→汇通9:39的4154.26→路透0150GMT的4158.17→21财经8:42的4152.018），取4161.4；②上海金AU9999——NeoData AU9999.SHG 报907.32元/克（+1.09%、行情时间2026-09-30 15:29、昨结897.53），与SGE官方9/30日盘收盘分毫不差，因国庆休市继续沿用；③中间价——NeoData USDCNY.FX 报6.74（-60基点，最后报价日20260930），精确值6.7351（网易确认10/5外汇市场休市、仍沿此值）。新闻检索命中：非农余波与10月加息概率降至22%／12月87%、Kitco周度调查分析师转空、也门政府对胡塞发动大规模军事行动与OPEC+维持11月产量不变、本周ISM服务业PMI与FOMC纪要日程。", "source": "neodata-financial-search + WebSearch" },
+    { "num": 2, "name": "生成早报JSON", "status": "success", "duration_ms": 76000, "result": "已写入 daily/2026-10-05.json：hero 积存金估算 901.1 元/克（4161.4×6.7351÷31.1035）、上海金 907.32、中间价 6.74、伦敦金 4161.4；news 6 条（均带原始 url）、trend 三周期（0／-1／+1，action=watch）、plan 三档买入与止盈止损、teach『Skip 不是 Stop』、knowledge 3 条；图表整体左移一格（丢 09-05、补 10-05=4161.4，events 索引 -1、新增 10-05）。提交前自检一次通过（parse＋结构断言＋labels/values 长度与唯一性＋events 索引与日期逐条比对＋hero 与 plan 共 12 处 ¥/克 批量复算＋news url 前缀＋解析后字段 ASCII 引号零命中＋dataSources 域名核对＋plan 与 advice 价位一致性＋advice 198 字）。", "duration_note": "含首轮 advice 201 字超限后的压缩返工" },
+    { "num": 3, "name": "更新manifest", "status": "success", "duration_ms": 2000, "result": "已在 manifest.json 的 briefings 数组头部插入 {date:2026-10-05, title:今日金价早报, weekday:周一}" },
+    { "num": 4, "name": "Git推送", "status": "success", "duration_ms": 14000, "result": "已提交并推送（commit ecaedbc，git commit -m 每日早报 2026-10-05）；已用 git ls-remote origin refs/heads/master 与 git rev-parse HEAD 比对，两者均为 ecaedbc3936e449475dccc459f1597479cb8bece，推送成功" },
+    { "num": 5, "name": "发送邮件", "status": "success", "duration_ms": 42000, "result": "已发送至 2132049351@qq.com", "outputs": [{ "label": "邮件内容", "body": "主题：🌅 今日金价早报 | 2026年10月05日 周一。正文（HTML，含红涨绿跌）：顶部国庆假期提示（国内休市至10/7、10月8日复市、沿用9/30口径、杠杆降仓、节后防跳空）；一句话总结（国际盘周一重新开市、现货金反弹至4161.4美元/+0.52%，10月加息概率降至22%但12月仍87%、美债5.28%压制，本周看今晚ISM与周四凌晨纪要）；金价快照表 4 项；昨夜大事 6 条；趋势三周期（短0／中-1／长+1，action=watch）；买卖时机（买：4130-4140／4090-4110／4000-4020 美元，约894-896／886-890／866-870元/克；卖：4200-4226 约910-915元/克先减1/3、4244-4285进阶；止损4110与4065）；今日学一招（Skip不是Stop）；底部附网站链接 https://jerry-166.github.io/gold-price-briefing/" }] }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 297000,
+    "email_sent": true,
+    "git_pushed": true
+  },
+  "health_check": {
+    "briefing_chain": "早报日志连续（最近 8 个：09-26、09-29、09-30、10-01、10-02、10-03、10-04、本次 10-05），无缺口。",
+    "inspection_noon": "最近产出 2026-10-02 14:00（= 标称时点、no_action）；10-03、10-04 为周末，按既有形态无巡检产出（与 9/13、9/19、9/20 等周末一致，不计为新增异常）；10-05 的 14:00 尚未到点。",
+    "inspection_pm": "最近产出 2026-10-02 22:00（= 标称时点、status=partial，非农夜振幅 2.22% 触发波动预警）；10-05 的 22:00 尚未到点。",
+    "note": "两条巡检线自 9/29-10/2 连续正常（noon 连续两日、pm 连续四日），10/2 的晚间巡检正确捕捉非农夜异常波动；但该链路形态曾在『提前触发／静默缺跑／正常』间切换过至少两次，连续正常仍不足以判定修复，继续按两条线分开观察 1-2 周。本周为国庆假期后半段，10/8 国内复市后两条线是否仍正常触发值重点观察。"
+  }
+}
