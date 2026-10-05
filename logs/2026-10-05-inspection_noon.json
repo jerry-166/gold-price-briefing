@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-05",
+  "type": "inspection_noon",
+  "status": "no_action",
+  "summary": "午后金价 XAUUSD $4139.98，较早报 $4161.4 变动 -0.52%（日内较昨收 -0.08%、振幅约 0.92%），均低于 1.5% 阈值；新闻无新突发，静默跳过。",
+  "timestamp": "14:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 9000,
+      "result": "金投网现货黄金 XAUUSD $4139.98/盎司（更新 14:01:02）：昨收 4143.10、今开 4140.98、最高 4162.82、最低 4124.59，日内涨跌 -0.08%（约 -3.12 美元），振幅约 0.92%。较早报基准 $4161.4（金投网 10:26 读数）变动 -0.52%。与早报同源金投网、偏差小于 10 美元，无需切换口径；NeoData/COMEX 口径（约 $4185）未采用，沿用早报口径。",
+      "source": "WebSearch(金投网 m.cngold.org/quote/gjs/gjhj_xhhj.html)"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 12000,
+      "result": "无美联储紧急声明；也门政府周一对胡塞发动大规模军事行动、中东伊朗局势、G7 释储压油价、10 月加息概率降至 22% 但 12 月仍 87% 均为早报（10/5）已覆盖的延续因素，无全新突发。今晚 22:00 美国 ISM 非制造业 PMI 为待公布常规催化，尚未落地。判定无重大突发事件。",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 300,
+      "result": "波动 -0.52%（较早报）/ 日内 -0.08% / 振幅约 0.92%，均远低于 1.5% 阈值；新闻无突发 → 未触发预警，静默跳过，无邮件操作。"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 21300,
+    "alert_triggered": false
+  }
+}
