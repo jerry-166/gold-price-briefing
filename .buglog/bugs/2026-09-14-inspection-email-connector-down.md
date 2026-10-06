@@ -37,3 +37,11 @@ reported_at: 2026-09-14T22:05:00
 - 巡检自动化应在发送前探测 agent-mail / qq-mail 任一通道可用性；任一可用即发，全不可用则日志必须标记 `email_delivered: false` 而非 success，杜绝静默丢预警。
 - 建议在 automation 内增加邮件发送兜底/重试与状态回写字段，避免预警漏发。
 - 定期巡检 connector 绑定状态，agent-mail 解绑后需重新开通；不要假设"上次能发这次就能发"。
+
+### 复发记录（2026-10-06 早报，首次波及主线任务）
+早报邮件（收件人 2132049351@qq.com）发送失败，根因与 9/14、9/17 完全一致，**但这是第一次落在「每日唯一必发邮件」的主线任务上**（此前两次都只影响巡检预警）：
+- `mcp__agent-mail__GetMe` / `ListMessages` 返回「Agent 邮箱尚未开通 / not_bound」（connector-status 仍显示 connected，账号实际未绑定）。
+- `mcp__qq-mail__*` 工具未进入工具索引：逐一试探 `mcp__qq-mail__GetMe`、`mcp__qq-mail__ListMessages`、`mcp__qqmail__ListMessages` 三个候选名，`DeferExecuteTool` 均报 `not found in the deferred tools index`；`ToolSearch` 以 mail / 邮箱 / email 为关键词检索，只返回 `mcp__agent-mail__*` 一组，**qq-mail MCP 工具在本会话中完全不存在**。
+- 环境线索：本机 `~/.workbuddy` 下 `.skill-list-cache.json`、`.legacy-localstorage-migration.done`、`.playwright-driver-node-reuse.done` 的时间戳均为 **2026-10-06 11:46**，与早报会话被中断的时刻重合，推测**应用在 11:46 前后完成了一次版本更新/重启，可能重置了邮箱绑定状态、并导致 qq-mail 的 MCP 工具未能重新注册**（与 BUG-014 同源）。
+- 本次处置：`logs/2026-10-06-morning_briefing.json` 记 `status: partial`、`email_sent: false`，`logs/manifest.json` 同步记 partial，**绝不写「已发送」**；今日早报邮件需人工补发。
+- 结论：**双邮件通道的环境级不可用已从「巡检偶发」升级为「跨任务、跨场景的常态」**（9/14、9/17、10/6 三次复现）。任务侧兜底只有「如实记 false + 明示人工补发」；根治需在连接器侧重新完成 agent-mail 绑定，或让 qq-mail 的 MCP server 重新注册工具。
