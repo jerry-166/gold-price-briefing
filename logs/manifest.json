@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-10-06",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "早报部分成功（4/5）：数据采集、daily JSON、manifest、SSH 推送均完成（commit 24afd0d，延迟约 90 分钟），但步骤 5 邮件发送失败——双通道不可用（agent-mail not_bound、qq-mail 工具未入索引），需人工补发；且该次会话在步骤 5 前被应用更新中断，日志与清单由 11:52 本会话补齐（BUG-014）。"
+    },
+    {
       "date": "2026-10-05",
       "type": "inspection_pm",
       "status": "no_action",
