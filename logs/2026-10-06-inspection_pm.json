@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-06",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检(22:00)：金投网现货 XAUUSD $4151.89/oz 日内+0.29%、振幅约1.82%(高4179.62/低4104.12)超1.5%阈值触发波动型预警；盘中直线跳水险破4100美元(最低4104.12)后回升；无美联储紧急声明、10月加息概率约21%-22%/12月约70%为延续因素、G7释储/布油回落98.50/也门战事均早报已覆盖，已发预警邮件。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 3200, "result": "当前金价 XAUUSD $4151.89/oz（金投网 22:00:03），日内 +0.29%；日内振幅约 1.82%（高 4179.62 / 低 4104.12 / 昨收 4140.09）", "source": "金投网（WebSearch，工行/建行纸黄金交叉验证一致）" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 3600, "result": "无美联储今晚紧急声明；10月加息概率约21%-22%、12月约70%（CME FedWatch，延续）；G7释放战略油储、布油回落至98.50美元（延续）；也门战事/中东对峙为早报已覆盖；盘中现货金直线跳水险破4100美元为当日实况", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 600, "result": "振幅 1.82% 超 1.5% 阈值 → 触发波动型预警（无全新重大突发事件，纯波动型）" }
+  ],
+  "summary_stats": {
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 7400, "alert_triggered": true
+  }
+}
