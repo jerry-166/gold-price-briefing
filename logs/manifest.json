@@ -2,6 +2,12 @@
   "logs": [
     {
       "date": "2026-10-06",
+      "type": "inspection_noon",
+      "status": "no_action",
+      "summary": "午后巡检（14:00）：金投网现货 XAUUSD $4119.17/oz 较早报$4121.4变动-0.05%、日内-0.51%、振幅约1.17%均低于1.5%阈值；美债24年新高/强美元/中东对峙(早报已覆盖)均为延续因素、无美联储紧急声明或全新地缘突发，静默跳过。"
+    },
+    {
+      "date": "2026-10-06",
       "type": "morning_briefing",
       "status": "partial",
       "summary": "早报部分成功（4/5）：数据采集、daily JSON、manifest、SSH 推送均完成（commit 24afd0d，延迟约 90 分钟），但步骤 5 邮件发送失败——双通道不可用（agent-mail not_bound、qq-mail 工具未入索引），需人工补发；且该次会话在步骤 5 前被应用更新中断，日志与清单由 11:52 本会话补齐（BUG-014）。"
