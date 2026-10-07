@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-10-07",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "早报全部 5 步成功（触发 09:06，延迟约 6 分钟）：伦敦金 4152.6 美元/-0.28%、AU9999 与中间价沿用 9/30 假期口径，daily JSON+manifest+SSH 推送（commit 12c8a8e）与邮件发送均完成，自检全通过。"
+    },
+    {
       "date": "2026-10-06",
       "type": "inspection_pm",
       "status": "partial",
