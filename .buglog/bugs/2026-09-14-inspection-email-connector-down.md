@@ -45,3 +45,4 @@ reported_at: 2026-09-14T22:05:00
 - 环境线索：本机 `~/.workbuddy` 下 `.skill-list-cache.json`、`.legacy-localstorage-migration.done`、`.playwright-driver-node-reuse.done` 的时间戳均为 **2026-10-06 11:46**，与早报会话被中断的时刻重合，推测**应用在 11:46 前后完成了一次版本更新/重启，可能重置了邮箱绑定状态、并导致 qq-mail 的 MCP 工具未能重新注册**（与 BUG-014 同源）。
 - 本次处置：`logs/2026-10-06-morning_briefing.json` 记 `status: partial`、`email_sent: false`，`logs/manifest.json` 同步记 partial，**绝不写「已发送」**；今日早报邮件需人工补发。
 - 结论：**双邮件通道的环境级不可用已从「巡检偶发」升级为「跨任务、跨场景的常态」**（9/14、9/17、10/6 三次复现）。任务侧兜底只有「如实记 false + 明示人工补发」；根治需在连接器侧重新完成 agent-mail 绑定，或让 qq-mail 的 MCP server 重新注册工具。
+- **2026-10-07（周三）— 本期未复现（正向记录）**：会话开局时 `connector-status` 显示 agent-mail 与 qq-mail **均为 connected**；步骤 5 用 QQ Mail `SendMessage`（`body_format=HTML`、`skip_confirmation=true`）一次发送成功，返回 `queued:true`，日志记 `email_sent: true`。**该次成功发生在 10/6 应用更新（11:46）重启之后的次日，说明「工具未注册」并非永久性损坏——支持前述「更新/重启导致绑定或 MCP 工具临时丢失」的推断；但仍须继续逐日观察，不因此判定已修复。**
