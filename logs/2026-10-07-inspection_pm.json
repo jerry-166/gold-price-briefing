@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-07",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检(22:01)：金投网现货XAUUSD $4098.84/oz 日内-1.57%、振幅约2.48%超1.5%阈值触发波动型预警；今晚金银直线跳水(盘中最低4066.40、跌幅一度超2.2%)，特朗普称对伊朗军事行动须收尾、中东地缘再升温；美联储9月FOMC纪要待10/8凌晨公布。已发预警邮件。",
+  "timestamp": "22:01 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 8500,
+      "result": "当前金价 XAUUSD $4098.84/oz，日内波动 -1.57%，振幅约 2.48%（高4169.86/低4066.40/昨收4164.42）",
+      "source": "金投网(web)"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 9200,
+      "result": "重大事件：今晚金银直线跳水(最低4066.40、跌幅一度超2.2%)；特朗普称对伊朗军事行动须收尾、中东地缘再升温；美联储9月FOMC纪要将于10/8凌晨公布；无美联储今晚紧急声明",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 600,
+      "result": "振幅2.48%越1.5%阈值 → 触发波动型预警（叠加地缘事件）"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 18300,
+    "alert_triggered": true
+  }
+}
