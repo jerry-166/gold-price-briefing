@@ -57,3 +57,11 @@ reported_at: 2026-09-14T22:05:00
   - ⑤ 本次处置：`logs/2026-10-10-morning_briefing.json` 记 `status: partial`、`email_sent: false`（steps[4].status = failed），`logs/manifest.json` 同步记 partial，**绝不写「已发送」**；邮件 HTML 已完整备好落盘于 `.workbuddy/outbox/2026-10-10-email.html`，**需人工补发至 2132049351@qq.com**。
   - ⑥ **「10/6 的应用更新所致损坏已自愈」的初步判定被推翻**。10/7-10/9 连续三日成功只是间歇期；该故障的形态为「**偶发→复发→常态→间歇→复发**」，属**长期未修复**，严重级维持 major。另须留痕：**10/9 期的本文件（BUG-006）与 BUG-012、BUG-013 三处 buglog 更新均未实际落盘**，仅 BUG-003 写入成功——即「buglog 声明与产物脱节」再次发生，10/9 日志 notes ⑩ 声称已用 `grep` 复核落盘但实证为空（详见 BUG-013 附项）。
   - ⑦ 新增建议：**自动化应在进入步骤 5 之前先做一次通道可用性探测**（例如一次轻量工具检索），若两个通道的工具均不在索引中，则直接跳过发送、立即落盘 `email_sent:false` 并生成待补发邮件文件，避免在不可用通道上白耗时间（本次通道排查耗去约 65 秒）。根治仍需宿主/连接器侧修复 qq-mail MCP server 的工具注册——可向维护方反馈：**connector 状态显示 connected、OAuth scope 齐全，但工具未进入 agent 工具索引**。
+
+- **2026-10-12（周一）— 复发（10/10 之后第二次），形态与 10/10 完全一致**：早报第 5 步「发送邮件」**失败**，且会话开局的 `connector-status` 仍显示 agent-mail 与 qq-mail **均为 connected**（与 10/10 相同，即状态层与工具层不一致的现象稳定复现）：
+  - ① `mcp__qq-mail__*` 工具**未进入会话工具索引**：先按语义检索「qq mail 发送邮件／send email QQ邮箱」，返回的 10 条结果**全部是 `mcp__agent-mail__*`**（含 SendMessage、ListMessages 等）；再按名称逐一试探 `mcp__qq-mail__SendMessage`、`mcp__qq-mail__send_message`、`mcp__qq-mail__send_email`、`mcp__qq-mail__SendEmail`、`mcp__qq-mail__send`，命中结果仍**只有 agent-mail 两个工具**，qq-mail 组完全不存在。
+  - ② `mcp__agent-mail__GetMe` 直接返回「Agent 邮箱尚未开通……当前请勿重试」，`{"_agentmail_meta":{"status":"not_bound"}}` —— 与 10/6、10/10 两次的 `not_bound` 完全一致。
+  - ③ 本地 SMTP 兜底（`scripts/send_email.py`）依赖 `config/email.json`，该文件不存在且被 `.gitignore` 排除，仍不可用。
+  - ④ 本次处置：`logs/2026-10-12-morning_briefing.json` 记 `status: partial`、`email_sent: false`（`steps[4].status = failed`），`logs/manifest.json` 同步记 partial，**绝不写「已发送」**；邮件 HTML 已完整落盘于 `.workbuddy/outbox/2026-10-12-email.html`，**需人工补发至 2132049351@qq.com**。
+  - ⑤ 形态结论更新：故障序列为「9/14、9/17 → 10/6（首次波及早报主线）→ 10/7-10/9 间歇正常三日 → **10/10、10/12 连续两次复发**」。10/7-10/9 的连续成功已可确认只是间歇期，**该 bug 已可定性为「长期未修复、间歇性可用」**，严重级维持 major。两次复发之间的间隔缩短至**一个自然日**（10/10 → 10/12，中间 10/11 为周末但当日工具可用、曾发送成功），说明可用窗口并不稳定。
+  - ⑥ 建议 ⑦ 再次强化：**应在进入步骤 5 之前先做一次轻量通道探测**（例如一次 ToolSearch 语义检索），若两个通道的工具均不在索引中，直接跳过发送、立即落盘 `email_sent:false` 并生成待补发邮件文件，不在不可用通道上白耗时间（本次探测约耗 30 秒，较 10/10 的约 65 秒已因流程熟练而缩短）。
