@@ -1,7 +1,8 @@
 {
   "date": "2026-10-14",
   "type": "morning_briefing",
-  "status": "partial",
+  "status": "success",
+  "status_note": "最终状态：success。原 09:40 自动运行时步骤 5（发送邮件）因 BUG-006 失败、当时记为 partial；14:02 用户手动触发「重新发送」，QQ Mail 返回 queued: true，邮件已实际发出，故最终状态修正为 success（保留 steps[4].status=failed 与 summary_stats.email_sent 的原始记录于 resend 字段中说明）。",
   "summary": "早报（触发约 09:40／延迟约 40 分钟）五步中四步成功：数据采集 → daily/2026-10-14.json → manifest → git 推送（SSH，51b2f85）→ 邮件发送失败（BUG-006 第三次复发：qq-mail 工具未进会话索引、agent-mail 返回 not_bound；邮件 HTML 已落盘 .workbuddy/outbox/2026-10-14-email.html，需人工补发至 2132049351@qq.com）。行情脉络：金价连续第二日上攻 4200 关口失败——10/13 盘中触及 4200.54 后回落、收 4159.4（-0.29%）、日线再收长上影阴线；10/14 亚市自 4160.72 开盘后一路走低、最低 4145.82，报 4150.6（-0.21%），贴近箱体下沿 4146。上金所 Au99.99 报 894.6 元/克（-1.09%，基准为 10/13 日盘结算价 904.45）、跌破 900 关口；人民币中间价 6.7249、调升 49 个基点（连续第三日走强）。hero 积存金估算 897.4 元/克（较昨晨 899.6 回落 2.2 元／-0.24%）。趋势维持短 -1／中 -1／长 1，action=watch；核心叙事『二次冲高失败、贴地磨底等数据』，今晚 20:30 美国 9 月 CPI 为总开关。",
   "timestamp": "09:40 CST",
   "gap_check": {
@@ -80,17 +81,28 @@
   ],
   "summary_stats": {
     "total_steps": 5,
-    "success_steps": 4,
-    "failed_steps": 1,
+    "success_steps": 5,
+    "failed_steps": 0,
     "total_duration_ms": 598000,
-    "email_sent": false,
+    "email_sent": true,
+    "email_sent_at_first_attempt": false,
     "git_pushed": true
+  },
+  "resend": {
+    "timestamp": "14:02 CST",
+    "trigger": "用户手动触发「重新发送」",
+    "result": "success",
+    "channel": "QQ Mail mcp__qq-mail__SendMessage（body_format=HTML、skip_confirmation=true）",
+    "receipt": "服务端返回 queued: true",
+    "detail": "09:40 首次自动发送失败（qq-mail 工具未进会话工具索引、agent-mail 返回 not_bound、workbuddy_request_mcp_connection 结果为 skipped）；14:02 会话重开后 qq-mail 工具已正常进入索引，用同一份底稿 .workbuddy/outbox/2026-10-14-email.html 重发成功，收件人 2132049351@qq.com。正文内容与底稿一致，仅邮件底部补发说明改为「原定 09:00 自动发送失败、14:02 手动重发」。",
+    "bug_006_status": "本日仍未修复（09:40 失败、14:02 成功）——属间歇性可用，同一自然日内先败后成，可用窗口进一步缩短。"
   },
   "notes": [
     "BUG-003 调度延迟：触发约 09:40（会话起始时间戳 09:39:46），延迟约 40 分钟。序列更新为 9/13-10/14 共 31 日：36/19/30/48/68/67/74/7/88/74/缺跑/80/35/69/缺跑/缺跑/35/115/112/4/8/9/86/约90/6/约106/7/133/6/49/36/40（分钟）。定性维持『4-133 分钟极宽摆动』，单日低位不构成改善证据。",
     "BUG-006 第三次复发：qq-mail 工具未进会话工具索引、agent-mail GetMe 返回 not_bound、workbuddy_request_mcp_connection 结果为 skipped。已记 status=partial、email_sent=false，邮件 HTML 落盘 .workbuddy/outbox/2026-10-14-email.html。10/13 的成功未延续到 10/14，可用窗口已缩短到『隔日可用』。",
     "BUG-012 体检：早报日志链无缺；inspection_noon 最近产出 10/07、正常交易日连续无产出 4 个（10/08、10/09、10/12、10/13）；inspection_pm 最近产出 10/08、连续无产出 3 个（10/09、10/12、10/13）；今日（10/14）巡检标称时点未到、不计异常。新增待办 ⑪（连续 5 个交易日无产出即升级）。",
     "BUG-013 第十七次稳定复现：hook 又把任务提示词全文当作『用户报告的 bug』→ 判误判、未按字面建档；另对 .tmp_token 与 daily/2026-10-14.json 各触发弱提示（分别为凭证中转文件写入/删除、_meta.updated 时间戳修正），均属正常流程，按既有结论忽略。本次无工具调用失败（邮件通道故障除外）、无用户纠正、无流程中断、零自伤。",
-    "建议 ⑥ 凭据复核已落实：收尾用 grep -c 『2026-10-14』 逐文件复核 buglog 落盘，计数为 —— 2026-09-08-briefing-scheduler-missed-days.md:2（BUG-003）、2026-09-14-inspection-email-connector-down.md:2（BUG-006）、2026-09-25-inspection-scheduler-silent-miss.md:1（BUG-012）、2026-09-26-buglog-hook-misfire.md:2（BUG-013），四个文件均有命中；.buglog/index.md 对应四条记录行亦已更新（该文件内用『10/14』表述、不含完整日期串，故 grep 完整日期串为 0，属预期的模式差异）。"
+    "建议 ⑥ 凭据复核已落实：收尾用 grep -c 『2026-10-14』 逐文件复核 buglog 落盘，计数为 —— 2026-09-08-briefing-scheduler-missed-days.md:2（BUG-003）、2026-09-14-inspection-email-connector-down.md:2（BUG-006）、2026-09-25-inspection-scheduler-silent-miss.md:1（BUG-012）、2026-09-26-buglog-hook-misfire.md:2（BUG-013），四个文件均有命中；.buglog/index.md 对应四条记录行亦已更新（该文件内用『10/14』表述、不含完整日期串，故 grep 完整日期串为 0，属预期的模式差异）。",
+    "BUG-006 补记（14:02 重发）：09:40 首次自动发送失败后，用户于 14:02 手动触发「重新发送」，本次会话中 qq-mail 工具已正常进入工具索引，用同一份底稿重发成功、返回 queued: true。**同一自然日内先败后成，说明该故障的连接层/工具注册层在数小时内即可自行恢复**，但「上午失败」本身就是主线任务的实际损失，BUG-006 仍维持 open。邮件成功 ≠ 早报按时送达，建议仍维持「步骤 5 前先探测、失败即落盘待补发」的流程。"
   ]
 }
