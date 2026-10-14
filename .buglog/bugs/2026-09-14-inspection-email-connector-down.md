@@ -65,3 +65,12 @@ reported_at: 2026-09-14T22:05:00
   - ④ 本次处置：`logs/2026-10-12-morning_briefing.json` 记 `status: partial`、`email_sent: false`（`steps[4].status = failed`），`logs/manifest.json` 同步记 partial，**绝不写「已发送」**；邮件 HTML 已完整落盘于 `.workbuddy/outbox/2026-10-12-email.html`，**需人工补发至 2132049351@qq.com**。
   - ⑤ 形态结论更新：故障序列为「9/14、9/17 → 10/6（首次波及早报主线）→ 10/7-10/9 间歇正常三日 → **10/10、10/12 连续两次复发**」。10/7-10/9 的连续成功已可确认只是间歇期，**该 bug 已可定性为「长期未修复、间歇性可用」**，严重级维持 major。两次复发之间的间隔缩短至**一个自然日**（10/10 → 10/12，中间 10/11 为周末但当日工具可用、曾发送成功），说明可用窗口并不稳定。
   - ⑥ 建议 ⑦ 再次强化：**应在进入步骤 5 之前先做一次轻量通道探测**（例如一次 ToolSearch 语义检索），若两个通道的工具均不在索引中，直接跳过发送、立即落盘 `email_sent:false` 并生成待补发邮件文件，不在不可用通道上白耗时间（本次探测约耗 30 秒，较 10/10 的约 65 秒已因流程熟练而缩短）。
+
+- **2026-10-14（周三）— 复发（10/10、10/12 之后第三次），形态与两次完全一致**：早报第 5 步「发送邮件」**失败**，会话开局的 `connector-status` 本次显示 **agent-mail `connected`、qq-mail `connecting`**（与 10/10、10/12 的「两条均 connected」略有差异，但结果相同——状态层与工具层依旧不一致）：
+  - ① `mcp__qq-mail__*` 工具**未进入会话工具索引**：先按名称试探 `mcp__qq-mail__SendMessage`、`mcp__qq-mail__send_message`，未命中；再以「qq mail 发送邮件」「QQ邮箱 SendMessage」「mail qq connector send」「QQ邮箱 发送邮件 send mail」等关键词做语义检索，返回结果**全部是 `mcp__agent-mail__*`**（SendMessage／ReplyMessage／DeleteMessage／ForwardMessage 等），qq-mail 组完全不存在。
+  - ② `mcp__agent-mail__GetMe` 直接返回「Agent 邮箱尚未开通。请引导用户在上方开通面板中完成开通……当前请勿重试」，`{"_agentmail_meta":{"status":"not_bound"}}` —— 与 10/6、10/10、10/12 三次的 `not_bound` 完全一致。
+  - ③ 本次按 MCP 连接规范**首次正式发起连接请求**（`workbuddy_request_mcp_connection`，servers=[`qq-mail`]，capability＝「发送每日金价早报邮件至 2132049351@qq.com」），结果为 **`skipped`**（无人值守会话中用户未响应/未连接），符合预期——该动作在无人值守场景下不构成有效兜底，其价值在于**把「连接层不可用」这一事实显式留痕**，而非解决发送。
+  - ④ 本地 SMTP 兜底（`scripts/send_email.py`）依赖 `config/email.json`，该文件不存在且被 `.gitignore` 排除，仍不可用。
+  - ⑤ 本次处置：`logs/2026-10-14-morning_briefing.json` 记 `status: partial`、`email_sent: false`（`steps[4].status = failed`），`logs/manifest.json` 同步记 partial，**绝不写「已发送」**；邮件 HTML 已完整落盘于 `.workbuddy/outbox/2026-10-14-email.html`，**需人工补发至 2132049351@qq.com**。
+  - ⑥ 形态结论更新：故障序列为「9/14、9/17 → 10/6（首次波及早报主线）→ **10/7-10/9 间歇正常三日** → 10/10、10/12 → **10/13 正常一日** → **10/14 复发**」。**可用窗口已缩短到「隔日可用」甚至更短**（10/13 成功、10/14 即失败），与 10/7-10/9 的「连续三日可用」形成鲜明对比，进一步确认该 bug 属**长期未修复、间歇性可用**，严重级维持 major。**「连续一次成功」与「连续三次成功」都不构成修复证据，必须逐日如实记录成败**（本次即为此结论的正面案例：10/13 成功并未延续到 10/14）。
+  - ⑦ 建议 ⑦ 更新：**建议在进入步骤 5 之前，统一先做「一次 ToolSearch + 一次 `mcp__agent-mail__GetMe` 轻量探测」**；若两边都不可用，立即跳过发送、落盘 `email_sent:false` 并生成待补发邮件文件。本次该探测连同 `workbuddy_request_mcp_connection` 合计约耗 90 秒，虽较前两次略长，但**换来了「连接层不可用」的显式凭据**（此前只能记录「工具不在索引」），对后续定位宿主/连接器侧问题有价值。
