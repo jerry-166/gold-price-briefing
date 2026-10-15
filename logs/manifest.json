@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-10-15",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "早报(触发10:11/延迟约71分钟)四步成功、邮件失败(partial)。daily/2026-10-15.json→manifest(55条)→git推送(bb05f00)；邮件因 qq-mail 工具 schema 校验异常(error -32602，to 字段 array/object 不匹配，三种写法均失败)且 agent-mail not_bound 而未发出，底稿已落盘 .workbuddy/outbox/2026-10-15-email.txt。昨夜美国9月CPI全面超预期→金价跳水破4100、纽约尾盘收4103.80(纠正昨日4150.6亚市快照)、今晨反弹0.90%报4142.26；AU9999 893.79(-0.08%)；中间价6.7253(调贬4基点)；短0/中-1/长1、action=watch。巡检体检：noon线连续4个交易日无产出(最近10/07)、pm线连续3个(最近10/08)，两条线同时静默缺跑达第三个正常交易日，待办⑪阈值(noon满5)仅差1日。"
+    },
+    {
       "date": "2026-10-14",
       "type": "morning_briefing",
       "status": "success",
