@@ -1,11 +1,11 @@
 {
   "file_edit_counts": {
-    "D:\\workspace\\每日金价资讯\\manifest.json": 26,
+    "D:\\workspace\\每日金价资讯\\manifest.json": 27,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-10-morning_briefing.json": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-10.md": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188098041\\memory.md": 37,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-10-inspection_pm.json": 1,
-    "D:\\workspace\\每日金价资讯\\logs\\manifest.json": 48,
+    "D:\\workspace\\每日金价资讯\\logs\\manifest.json": 50,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188108172\\memory.md": 10,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-11-inspection_pm.json": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188114610\\memory.md": 15,
@@ -149,7 +149,14 @@
     "D:\\workspace\\每日金价资讯\\logs\\2026-10-14-morning_briefing.json": 5,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-10-14.md": 2,
     "D:\\workspace\\每日金价资讯\\logs\\2026-10-15-morning_briefing.json": 2,
-    "D:\\workspace\\每日金价资讯\\daily\\2026-10-15.json": 1
+    "D:\\workspace\\每日金价资讯\\daily\\2026-10-15.json": 1,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-10-15.md": 1,
+    "D:\\workspace\\每日金价资讯\\logs\\2026-10-15-inspection_noon.json": 1,
+    "D:\\workspace\\每日金价资讯\\logs\\2026-10-15-inspection_pm.json": 1,
+    "D:\\workspace\\每日金价资讯\\daily\\2026-10-16.json": 3,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\outbox\\2026-10-16-email.html": 1,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\_tmp_buglog_update.py": 1,
+    "D:\\workspace\\每日金价资讯\\logs\\2026-10-16-morning_briefing.json": 1
   },
   "triggered_files": {
     "__cross_file__": true,
@@ -208,6 +215,7 @@
     "D:\\workspace\\每日金价资讯\\logs\\2026-10-14-morning_briefing.json": true,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\outbox\\2026-10-14-email.html": true,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-10-14.md": true,
-    "D:\\workspace\\每日金价资讯\\logs\\2026-10-15-morning_briefing.json": true
+    "D:\\workspace\\每日金价资讯\\logs\\2026-10-15-morning_briefing.json": true,
+    "D:\\workspace\\每日金价资讯\\daily\\2026-10-16.json": true
   }
 }

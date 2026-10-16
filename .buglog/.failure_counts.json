@@ -35,8 +35,13 @@
     "last_time": "2026-10-01T02:55:42.072Z"
   },
   "Edit: String to replace not found in file. 当前文件内容与 old_string 不一致，请先 Read 最新内容再 Edit.\n": {
-    "count": 5,
-    "last_error": "String to replace not found in file. 当前文件内容与 old_string 不一致，请先 Read 最新内容再 Edit.\nString: \"**截至 10/14 体检，noon 线连续无产出 4 个交易日、pm 线 3 个，新增待办 ⑪（连续数达 5 个交易日即按「链路实质失效」升级）**） | major | open |\"",
-    "last_time": "2026-10-15T02:32:13.932Z"
+    "count": 6,
+    "last_error": "String to replace not found in file. 当前文件内容与 old_string 不一致，请先 Read 最新内容再 Edit.\nString: \"  - **会话审查/buglog**：本自动任务无人值守，本次价格查询(金投网)+新闻扫描(WebSearch)全部成功、无用户纠正/未解决失败；hook 将任务提示词透传为「用户报告 bug」（BUG-013 复现），判定误判不建档，无需 /buglog add。\"",
+    "last_time": "2026-10-15T06:07:14.762Z"
+  },
+  "Write: File has not been read yet: D:\\workspace\\每日金价资讯\\logs\\N-N-N-morning_briefing": {
+    "count": 1,
+    "last_error": "File has not been read yet: D:\\workspace\\每日金价资讯\\logs\\2026-10-16-morning_briefing.json. Read it first before writing to it.",
+    "last_time": "2026-10-16T01:48:53.195Z"
   }
 }
