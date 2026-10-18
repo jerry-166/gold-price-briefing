@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-10-18",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "周日休市，价格为 10/16 收盘沿用：金 4165.2(-0.14%)、AU9999 899.0(-0.29%)、中间价 6.7220，积存金估算 900.2 元/克；5/5 成功（触发 10:06、延迟约 67 分钟）、邮件已发"
+    },
+    {
       "date": "2026-10-17",
       "type": "morning_briefing",
       "status": "success",
