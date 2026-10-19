@@ -162,7 +162,16 @@
     "D:\\workspace\\每日金价资讯\\logs\\2026-10-17-inspection_noon.json": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\build_1017.py": 4,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\buglog_1017.py": 1,
-    "D:\\workspace\\每日金价资讯\\.workbuddy\\log_1017.py": 1
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\log_1017.py": 1,
+    "D:/workspace/每日金价资讯/.workbuddy/tmp/build_1018.py": 1,
+    "D:/workspace/每日金价资讯/.workbuddy/tmp/build_mail_1018.py": 2,
+    "D:/workspace/每日金价资讯/.workbuddy/tmp/build_mail_1018b.py": 1,
+    "D:/workspace/每日金价资讯/logs/2026-10-18-morning_briefing.json": 1,
+    "D:/workspace/每日金价资讯/.workbuddy/memory/automations/automation-1784188098041/memory.md": 1,
+    "D:/workspace/每日金价资讯/.workbuddy/memory/2026-10-18.md": 1,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\gen_1019.py": 1,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\mail_1019.py": 1,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\log_1019.py": 1
   },
   "triggered_files": {
     "__cross_file__": true,
@@ -223,6 +232,7 @@
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-10-14.md": true,
     "D:\\workspace\\每日金价资讯\\logs\\2026-10-15-morning_briefing.json": true,
     "D:\\workspace\\每日金价资讯\\daily\\2026-10-16.json": true,
-    "D:\\workspace\\每日金价资讯\\.workbuddy\\build_1017.py": true
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\build_1017.py": true,
+    "D:/workspace/每日金价资讯/.workbuddy/tmp/build_mail_1018.py": true
   }
 }

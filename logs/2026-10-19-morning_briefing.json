@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-19",
+  "type": "morning_briefing",
+  "status": "partial",
+  "summary": "早报（触发约 09:41 / 延迟约 41 分钟）步骤 1-4 成功、步骤 5 发送邮件失败（BUG-006 第六次复发、回到「工具未注册」形态，agent-mail 亦 not_bound，双通道同时失效）。daily/2026-10-19.json→manifest(59 条)→git 推送(4c331ac)。行情：周一国际盘复市，金价自 4163.32 高开、盘初冲至 4187.57 后遇阻回落，09:40 报 4170.87 美元/盎司(+0.14%)、日内低 4156.53；上金所 Au99.99 报 898.99 元/克(-0.29%)；人民币中间价 6.7208、调升 12 个基点；hero 积存金估算 901.2 元/克（较昨晨 900.2 涨 1.0 元）。趋势短 0/中 -1/长 1、action=watch；核心叙事「亚市修复反弹、4187 已现抛压，4130-4200 箱体仍未破」。本期最大变量：特朗普拟取消对俄部分制裁与关税→俄柴油 15-20 天可进美国→油价跳水（WTI 98.13／-0.90%、布伦特 108.69／-0.91%）→通胀焦虑缓和；但 12 月至少加息一次的概率仍约 92%（CME 25bp 77.3%＋50bp 14.5%），巴克莱改口预计 12 月与 1 月各加 25bp。",
+  "timestamp": "09:41 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 210000,
+      "result": "伦敦金现货取 web 亚市实时价 4170.87 美元/盎司(+0.14%)（金投网实时页 09:40:09，昨收 4165.18、今开 4163.32、最高 4187.57、最低 4156.53；交叉源汇通 4178、GoldTrack 4176.45、证券时报 4177、金投网交易指南 4168.12，五源同簇 4168-4178）；AU9999 取 SGE 官方延时行情 898.99 元/克(-0.29%，基准 10/16 日盘结算价 901.57，NeoData 898.50／-0.34%、金投网 898.40／-0.35% 交叉一致)；中间价 6.7208、较 10/16 的 6.7220 调升 12 个基点（中国经济网／证券时报／中新经纬／澎湃四源一致，NeoData 20261019 记 6.72／-12 基点）；新闻 6 条全部带原始 url（俄油解禁、CME 加息定价、本周数据日历、中东风险、美元与美债、长线买盘）；NeoData 三路查询一次成功（AU9999.SHG、USDCNY.FX、AUUSDO.LIFFE 4194.30／+0.32% 为 COMEX 期金口径、仅作旁证）",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 110000,
+      "result": "已写入 daily/2026-10-19.json（30 个 labels／30 个 values／30 条 events，丢 09-19、补 10-19＝4170.87；events 索引整体 -1 并新增 10-19 条目）。自检全部通过：labels 与 events 逐条日期比对一致、解析后字符串无 ASCII 直/单引号、news 6 条 url 均以 http 开头、advice 去标签 198 字 ≤200、hero 与 plan 全部 ¥/克 价位 Python 批量复算（4156→898、4160→899、4130→892、4140→895、4100→886、4110→888、4187→905、4200→908、4224→913、4260→920）。自检过程两处返工：advice 初稿 249 字超限压缩至 198 字；4260 折算误写 921、实测 920.49 已改为 920",
+      "source": "本地生成脚本 .workbuddy/gen_1019.py"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 8000,
+      "result": "已在 briefings 数组头部插入 2026-10-19（title=今日金价早报、weekday=周一），总条数 59；插入前已断言头部为 10-18 且无 10-19 重复记录",
+      "source": "manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 15000,
+      "result": "已提交并推送：commit 4c331ac（每日早报 2026-10-19），走 SSH（git@github.com:jerry-166/gold-price-briefing.git master）；git ls-remote origin refs/heads/master 与 git rev-parse HEAD 均为 4c331ac8a27903176f69069b25656ecf19195a57，远端确认为最新",
+      "source": "git"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "failed",
+      "duration_ms": 70000,
+      "result": "未发送（email_sent: false）。故障链：①会话开局 connector-status 与 list_installed_plugins 均显示 qq-mail 为 connected/bound:true/enabled:true；②但 mcp__qq-mail__SendMessage / GetMe 按名检索无匹配（返回的是 agent-mail 同名能力），三轮模糊检索（qq_mail／发送邮件／QQ邮箱连接器）命中全部为 agent-mail；③直接以 mcp__qq-mail__SendMessage 调用返回 Tool not found in the deferred tools index → 判定为 MCP 工具注册层故障；④兜底通道 agent-mail 的 GetMe 返回「Agent 邮箱尚未开通」（_agentmail_meta.status=not_bound）→ 双通道同时失效，无降级路径。未做任何假发送，完整 HTML 底稿已落盘 .workbuddy/outbox/2026-10-19-email.html（12 890 字节），待人工补发",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 | 2026年10月19日 周一\n\n【今日金价快照】\n· 招行积存金买入价（估算）★ 901.2 ¥/克 +0.14%\n· 上海金 AU9999 898.99 ¥/克 -0.29%\n· 美元汇率 6.72 USD/CNY -0.02%\n· 伦敦金 XAUUSD 4170.9 $/盎司 +0.14%\n\n【昨夜与今晨大事】\n1）俄油解禁：特朗普拟取消对俄部分制裁与关税，诺瓦克称俄柴油 15-20 天内可进美国（10 月 50 万吨、11-12 月各 100 万吨）→ 油价开盘跳水（WTI 98.13／-0.90%、布伦特 108.69／-0.91%）→ 通胀焦虑缓和 → 金价冲高 4187.57 后回落。\n2）加息定价：CME 10 月按兵不动 83.9%，但 12 月至少加一次约 92%（25bp 77.3%＋50bp 14.5%），巴克莱改口预计 12 月与 1 月各加 25bp——10 月是「跳过」不是「结束」。\n3）通胀与日历：9 月 CPI 同比 3.7%、PPI 同比 6.3% 双超预期；美联储 10/17 起噤声期；本周二住房、周四初请、周五 PMI 与密歇根信心终值定方向。\n4）中东风险：沙特联军拦截射向延布的弹道导弹，过去 10 天霍尔木兹袭击激增，伊朗称正加大袭击力度——地缘溢价「托底不出力」。\n5）美元与美债：上周五纳指 -2.15%、费半八连跌创 2008 年来最长、CoreWeave -12%，但美元指数周跌 0.45% 至 101.87、10Y 美债单周跌 14.6bp 至 5.097%——「科技跌、美元软」给黄金铺了缓冲垫。\n6）长线买盘：央行连买 23 个月（9 月约 23 吨）、全球黄金 ETF 三季度净流入 310 亿美元创纪录、持仓 4256 吨创新高。\n\n【趋势怎么看】短期 震荡 →｜中期 偏弱 ↓｜长期 偏强 ↑（action = watch）\n一句话：亚市反弹到 4170.87，冲高 4187.57 遇阻，箱体 4130-4200 未破，属修复不是反转。仓位 8:2，积存金定额买、不加杠杆。\n\n【现在该干嘛】\n📥 买入时机：回踩 4156-4160 美元/盎司（约 898-899 元/克）买首档 1/3；4130-4140 美元（约 892-895 元/克）加二档 1/3；4100-4110 美元（约 886-888 元/克）买满兜底档。纪律：周一开盘半小时别挂单。\n📤 卖出时机：反弹 4187-4200 美元/盎司（约 905-908 元/克）先减 1/3；收盘站稳 4224 美元（约 913 元/克）才谈加仓，上方看 4260（约 920 元/克）；跌破 4130 美元（约 892 元/克）减 1/3，失守 4100 美元（约 886 元/克）清仓观望。\n换算基准：4170.87 × 6.7208 ÷ 31.1035 ≈ 901.2 元/克。以上仅供参考，不构成投资建议。\n\n【🎓 今日学一招】同样是避险，为什么上周的钱去了黄金和债券、却没去美元？——避险资产的「排队顺序」是怎么定的。要点：避险资产不是按钮而是有先后顺序的队伍，先问「风险来自哪里」，再问「哪类资产与它负相关」，最后才看「大家习惯买什么」；当美元跌、美债收益率跌、黄金涨三件事同时发生，说明是配置盘在进场，这种行情可以跟。\n\n查看完整日报与 30 日走势图 → https://jerry-166.github.io/gold-price-briefing/"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 4,
+    "failed_steps": 1,
+    "total_duration_ms": 413000,
+    "email_sent": false,
+    "git_pushed": true
+  },
+  "gap_check": {
+    "last_successful_briefing": "2026-10-18",
+    "is_next_trading_day": true,
+    "missed_trading_days": [],
+    "consecutive_missed_days": 0,
+    "note": "上次早报 10/18（周日、success），10/19 为其后第一个交易日，其间无缺失交易日 → 无断档、未在邮件/日志中标注缺失。"
+  },
+  "idempotency_check": {
+    "daily_file_existed": false,
+    "logs_manifest_head_date": "2026-10-18",
+    "git_log_today_briefing_commit": false,
+    "residual_from_interruption": false,
+    "note": "三项前置幂等检查全部为「无残留」，按标准流程全量执行，BUG-014 本期未复现。"
+  },
+  "health_check": {
+    "inspection_noon_last_output": "2026-10-17",
+    "inspection_pm_last_output": "2026-10-17",
+    "inspection_noon_actual_vs_nominal": "09:59 vs 14:00（提前约 4 小时）",
+    "inspection_pm_actual_vs_nominal": "10:06 vs 22:00（提前约 12 小时）",
+    "today_has_any_inspection_output": false,
+    "consecutive_zero_output_trading_days": 1,
+    "consecutive_zero_output_detail": "在交易的 10/15 有产出、10/16 零产出、10/17（周六）提前有产出 → 当前连续零产出交易日数 = 1（仅 10/16）",
+    "weekend_note": "10/18（周日）两条线零产出（ls logs/ | grep -c '2026-10-18-inspection' = 0），为非交易日、不计入交易日阈值，但按待办 ⑩ 的布尔判据如实留痕：周末并非必有产出（10/17 周六有、10/18 周日无）。",
+    "escalation": "未达复合判据（连续 ≥5 个正常交易日零产出 且 恢复后 2 周内再现连续 ≥3 日，两项须同时满足）→ 不升级、不降级；观察期自 10/15 起算仍在 2 周窗口内。",
+    "note": "今日 14:00／22:00 未到，today_has_any_inspection_output=false 不计异常。"
+  },
+  "buglog_verification": {
+    "grep_counts": {
+      ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md": 1,
+      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": 1,
+      ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md": 1,
+      ".buglog/bugs/2026-09-26-buglog-hook-misfire.md": 2
+    },
+    "grep_pattern": "2026-10-19",
+    "file_bytes_and_sha1": {
+      ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md": "50612B / 846795645afdc2cdaa773933fafe06ebb416f097",
+      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": "24210B / 0cbe407ee80b6608408a6c78022023ff9f2c08fb",
+      ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md": "40809B / 606b5266c312cbbb8ebf47dedad4fb7e578766d3",
+      ".buglog/bugs/2026-09-26-buglog-hook-misfire.md": "39671B / 9af58e5dd2de6b7a1426b33e19a7feba1e4f80aa",
+      ".buglog/index.md": "14904B / 3a154a50ac498c53e9442957c6d6e318fc6c672f"
+    },
+    "index_vs_bugs_consistent": true,
+    "note": "本期四条 bug（003/006/012/013）均已写入对应 bugs/ 文件并在 index.md 四行末尾同步追加 10/19 结论；另补录 10/18 期 BUG-006 成功记录（该期只写在 automation memory 与 logs、漏进 bugs/），已对齐。"
+  },
+  "notes": [
+    "本期 hook 再次把自动化任务提示词全文当作「用户报告的 bug」透传，判为 BUG-013 误判、未按字面建档；改为人工盘点真实异常（BUG-006 复发／BUG-003 延迟／BUG-012 周末形态）。",
+    "hero 三层原因：①昨日基准为 10/16 真实收盘 4165.2、今日昨收 4165.18，无基准跳变，亚市 +5.69 美元贡献约 +1.23 元/克；②中间价 6.7220→6.7208（人民币升值 12 基点）压低约 0.16 元/克；合计 +1.07 元，与 900.2→901.2 的 +1.0 元吻合；③按中间价折算比按在岸即期汇率 6.687 折算高约 4.5 元/克，属口径差。",
+    "AU9999 与伦敦金涨跌方向相反（-0.29% vs +0.14%）系「双基准」：AU9999 基准 901.57 为 10/16 日盘结算价，而 10/16 夜盘（按规则归属 10/19 交易日）自 901.57 回落至 898.99，这一段的跌幅计入今日、却不在伦敦金 10/16 收盘基准内。已在 prices.source 显式说明。",
+    "NeoData AUUSDO.LIFFE 报 4194.30(+0.32%、昨结 4181.10)、较 web 现货 4170.87 高约 23 美元，继续印证其为 COMEX 期金口径，仅作旁证、不作主值。",
+    "「伦敦金现货取 web」惯例本期继续有效；中间价精确 4 位值 6.7208 由 WebSearch（中国经济网／证券时报）补全，NeoData 只给 2 位小数 6.72。",
+    "updateTime 固定写 09:00（定时口径），真实触发时间只记入本日志的 timestamp（09:41 CST）。"
+  ]
+}

@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-10-19",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "早报（触发约 09:41／延迟约 41 分钟）四步成功、邮件失败：qq-mail 工具未进会话索引（connector 标记为 connected/bound/enabled）、agent-mail 亦 not_bound，双通道同时失效，HTML 底稿落 .workbuddy/outbox/ 待人工补发。金 4170.87(+0.14%，周一复市高开冲 4187.57 遇阻)、AU9999 898.99(-0.29%)、中间价 6.7208(升 12 基点)、积存金估算 901.2 元/克；短 0/中 -1/长 1、action=watch；主线为俄油解禁→油价跳水→通胀焦虑缓和，但 12 月至少加息一次概率仍约 92%。"
+    },
+    {
       "date": "2026-10-18",
       "type": "morning_briefing",
       "status": "success",

@@ -94,3 +94,11 @@ reported_at: 2026-09-14T22:05:00
 - **本期无需触发任何兜底**：未调用 `workbuddy_request_mcp_connection`、未落 `.workbuddy/outbox/` 人工补发件，`email_sent: true` 为真实发送结果。
 - **仍不构成修复证据**：故障序列完整为「10/06 → 10/07-10/09 间歇正常 → 10/10 → 10/12 → 10/13 正常 → 10/14 复发 → 10/15 复发（新形态：工具在、调用即 -32602）→ 10/16 正常 → **10/17 正常**」。**「连续两次成功」在此 bug 历史上已被证伪过（10/07-10/09 曾连续三日正常，随后 10/10 即复发）**，故 severity 维持 **major**、status 维持 **open**，须逐日如实记录成败。
 - 可用窗口观察：10/15 的「工具在、调用即失败」形态最短约 1 个自然日即恢复（10/16 上午），本期延续正常。**若本周内（10/19-10/23）仍连续成功，可考虑在 10/24 后再评估是否降级为 minor，但不得提前宣布修复。**
+
+- **2026-10-18（周日）— 未复现（补记，连续第三日成功）**：`mcp__qq-mail__SendMessage` 标准写法一次成功、返回 `queued: true`。**本条为 10/19 期补记**——10/18 期只在 automation memory 与 logs 中记录了成功，未写入本文件，违反「逐日如实记录成败」的既定要求；已于 10/19 补录，使故障序列完整可追溯。
+- **2026-10-19（周一）— 第六次复发，回到最初的「工具未注册」形态**：早报第 5 步「发送邮件」**失败**（`logs/2026-10-19-morning_briefing.json` 记 `status: partial`、`email_sent: false`；底稿已落盘 `.workbuddy/outbox/2026-10-19-email.html`，12 890 字节完整 HTML）。
+  - ① **会话开局 `connector-status` 显示 qq-mail 为 connected**，`list_installed_plugins` 返回 `qq-mail@workbuddy-connector-plugins-official`、`bound: true`、`enabled: true`、`status: connected` → **绑定层与启用层均正常**。
+  - ② **但工具未进入会话索引**：按名称检索 `mcp__qq-mail__SendMessage` / `mcp__qq-mail__GetMe` 均无匹配（返回的是 agent-mail 的同名能力），直接以 `mcp__qq-mail__SendMessage` 调用返回 `Tool "mcp__qq-mail__SendMessage" not found in the deferred tools index`。又用关键词「qq_mail / 发送邮件 / QQ邮箱连接器」做三轮模糊检索，命中的全部是 agent-mail 工具 → 判定为 **MCP 工具注册层故障**，即 10/6、10/10、10/12 的原始形态，而非 10/15 的「工具在、调用即 -32602」形态。
+  - ③ **第二通道同样不可用**：`mcp__agent-mail__GetMe` 返回 `Agent 邮箱尚未开通`（`_agentmail_meta.status = not_bound`）→ 双通道同时失效，无降级路径。
+  - ④ **未做任何假发送**：既未改写 `email_sent`、也未用其它渠道冒充 QQ Mail 发出，HTML 底稿按既定流程落 `.workbuddy/outbox/` 待人工补发；`logs` 与 `logs/manifest` 均如实记 partial。
+  - ⑤ **形态序列更新**：`未注册`（10/6、10/10、10/12）→ `注册但 -32602`（10/15）→ `正常`（10/16、10/17、10/18 连续三日）→ **`未注册`（10/19）**。**10/16-10/18 的「连续三次成功」已是本 bug 历史上最长的正常窗口，第 4 日即复发 → 再次证伪「连续成功＝修复」，severity 维持 major、status 维持 open**，并把「最长正常窗口 ≈ 3 日」写入观察基线。
