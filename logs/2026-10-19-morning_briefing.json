@@ -42,7 +42,7 @@
       "name": "发送邮件",
       "status": "failed",
       "duration_ms": 70000,
-      "result": "未发送（email_sent: false）。故障链：①会话开局 connector-status 与 list_installed_plugins 均显示 qq-mail 为 connected/bound:true/enabled:true；②但 mcp__qq-mail__SendMessage / GetMe 按名检索无匹配（返回的是 agent-mail 同名能力），三轮模糊检索（qq_mail／发送邮件／QQ邮箱连接器）命中全部为 agent-mail；③直接以 mcp__qq-mail__SendMessage 调用返回 Tool not found in the deferred tools index → 判定为 MCP 工具注册层故障；④兜底通道 agent-mail 的 GetMe 返回「Agent 邮箱尚未开通」（_agentmail_meta.status=not_bound）→ 双通道同时失效，无降级路径。未做任何假发送，完整 HTML 底稿已落盘 .workbuddy/outbox/2026-10-19-email.html（12 890 字节），待人工补发",
+      "result": "未发送（email_sent: false）。故障链：①会话开局 connector-status 与 list_installed_plugins 均显示 qq-mail 为 connected/bound:true/enabled:true；②但 mcp__qq-mail__SendMessage / GetMe 按名检索无匹配（返回的是 agent-mail 同名能力），三轮模糊检索（qq_mail／发送邮件／QQ邮箱连接器）命中全部为 agent-mail；③直接以 mcp__qq-mail__SendMessage 调用返回 Tool not found in the deferred tools index → 判定为 MCP 工具注册层故障；④兜底通道 agent-mail 的 GetMe 返回「Agent 邮箱尚未开通」（_agentmail_meta.status=not_bound）→ 双通道同时失效，无降级路径。未做任何假发送，完整 HTML 底稿已落盘 .workbuddy/outbox/2026-10-19-email.html（20 144 字节（落盘含标签换行拆分，压缩后 12 890 字节）），待人工补发",
       "outputs": [
         {
           "label": "邮件内容",
@@ -95,10 +95,10 @@
     "grep_pattern": "2026-10-19",
     "file_bytes_and_sha1": {
       ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md": "50612B / 846795645afdc2cdaa773933fafe06ebb416f097",
-      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": "24210B / 0cbe407ee80b6608408a6c78022023ff9f2c08fb",
+      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": "24403B / ddce84436bc85514cfb2b4131107ef42623a0c2c",
       ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md": "40809B / 606b5266c312cbbb8ebf47dedad4fb7e578766d3",
       ".buglog/bugs/2026-09-26-buglog-hook-misfire.md": "39671B / 9af58e5dd2de6b7a1426b33e19a7feba1e4f80aa",
-      ".buglog/index.md": "14904B / 3a154a50ac498c53e9442957c6d6e318fc6c672f"
+      ".buglog/index.md": "14963B / 29ae67fb7ef1c3e513a452d5c2a5ba2bc341d105"
     },
     "index_vs_bugs_consistent": true,
     "note": "本期四条 bug（003/006/012/013）均已写入对应 bugs/ 文件并在 index.md 四行末尾同步追加 10/19 结论；另补录 10/18 期 BUG-006 成功记录（该期只写在 automation memory 与 logs、漏进 bugs/），已对齐。"
