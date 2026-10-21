@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-21",
+  "type": "morning_briefing",
+  "status": "partial",
+  "summary": "早报（触发 11:32／延迟约 2h32m）前四步成功、第五步邮件失败：金 4119.64(-0.12%，亚市下探 4106.23 距 4100 仅 6 美元)、AU9999 887.49(-0.26%)、中间价 6.7192(升 8 基点三连升)、积存金估算 890.0 元/克；短 -1/中 -1/长 1、action=watch；主线为『利好不涨』——10Y 跌 2.71bp 至 5.1126%、TIPS 跌 3.28bp 至 2.7512%、美元跌 0.27% 至 101.701，金价仍收跌 0.39% 报 4124.75，压制来自 12 月加息 90% 与 10/27-28 议息前仓位收缩；10-20 图表点已回填真实收盘 4124.7；邮件工具本次未注册（agent-mail 返回未开通），HTML 已落盘 outbox，BUG-006 复发。",
+  "timestamp": "11:32 CST",
+  "gap_check": {
+    "last_briefing": "2026-10-20",
+    "missing_trading_days": [],
+    "continuous_missing_days": 0,
+    "delay_minutes": 152,
+    "delay_form": "延迟（BUG-003 复发，区间 4-152 分钟）",
+    "inspection_noon_last": "2026-10-20",
+    "inspection_pm_last": "2026-10-20"
+  },
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 158000,
+      "result": "伦敦金 XAUUSD 4119.64／-5.06／-0.12%（金投网实时页 11:26:07，昨收 4124.70、今开 4124.96、最高 4131.79、最低 4106.23）；上金所 AU9999 887.49／-0.26%（NeoData 11:33，今开 888.00、昨结 889.78），交叉源金投网 884.00／-0.65%（早盘低点口径）；人民币中间价 6.7192（升 8 基点，中国货币网/中国经济网/中宏网/中国金融新闻网四源一致，NeoData 仅给 2 位小数 6.72 故用 Web 补全）；积存金估算 890.0 元/克；昨夜纽约尾盘现货金 4124.75／-0.39%、COMEX 4142.5／-0.42%、美元指数 101.701／-0.27%、10Y 5.1126%／-2.71bp、30Y 5.4220%／-4.53bp、10Y TIPS 2.7512%／-3.28bp；新闻 6 条均带原始 url。",
+      "source": "neodata-financial-search（AU9999、中间价基数）＋ WebSearch/WebFetch（金投网、金价查询网、新浪财经、华尔街见闻、每日经济新闻、东方财富、中国经济网、中国货币网、汇通网）"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 92000,
+      "result": "已写入 daily/2026-10-21.json（news 6 条、knowledge 3 条、events 30 条）；图表丢 09-21 补 10-21，events 索引整体 -1，10-20 点由亚市快照 4127.04 回填真实收盘 4124.7；自检通过：labels/values 各 30、索引与日期逐条对齐、全部 news url 以 http 开头、正文无 ASCII 直双引号、trend.advice 去标签 191 字、12 个 ¥/克 换算用 Python 复算全部吻合。",
+      "source": "本地 Python 生成 + 自检脚本 scripts/selfcheck_20261021.py"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 3800,
+      "result": "已追加 {date: 2026-10-21, title: 今日金价早报, weekday: 周三} 至 briefings 数组头部，总数 61 条。",
+      "source": "本地"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 21500,
+      "result": "已提交并推送（commit ac87783，走 SSH git@github.com:jerry-166/gold-price-briefing.git master；git ls-remote 与本地 rev-parse 均为 ac87783，远端已同步）。",
+      "source": "git over SSH"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "failed",
+      "duration_ms": 29600,
+      "result": "未发送（email_sent: false）。QQ 邮箱连接器状态为 connected/bound/enabled，但本次会话未注册任何 qq-mail 工具（ToolSearch 仅能检索到 agent-mail）；尝试 agent-mail 的 SendMessage 返回『Agent 邮箱尚未开通 / status: not_bound』。HTML 正文已落盘 .workbuddy/outbox/2026-10-21-morning.html（11665 字节）。属 BUG-006 邮件双通道间歇不可用的『工具未注册』形态复发，未做二次重试。",
+      "source": "qq-mail connector（工具未注册）＋ agent-mail（未开通）",
+      "outputs": [
+        {
+          "label": "邮件内容（未发出，HTML 已落盘 .workbuddy/outbox/2026-10-21-morning.html）",
+          "body": "<div style=\"max-width:640px;margin:0 auto\"><h2>🌅 今日金价早报 | 2026年10月21日 周三</h2><p>定时 09:00，本期实际触发 11:32（延迟约 2 小时 32 分）。</p><h3>一、金价快照</h3><ul><li>招行积存金（估算）890.0 元/克，-0.12%</li><li>上海金 AU9999 887.5 元/克，-0.26%</li><li>美元汇率（中间价）6.7192，-0.01%</li><li>伦敦金 XAUUSD 4119.6 $/盎司，-0.12%</li></ul><h3>二、昨夜发生了什么</h3><p>① 数据转弱但美联储不买账：9 月新屋开工年化 122.1 万套、环比 -5.2%，NAHB 住房指数 32→29 创 2012 年 6 月以来最低，但 10 月按兵不动 83%-84%、12 月加息 90% 的定价未变。</p><p>② 最值得注意的一条：利好不涨。10Y 跌 2.71bp 至 5.1126%、30Y 跌 4.53bp、10Y TIPS 跌 3.28bp 至 2.7512%，美元指数跌 0.27% 收 101.701，金价却从 4155 附近被砸回，收跌 0.39% 报 4124.75。</p><p>③ 油价仍是反向力量：布伦特盘中冲上 111.94 创 5 月以来新高，收 109.1。</p><p>④ 印度排灯节：本地金价折价从 9 月约 66 美元/盎司急缩至 8 美元，9 月数字黄金申购同比 +83%，实需修复但非抢购。</p><h3>三、趋势判断</h3><p>短期偏空（4100 只剩 6 美元，验证阶段）／中期偏空（4100-4200 箱体寻底，等 10/27-28 议息与 PCE）／长期看多（央行购金 345 吨、矿产增速 1%、ETF 净流入 307 亿美元）。仓位 8:2，不加杠杆。</p><h3>四、买卖时机</h3><p>买：首仓 4100-4106 美元（约 886-887 元/克）；加仓 4073-4080（约 880-881）；兜底 4060-4066（约 877-878）。</p><p>卖：止盈 4131-4140（约 893-894）减 1/3；进阶 4155-4165（约 898-900）再减 1/3；收盘站上 4200（约 907）才停止减仓；日线收盘跌破 4100（约 886）减 1/3，有效跌破 4066（约 877）先清仓。</p><h3>五、今日学一招</h3><p>「利好不涨」怎么读：压着金价的不是利率高低，而是「加息还没结束」这个预期本身。三个诊断——消息是否已被交易过、对手盘在干什么（ETF 长线买 vs 期货短线卖）、是否在等更大的事。规则：别把「利好」当买入信号，把「利好不涨」当风险信号。</p><p><a href=\"https://jerry-166.github.io/gold-price-briefing/\">查看完整早报与历史图表 →</a></p></div>"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 4,
+    "failed_steps": 1,
+    "total_duration_ms": 304900,
+    "email_sent": false,
+    "git_pushed": true
+  }
+}
