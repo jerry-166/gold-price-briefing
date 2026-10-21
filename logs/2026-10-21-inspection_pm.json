@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-21",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "晚间巡检（22:00正常触发）：伦敦金 XAUUSD 现货 $4130.01/oz、日内 +0.13%、日内振幅约 0.87%（高 4141.89 / 低 4106.23）低于 1.5% 阈值；美联储会前噤声期无今晚紧急声明、12 月加息概率约 92%、PCE 为下周四关键（均为早报已覆盖延续因素），中东/油价属背景变量无全新突发，静默跳过。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 3200,
+      "result": "当前金价 XAUUSD $4130.01/oz（金投网 21:59:48），日内 +0.13%（+$5.31）；开盘 4124.96 / 高 4141.89 / 低 4106.23 / 昨收 4124.70，日内振幅约 0.87%",
+      "source": "金投网现货行情（web 伦敦金现货口径）"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 2100,
+      "result": "无美联储今晚紧急声明；12 月加息概率约 92%、下周四 PCE 为关键催化（汇通/新华财经）；美联储会前噤声期官员集体噤声、无全新地缘突发；中东/油价为延续背景变量，22:30 EIA 原油库存为常规数据",
+      "source": "WebSearch（金投网/汇通网/新华财经/中金在线/同花顺）"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 300,
+      "result": "日内振幅 0.87% 未越 1.5% 阈值 ＋ 无全新重大突发事件 → 不触发预警"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 5600,
+    "alert_triggered": false
+  }
+}
