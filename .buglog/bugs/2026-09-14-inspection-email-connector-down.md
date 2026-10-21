@@ -104,3 +104,11 @@ reported_at: 2026-09-14T22:05:00
   - ⑤ **形态序列更新**：`未注册`（10/6、10/10、10/12）→ `注册但 -32602`（10/15）→ `正常`（10/16、10/17、10/18 连续三日）→ **`未注册`（10/19）**。**10/16-10/18 的「连续三次成功」已是本 bug 历史上最长的正常窗口，第 4 日即复发 → 再次证伪「连续成功＝修复」，severity 维持 major、status 维持 open**，并把「最长正常窗口 ≈ 3 日」写入观察基线。
 
 **2026-10-20（周二）— 恢复正常，形态回到「一次调用即成功」**：`mcp__qq-mail__SendMessage` 经 ToolSearch 按名检索**一次命中**（既非 10/19 的「工具未注册」，亦非 10/15 的「调用即 -32602」），以标准写法（`to` 传对象数组）＋`body_format: HTML`＋`skip_confirmation: true` 直发，返回 `{"data": {"queued": true, "_hints": {...POST /v1/aliases/alias_A9yF9wF5eP0o6Tc1uUpRq71T8H09/messages/send}}}` → **邮件已入队、判定发送成功**（`email_sent: true`）；HTML 底稿同步落 `.workbuddy/outbox/2026-10-20-morning-briefing.html`（14 197 字节）留档备查。**形态序列更新**：`未注册`（10/6、10/10、10/12）→ `注册但 -32602`（10/15）→ `正常`（10/16、10/17、10/18）→ `未注册`（10/19）→ **`正常`（10/20）**。**本日成功不构成修复证据**——10/16-10/18 曾连续三日正常、第 4 日即复发已证伪一次；severity 维持 major、status 维持 open，「最长正常窗口 ≈ 3 日」观察基线维持不变，本期为复发后第 1 日恢复。
+
+**2026-10-21（周三）— 第七次复发，回到「工具未注册」形态，双通道同时失效**：早报第 5 步「发送邮件」**失败**（`logs/2026-10-21-morning_briefing.json` 记 `status: partial`、`email_sent: false`；HTML 底稿落 `.workbuddy/outbox/2026-10-21-morning.html`，11 665 字节）。
+  - ① `connector-status` 显示 qq-mail 为 connected；`list_installed_plugins` 返回 `qq-mail@workbuddy-connector-plugins-official`、`bound: true`、`enabled: true`、`status: connected` → 绑定层、启用层均正常。
+  - ② 但工具未进入会话索引：以 `mcp__qq-mail__send_mail` / `mcp__qq-mail__SendMessage` / `qq_mail_send` 三个候选名做精确检索，只回落到 agent-mail 的同名能力；再以关键词「qq」「邮箱发送」做两轮模糊检索，返回 `No matching tools found` → 判定为 **MCP 工具注册层故障**（10/6、10/10、10/12、10/19 的同一形态），非 10/15 的「工具在、调用即 -32602」形态。
+  - ③ 第二通道同样不可用：`mcp__agent-mail__SendMessage` 返回「Agent 邮箱尚未开通」＋ `_agentmail_meta.status = not_bound` → 双通道同时失效、无降级路径。
+  - ④ 未做任何假发送：`email_sent` 保持 false，未用其它渠道冒充 QQ Mail 发出，HTML 按既定流程落 `.workbuddy/outbox/` 待人工补发。
+  - ⑤ 形态序列更新：`未注册`（10/6、10/10、10/12）→ `-32602`（10/15）→ `正常`（10/16、10/17、10/18）→ `未注册`（10/19）→ `正常`（10/20）→ **`未注册`（10/21）**。10/20 的单日正常如预期未能延续，**「恢复正常」再次被证伪，severity 维持 major、status 维持 open**。
+  - ⑥ 本次新增可操作线索：本会话中 agent-mail 与 qq-mail **同时**不可用，而 ToolSearch 对 qq-mail 关键词**完全没有候选返回**（连 agent-mail 都不再被模糊匹配命中），提示故障可能发生在「deferred tools 索引装载」这一更上游的位置，而非连接器本身；建议下次复现时先记录 ToolSearch 的原始返回，再判断是否值得提交宿主侧排查。

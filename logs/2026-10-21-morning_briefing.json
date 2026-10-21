@@ -68,5 +68,46 @@
     "total_duration_ms": 304900,
     "email_sent": false,
     "git_pushed": true
+  },
+  "buglog_verification": {
+    "verified_at": "2026-10-21 11:52 CST",
+    "rule": "BUG-013 双重复核：(a) 逐文件 grep -c 计数 (b) index.md 与 bugs/ 一致性 + 字节数/SHA-1 凭据",
+    "files": {
+      "BUG-003": {
+        "file": ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md",
+        "grep_count_2026-10-21": 2,
+        "bytes": 52717,
+        "sha1": "2319fcd8f2a2ded4d646306985f5d1f1a8894386"
+      },
+      "BUG-006": {
+        "file": ".buglog/bugs/2026-09-14-inspection-email-connector-down.md",
+        "grep_count_2026-10-21": 3,
+        "bytes": 27632,
+        "sha1": "691345d7d2292c14b02bd5286088869642e7ec93"
+      },
+      "BUG-012": {
+        "file": ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md",
+        "grep_count_2026-10-21": 1,
+        "bytes": 42950,
+        "sha1": "acef8453a0e688c68f82c1202a5182d03a82085a"
+      },
+      "BUG-013": {
+        "file": ".buglog/bugs/2026-09-26-buglog-hook-misfire.md",
+        "grep_count_2026-10-21": 3,
+        "bytes": 42055,
+        "sha1": "ce32b336e199876950771a019c487dadbfd240fd"
+      }
+    },
+    "index_consistency": {
+      "index_rows_updated": {
+        "BUG-003": true,
+        "BUG-006": true,
+        "BUG-012": true,
+        "BUG-013": true
+      },
+      "index_has_new_dates": true,
+      "all_bugs_written": true
+    },
+    "hook_misfire": "本次 hook 再次把自动化任务提示词全文当作「用户报告的 bug」→ 判误判、未按字面建档（BUG-013 第二十三次连续命中）"
   }
 }
