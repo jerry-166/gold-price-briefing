@@ -112,3 +112,12 @@ reported_at: 2026-09-14T22:05:00
   - ④ 未做任何假发送：`email_sent` 保持 false，未用其它渠道冒充 QQ Mail 发出，HTML 按既定流程落 `.workbuddy/outbox/` 待人工补发。
   - ⑤ 形态序列更新：`未注册`（10/6、10/10、10/12）→ `-32602`（10/15）→ `正常`（10/16、10/17、10/18）→ `未注册`（10/19）→ `正常`（10/20）→ **`未注册`（10/21）**。10/20 的单日正常如预期未能延续，**「恢复正常」再次被证伪，severity 维持 major、status 维持 open**。
   - ⑥ 本次新增可操作线索：本会话中 agent-mail 与 qq-mail **同时**不可用，而 ToolSearch 对 qq-mail 关键词**完全没有候选返回**（连 agent-mail 都不再被模糊匹配命中），提示故障可能发生在「deferred tools 索引装载」这一更上游的位置，而非连接器本身；建议下次复现时先记录 ToolSearch 的原始返回，再判断是否值得提交宿主侧排查。
+
+
+**2026-10-22（周四）— 第八次复发，连续第二日「工具未注册」形态，双通道同时失效**：早报第 5 步「发送邮件」**失败**（`logs/2026-10-22-morning_briefing.json` 记 `status: partial`、`email_sent: false`；HTML 底稿落 `.workbuddy/outbox/2026-10-22-morning.html`，14 611 字节；另存纯文本版 2 901 字符便于人工补发）。
+  - ① `connector-status` 显示 qq-mail 为 connected；但会话工具索引中**没有任何 `mcp__qq-mail__*` 工具**。
+  - ② ToolSearch 以三组关键词检索（「qq mail send email」「发送邮件 QQ邮箱」「qqmail 邮件连接器 / QQ Mail connector send html email」），**命中的全部是 `mcp__agent-mail__*` 的同名能力**，`mcp__qq-mail__SendMessage` 始终无候选 → 判定为 **MCP 工具注册层故障**（10/6、10/10、10/12、10/19、10/21 的同一形态），非 10/15 的「工具在、调用即 -32602」形态。
+  - ③ 第二通道同样不可用：`mcp__agent-mail__GetMe` 返回「Agent 邮箱尚未开通」＋ `_agentmail_meta.status = not_bound` → 双通道同时失效、无降级路径（与 10/21 完全一致）。
+  - ④ 未做任何假发送：`email_sent` 保持 false，未用其它渠道冒充 QQ Mail 发出，HTML 按既定流程落 `.workbuddy/outbox/` 待人工补发。
+  - ⑤ 形态序列更新：`未注册`（10/6、10/10、10/12）→ `-32602`（10/15）→ `正常`（10/16、10/17、10/18）→ `未注册`（10/19）→ `正常`（10/20）→ **`未注册`（10/21、10/22 连续两日）**。**本期首次出现「未注册」形态连续两日**，说明该形态并非单日抖动；severity 维持 major、status 维持 open。
+  - ⑥ 线索延续：ToolSearch 对 qq-mail 关键词仍然零候选，故障点继续指向「deferred tools 索引装载」这一上游环节，而非连接器绑定/授权层。

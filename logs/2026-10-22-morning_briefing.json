@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-22",
+  "type": "morning_briefing",
+  "status": "partial",
+  "summary": "早报（触发 09:23:59／延迟约 24 分钟）前四步成功、第五步邮件失败：金 4111.6(-0.71%，亚市开 4139.90、冲高 4144.19 后跌至 4109.80)、AU9999 884.8(-0.30%，昨结 887.50)、中间价 6.7195(下调 3 基点、三连升终结)、积存金估算 888.3 元/克；短 -1/中 -1/长 1、action=watch；主线为「反抽只活一天」——周三靠 10Y 美债收益率连跌两日（5.111%）撑起的 +0.39% 反抽，周四亚市被美元回升(101.70)、油价高位、美股齐涨与 12 月加息 88%-92% 的定价全数回吐，4100 关口第三次被逼近；10-21 图表点已回填真实收盘 4140.9；邮件工具本次仍未注册（agent-mail 返回 not_bound），HTML 已落盘 outbox，BUG-006 第八次复发。",
+  "timestamp": "09:23 CST",
+  "gap_check": {
+    "last_briefing": "2026-10-21",
+    "missing_trading_days": [],
+    "continuous_missing_days": 0,
+    "delay_minutes": 24,
+    "delay_form": "延迟（BUG-003 复发，历史区间 4-152 分钟，本期落中低位）",
+    "inspection_noon_last": "2026-10-21",
+    "inspection_pm_last": "2026-10-21",
+    "inspection_note": "inspection_noon 最近产出 10/21 但实际落盘 21:40（延迟约 7h40m，属「夜间合并触发」形态）；inspection_pm 10/21 于 22:00 正常触发、no_action；10/19-10/21 两线连续三日有产出；10/22 未到点"
+  },
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 155000,
+      "result": "NeoData 首查返回 TOKEN_EXPIRED → connect_cloud_service 取凭证 → --save-token 后四查全部成功；伦敦金 4111.6(-0.71%，金投网 09:24:22 4111.05 / 金价查询网 09:25:09 4111.57 双源聚类，昨收 4140.95)；AU9999 884.80(-0.30%，金投网 SGE 09:24:38 与 NeoData 09:23 分毫不差，昨结 887.50)；中间价 6.7195(下调 3 基点)；旁证 AUUSDO.LIFFE 4132.80 为 COMEX 期金口径（昨结 4150 = 12 月期金收盘）已弃用；新闻 5 条均带原始 url",
+      "source": "neodata-financial-search + WebSearch（金投网/金价查询网/汇通网/金融界/国际金融报/SGE 官方/中国外汇交易中心）"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 76000,
+      "result": "已写入 daily/2026-10-22.json（39 285 字节）；图表丢 1 补 1（丢 09-22、补 10-22，events 索引整体 -1，并移除滚出窗口的 09-22 事件），10-21 点回填真实收盘 4140.9；自检全部通过：labels/values 各 30、events 30 条且 labels[index]==date 逐条匹配、新闻 url 全部 http、解析后字段无 ASCII 直引号、trend.advice 197 字(≤200)、12 组 ¥/克 价位用 Python 批量复算一致",
+      "source": "scripts/gen_20261022.py + 内联自检"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 9000,
+      "result": "已在 manifest.json 的 briefings 数组头部插入 2026-10-22 记录，总数 62 条",
+      "source": "manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 18000,
+      "result": "已提交并推送（commit 3531581）。走 SSH 显式 URL 推送，git ls-remote 与 git rev-parse HEAD 均为 353158107bf8716050ed7f9128554648ba1f6ecc，一致",
+      "source": "git@github.com:jerry-166/gold-price-briefing.git"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "failed",
+      "duration_ms": 60000,
+      "result": "未发送。connector-status 显示 qq-mail 为 connected，但会话工具索引中无任何 mcp__qq-mail__* 工具；ToolSearch 三组关键词（qq mail send email / 发送邮件 QQ邮箱 / qqmail 邮件连接器）均只命中 agent-mail 同名能力；第二通道 mcp__agent-mail__GetMe 返回「Agent 邮箱尚未开通」+ status=not_bound → 双通道同时失效、无降级路径。HTML 底稿已落盘 .workbuddy/outbox/2026-10-22-morning.html（14 611 字节）＋纯文本版（2 901 字符），待人工补发。BUG-006 第八次复发，且与 10/21 构成「未注册」形态首次连续两日",
+      "outputs": [
+        {
+          "label": "邮件主题",
+          "body": "🌅 今日金价早报 | 2026年10月22日 周四"
+        },
+        {
+          "label": "邮件正文（纯文本摘录）",
+          "body": "今日金价早报\n    GOLD DAILY\n    今日金价早报\n    2026 年 10 月 22 日 · 周四\n      一句话看今天：昨收 4140.95、今晨跌到 4111 附近（-0.71%），昨天那根反抽只活了一天就被打回。\n      4100 关口本周第三次被逼到墙角，守得住是双底，守不住就是新一轮下探。现在不追涨、不追跌，等 4100 附近给信号。\n    📊 金价快照\n    招行积存金买入价 ★888.3 ¥/克-0.71%上海金 AU9999884.8 ¥/克-0.30%美元汇率6.72 USD/CNY0.00%伦敦金 XAUUSD4111.6 $/盎司-0.71%\n      ★ 积存金为估算值：伦敦金 × 人民币中间价 ÷ 31.1035，实际以银行挂牌为准。涨跌幅基准为上一交易日收盘/昨结。\n    🌙 昨夜今晨大事\n    【美联储】12 月加息概率仍高达 88%-92%，10 月按兵不动几成共识，下周 FOMC 才是分水岭市场给 10 月 27-28 日议息会议定的调子是「不动」，概率约 83%-84% → 但 12 月加息 25 个基点的概率仍有 88%-92% → 意味着现在的高利率不是终点，而是还要再加一次 → 持有黄金这种不生息资产的机会成本继续被抬高 → 所以金价每次反弹都缺后劲，反弹一天就被打回。来源：汇通网【美债】10Y 美债收益率连跌两日至 5.111%，这是金价周三唯一的救命稻草10Y 美债收益率跌 0.6 个基点至 5.111%（盘中最低 5.081%）、30Y 跌 1.3 个基点至 5.412% → 债券收益率走低等于持有黄金的「机会成本」下降 → 空头趁机获利了结、短线买盘进场 → 金价从一周低点 4104.85 反抽到 4141.10（+0.39%）。但收益率只是从高位回落，绝对水平仍在 5% 以上，而且 20 年期标售结果好坏参半、周四还有 5 年期 TIPS 发行，这根稻草撑不了第二天，今晨亚市已全部回吐。来源：汇通网【地缘】中东再度紧绷：美国撤沙特使馆非紧急人员、以军战机曾逼近伊朗边境；俄美乌三方会谈拟 11 月中重启地缘冲突升级 → 理论上该买黄金避险 → 但冲突同时推高油价 → 油价高又抬高通胀预期 → 反而强化美联储继续加息的预期 → 避险利多被利率利空抵消。这就解释了为什么最近中东越紧张、金价反而越涨不动，地缘只能制造脉冲式波动，走不出趋势。另一头俄乌和谈若真重启，避险溢价还会继续退潮。来源：金融界【股市】美股三大指数齐涨、费城半导体 +2%，AI 财报超预期把避险资金又吸回股市SpaceX 上市以来首次盈利涨 7.8%、超微计算机涨 9.6%、特斯拉涨超 3% → AI 与芯片股走强带动纳指涨 1.05%、费半涨 2% → 风险偏好回暖 → 原本躲在黄金里的短线资金转去追股票 → 金价少了一批买盘。这也是本周反复出现的「资金轮动」：钱不是不见了，是在美债、股票、黄金之间快速搬家。来源：国际金融报【人民币】人民币中间价 6.7195、下调 3 个基点，三连升就此终结中间价从 6.7192 调到 6.7195 → 意味着换 1 美元要多花 0.0003 元人民币 → 人民币略微走弱 → 用人民币买同样一盎司黄金要贵一点点 → 所以内盘金价的跌幅会比国际金价小一些。不过 3 个"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 4,
+    "failed_steps": 1,
+    "total_duration_ms": 318000,
+    "email_sent": false,
+    "git_pushed": true
+  },
+  "buglog_verification": {
+    "verified_at": "2026-10-22 09:34 CST",
+    "rule": "BUG-013 双重复核：(a) 逐文件 grep -c 计数 (b) index.md 与 bugs/ 一致性 + 字节数/SHA-1 凭据",
+    "files": {
+      "BUG-003": {
+        "file": ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md",
+        "grep_count_2026-10-22": 1,
+        "bytes": 54223,
+        "sha1": "a424b61a5c3345d36f4f5076654feb6c158e180e"
+      },
+      "BUG-006": {
+        "file": ".buglog/bugs/2026-09-14-inspection-email-connector-down.md",
+        "grep_count_2026-10-22": 1,
+        "bytes": 29521,
+        "sha1": "655ad5e68ac9b8d15eedac6c6ba9fb58764d3533"
+      },
+      "BUG-012": {
+        "file": ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md",
+        "grep_count_2026-10-22": 1,
+        "bytes": 43665,
+        "sha1": "d4a67012760763c4645256049ca7283851a00f13"
+      },
+      "BUG-013": {
+        "file": ".buglog/bugs/2026-09-26-buglog-hook-misfire.md",
+        "grep_count_2026-10-22": 2,
+        "bytes": 43560,
+        "sha1": "289da63a9024eb82e0bb4ef0080f87f552ccc9ba"
+      }
+    },
+    "index_consistency": {
+      "index_rows_updated": {
+        "BUG-003": true,
+        "BUG-006": true,
+        "BUG-012": true,
+        "BUG-013": true
+      },
+      "index_has_new_dates": true,
+      "all_bugs_written": true
+    },
+    "hook_misfire": "本次 hook 再次把自动化任务提示词全文当作「用户报告的 bug」→ 判误判、未按字面建档（BUG-013 第二十四次连续命中）；另对 scripts/gen_20261022.py 的二次编辑做「修 bug」弱提示，实为自检拦下 chart.events 残留 index:-1 孤儿事件后的正常修复与重生成"
+  }
+}
