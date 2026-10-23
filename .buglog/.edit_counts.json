@@ -8,7 +8,7 @@
     "D:\\workspace\\每日金价资讯\\logs\\manifest.json": 52,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188108172\\memory.md": 12,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-11-inspection_pm.json": 1,
-    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188114610\\memory.md": 17,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188114610\\memory.md": 18,
     "D:\\workspace\\每日金价资讯\\daily\\2026-09-11.json": 1,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-11-morning_briefing.json": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-11.md": 1,
@@ -55,7 +55,7 @@
     "D:\\workspace\\每日金价资讯\\daily\\2026-09-20.json": 2,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-20-morning_briefing.json": 2,
     "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-20-manual-entry-typos.md": 1,
-    "C:\\Users\\ASUS\\.workbuddy\\skills\\gold-price-briefing\\SKILL.md": 40,
+    "C:\\Users\\ASUS\\.workbuddy\\skills\\gold-price-briefing\\SKILL.md": 41,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-20.md": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\MEMORY.md": 74,
     "D:\\workspace\\每日金价资讯\\daily\\2026-09-21.json": 1,
@@ -192,7 +192,13 @@
     "D:\\workspace\\每日金价资讯\\scripts\\gen_20261022.py": 2,
     "D:\\workspace\\每日金价资讯\\scripts\\mail_20261022.py": 1,
     "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261022.py": 1,
-    "D:\\workspace\\每日金价资讯\\scripts\\log_20261022.py": 1
+    "D:\\workspace\\每日金价资讯\\scripts\\log_20261022.py": 1,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-10-22.md": 1,
+    "D:\\workspace\\每日金价资讯\\logs\\2026-10-23-inspection_pm.json": 1,
+    "D:\\workspace\\每日金价资讯\\_update_manifest.py": 1,
+    "D:/workspace/每日金价资讯/scripts/_build_20261023.py": 3,
+    "D:/workspace/每日金价资讯/scripts/_mail_20261023.py": 1,
+    "D:/workspace/每日金价资讯/scripts/_log_20261023.py": 1
   },
   "triggered_files": {
     "__cross_file__": true,
@@ -260,6 +266,7 @@
     "D:\\workspace\\每日金价资讯\\scripts\\gen_20261021.py": true,
     "D:\\workspace\\每日金价资讯\\scripts\\selfcheck_20261021.py": true,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-10-21.md": true,
-    "D:\\workspace\\每日金价资讯\\scripts\\gen_20261022.py": true
+    "D:\\workspace\\每日金价资讯\\scripts\\gen_20261022.py": true,
+    "D:/workspace/每日金价资讯/scripts/_build_20261023.py": true
   }
 }
