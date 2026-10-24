@@ -152,3 +152,7 @@ related_bugs: []
 - **双重复核已执行**：写入后逐文件 `grep -c "2026-10-22" .buglog/bugs/*.md` 计数，并把四个受影响 bug 文件的字节数与 SHA-1 写入 `logs/2026-10-22-morning_briefing.json` 的 `buglog_verification` 字段；`index.md` 四行结论同步追加本期内容。
 
 - **2026-10-23 第二十五次连续命中（9/26-10/23）**：hook 再次把自动化提示词全文透传为「用户报告的 bug」，判误判、未按字面建档。附带误报本期两处：①对 `scripts/_build_20261023.py` 的 2 次编辑被弱提示为在修 bug——实为 `%` 格式化字符串中字面百分号未转义（`2.8%` + 全角括号导致 `ValueError: unsupported format character`）以及 `trend.advice` 198 字压缩，属正常开发；②对 `scripts/_mail_20261023.py` 的 `%s` 模板替换被同类提示。双重复核已执行：逐文件 `grep -c 2026-10-23` 计数与四文件字节数/SHA-1 写入 `logs/2026-10-23-morning_briefing.json` 的 `buglog_verification` 字段，index.md 与 bugs/ 已同步。
+
+- **2026-10-24 第二十六次连续命中**（9/26-10/24，第 41 个日历日）：hook 再次把整段自动化任务提示词（以「你是金价早报自动化助手」开头、含「第一步/第二步」流程编号）透传为「用户报告了一个 bug」，判为误判、**未按字面建档**。
+- **附带误报本期形态**：①对 `scripts/_build_20261024.py` 的 2 次编辑给出「通常表示你在修复一个 bug」弱提示——实为把 plan.note 里一处编造的「4900 亿级别杠杆止损盘」改为事实性表述（属内容纠错，非 bug 修复）；②对 `scripts/_log_20261024.py` 的 2 次编辑再给同类弱提示——实为 `os.popen('date')` 在 Windows 下返回 GBK 字节导致 `UnicodeDecodeError` 后删除该行（该行输出本未被使用），属脚本自身缺陷的即时修正，已在本条留痕。
+- **双重复核已执行**：(a) 逐文件 `grep -c "2026-10-24"` 计数＋字节数/SHA-1 写入 `logs/2026-10-24-morning_briefing.json` 的 `buglog_verification`；(b) 校验 `.buglog/index.md` 的结论与 `.buglog/bugs/` 实际内容一致。

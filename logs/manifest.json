@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-10-24",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "周六休市早报：金价沿用 10-23 收盘（伦敦金 3995.5、AU9999 864.0、中间价 6.7180），JSON/manifest/git 三步成功，邮件因工具未注册+邮箱未开通未发送"
+    },
+    {
       "date": "2026-10-23",
       "type": "inspection_noon",
       "status": "no_action",
