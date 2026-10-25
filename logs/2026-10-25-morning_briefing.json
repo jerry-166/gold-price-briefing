@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-25",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "周日休市早报（触发 10:40:23／延迟约 100 分钟）五步全部成功、邮件恢复发送（queued:true）：金 3995.5(-0.72%)、AU9999 864.0(-1.85%)、中间价 6.7180(升 15 基点)、积存金估算 863.0，全部沿用 10-23 收盘口径（与 10-24 同值）；主线「周末没交易、坏消息在排队」——胡塞一天打沙特七处＋两机场首入清单、伊朗点名霍尔木兹 7 条海底光缆、路透 100 位经济学家全票预计 12 月加息、央行 9 月购金 23 吨与 ETF 三季度净流入 310 亿美元创纪录仍托不住价格；短 -1/中 -1/长 1、action=watch；teach 讲「配置盘 vs 交易盘」。",
+  "timestamp": "10:40 CST",
+  "gap_check": {
+    "last_briefing_date": "2026-10-24",
+    "missed_trading_days": [],
+    "consecutive_missed_days": 0,
+    "note": "上一期早报 10-24（周六）正常产出，本期为其后第一个自然日；10-24、10-25 均为周末非交易日，无缺失交易日，无断档。幂等检查前置：daily/2026-10-25.json 不存在、logs/manifest.json 头部无当日 morning_briefing 记录、git log 无当日早报提交 → 无中断残留（BUG-014 未复现）。"
+  },
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 87000,
+      "result": "周末休市无新成交，四项价格全部沿用 10-23 收盘口径并逐项交叉验证：伦敦金 3995.5（央视财经 3995.63／-0.72%、新浪财经 3995.54、金投网周报 3995.54 三源聚类）；AU9999 864.00（SGE 官方 10-23 日盘收盘，金融界同值 -1.85%）；中间价 6.7180（中国外汇交易中心 10-23，升 15 基点，周末不公布新价）；积存金估算 863.0（3995.5×6.7180÷31.1035）。周末新增消息面 5 条全部取得原始 url：路透 100 位经济学家全票预计 12 月加息、胡塞一天打沙特七处＋两机场首入清单＋伊朗点名 7 条海底光缆、央行 9 月购金 23 吨与三季度 ETF 净流入 310 亿美元创纪录、金饰跌破 1200 与水贝人流爆满、Kitco 41% 分析师看跌＋RSI 28-32 超卖。",
+      "source": "SGE 官网 + 中国外汇交易中心 + 央视财经 + 新浪财经 + 金投网 + 汇通网 + NeoData（AU9999.SHG 夜盘 862.99 作次日参照）"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 92000,
+      "result": "已写入 daily/2026-10-25.json（47 578 字节，SHA-1 936ef9071ee97b540abbb04ac263fc334d0f42d8）：图表 30 点／30 事件，丢 09-25 补 10-25（周日与周五同值 3995.5），events 索引整体 -1 并剔除 index<0 孤儿；trend.advice 197 字（≤200）；hero、plan 全部 ¥/克 价位用 Python 批量复算（3900→842、3920→847、3940→851、3960→855、3970→857、3985→861、4030→870、4050→875、4075→880、4100→886、4120→890、4220→911）。自检脚本 scripts/check_2026-10-25.py 一次通过（包含解析后字段的 ASCII 引号遍历检查、events 日期逐条比对、advice 与 plan 价位一致性、域名笔误检查）。",
+      "duration_note": "含 advice 205→197 字两次压缩与去除 ** 加粗标记的返工"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 18000,
+      "result": "已追加记录到 manifest.json 的 briefings 数组头部（date 2026-10-25、title 今日金价早报、weekday 周日），总数 64→65，去重后插入避免重复。"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 15000,
+      "result": "已提交并推送：commit c2e288a（每日早报 2026-10-25），走 SSH，git rev-parse HEAD 与 git ls-remote origin refs/heads/master 一致（均为 c2e288a5bebb3541a9a6492525b8905213e75d92）。"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 48000,
+      "result": "已发送至 2132049351@qq.com（queued: true）。ToolSearch 精确名一次命中，GetMe 返回 scopes 含 mail:send、日配额 2000，SendMessage 标准写法（to 传对象数组）＋body_format HTML＋skip_confirmation true 一次成功，无确认拦截。邮件含周末提示、金价快照 4 项、周末大事 4 条（含原文链接）、趋势三档、买卖六档价位与单科学徒段落，底部附站点链接；HTML 底稿落 .workbuddy/outbox/2026-10-25-morning.html（12 045 字节）。",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 | 2026年10月25日 周日\n\n【周末提示】今天没有新成交，表里的数字全是周五（10/23）收盘口径，涨跌幅也是周五的，不是今天又跌了 0.72%。周末增量在消息面。下周是三连击：10/27-28 美联储议息（北京时间 10/29 凌晨 2 点公布）、10/29 三季度 GDP 初值与 9 月 PCE，同周还有加拿大、欧洲、日本央行开会，杠杆品种务必降仓。\n\n【金价快照】招行积存金 863.0 ¥/克（▼-0.72%，主看）｜上海金 AU9999 864.0 ¥/克（▼-1.85%）｜美元中间价 6.7180（▼-0.02%）｜伦敦金 XAUUSD 3995.5 $/oz（▼-0.72%）。积存金＝伦敦金×中间价÷31.1035 估算，实际以银行挂牌为准；按在岸即期 6.6704 折算会低约 6.1 元/克，属口径差。\n\n【周末大事】①美联储：路透问了 100 位经济学家，94 位说 10 月不动、100 位全说 12 月要加——一个月前看好 12 月加息的还不到一半，现在变成全票，这才是真正的变化；CME 口径 10 月按兵不动 92.8%、12 月加息近 80%，本次会议不发布新点阵图，全靠沃什发布会措辞。②地缘：胡塞一天打沙特七处，利雅得与达曼机场首次进清单，伊朗备好打海湾海底光缆的方案、点名霍尔木兹下方 7 条主缆；周末油价无新结算，仍停在布油 116.72、WTI 103.27。③资金面：央行 9 月买 23 吨（连续 23 个月）、三季度全球黄金 ETF 净流入 310 亿美元创纪录、持仓 4256 吨新高，金价仍跌——买盘是配置型按季度决策，卖盘是交易型几天内砸完，价格由边际成交决定。④实物与技术：金饰跌破 1200（老庙 1196、周大福 1202、老凤祥 1206），深圳水贝被挤爆；Kitco 41% 分析师看跌、RSI 28-32 超卖，下周区间 3950-4300。\n\n【趋势判断】短期 偏空｜中期 偏空寻底｜长期 看多。动作：观察为主，会议与 PCE 落地前仓位别超五成；破位后第一个周末的纪律是不押方向、先看 3975.7 守不守。\n\n【买卖时机】买：①首仓 3970-3985 美元/盎司（约 857-861 元/克），贴着周五低点 3975.7 挂；②加仓 3940-3960（851-855），年度低点区；③兜底 3900-3920（842-847），1% 步进延伸位。只用闲钱、分三笔、不加杠杆；周一国内可能低开约 1 元/克（周五夜盘 AU9999 已到 862.99）。卖：①止盈 4030-4050（870-875 元/克）先卖三分之一；②进阶 4075-4100（880-886），收盘站回 4120（890）才考虑停手，站上 4220（911）才算转势；③止损 收盘破 3960（855）减仓、有效破 3920（847）清仓。仅供参考，不构成投资建议。\n\n【今日学一招】同一块黄金，两种买家：配置盘和交易盘，谁在给价格定价？配置盘按季度甚至按年买、跌 4% 反而是打折；交易盘只关心今天到明天和保证金够不够、破位就必须卖。价格由边际成交决定、不由持仓总量决定，所以「央行一直在买」和「价格在跌」可以同时为真。做三五年抗通胀就跟央行一样定额分批；只博一周反弹就得守「破 3960 就走」的纪律——最常亏钱的姿势是两个身份都占。\n\n查看完整早报 · 历史数据：https://jerry-166.github.io/gold-price-briefing/"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 260000,
+    "email_sent": true,
+    "git_pushed": true
+  },
+  "buglog_verification": {
+    "hook_misfire": "hook 再次把自动化任务提示词判为「用户报告的 bug」（BUG-013 第 27 次连续命中），已判别跳过、未按字面建档",
+    "entries_written": [
+      "BUG-003：延迟约 100 分钟，序列 43 个日历日 …/约 39/约 46/约 100",
+      "BUG-006：恢复正常（第 11 次观察），queued:true，不构成修复证据",
+      "BUG-012：巡检双线最近产出 10/23，10/24 零产出但为非交易日，连续零产出交易日数 0",
+      "BUG-013：第 27 次连续命中，附带误报为脚本正常迭代"
+    ],
+    "grep_counts": {
+      ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md": 1,
+      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": 1,
+      ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md": 1,
+      ".buglog/bugs/2026-09-26-buglog-hook-misfire.md": 1,
+      ".buglog/index.md": 1
+    },
+    "file_hashes": {
+      ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md": "bytes=55195 sha1=a1b4c5e8498d9d067dd2442892ed61f4a9d2b840",
+      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": "bytes=32771 sha1=ea17b77ccfd0cf02e07c3d2558480db79a46da21",
+      ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md": "bytes=46506 sha1=a310797b3d689a359829bb83d04bdb730ed5b6d9",
+      ".buglog/bugs/2026-09-26-buglog-hook-misfire.md": "bytes=46437 sha1=6dc0c9c58c7e9b0b95752dfb66acd1924fc56e2f"
+    },
+    "archive_drift_found": "核查时发现 10-23、10-24 两期的 BUG-003 延迟条目被误追加进 2026-09-05-briefing-scheduler-missed-days.md（该文件 frontmatter 为 id: BUG-002）；本期起回归正确文件并在条目内留痕，不改写历史文件"
+  },
+  "health_check": {
+    "inspection_noon_last_output": "2026-10-23",
+    "inspection_pm_last_output": "2026-10-23",
+    "today_has_any_inspection_output": "not_applicable（10/25 为周日非交易日，14:00／22:00 未到）",
+    "consecutive_zero_output_trading_days": 0,
+    "note": "ls logs/ | grep -c 2026-10-24-inspection ＝ 0，但 10/24 为周六非交易日，按既有口径不计入连续零产出交易日数；未达 BUG-012 复合升级判据，不升级不降级。观察期自 10/15 起第 10 日，仍处 2 周窗口内。"
+  }
+}

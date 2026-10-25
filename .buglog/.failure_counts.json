@@ -43,5 +43,10 @@
     "count": 1,
     "last_error": "File has not been read yet: D:\\workspace\\每日金价资讯\\logs\\2026-10-16-morning_briefing.json. Read it first before writing to it.",
     "last_time": "2026-10-16T01:48:53.195Z"
+  },
+  "Write: File has not been read yet: D:\\workspace\\每日金价资讯\\.workbuddy\\outbox\\N-N-N-mor": {
+    "count": 1,
+    "last_error": "File has not been read yet: D:\\workspace\\每日金价资讯\\.workbuddy\\outbox\\2026-10-25-morning.html. Read it first before writing to it.",
+    "last_time": "2026-10-25T02:44:19.820Z"
   }
 }
