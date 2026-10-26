@@ -129,3 +129,7 @@ reported_at: 2026-09-14T22:05:00
 - **severity 维持 major**：本 bug 已连续影响主线 10 次，且从未出现「连续 5 个交易日正常」的最长窗口新纪录（现纪录仍为 10/16-10/18 的连续三次）；建议宿主侧优先排查 deferred tools 索引装载层为何间歇性丢失 qq-mail 命名空间。
 
 - **2026-10-25（周日）恢复正常（第 11 次观察）**：ToolSearch 以精确名 `mcp__qq-mail__SendMessage` 一次命中（昨日 10/24 为「三组精确名＋两组关键词全部零命中」形态），`mcp__qq-mail__GetMe` 返回 scopes 含 `mail:send`、日配额 2000，随后 `SendMessage` 用标准写法（`to` 传对象数组）＋`body_format: HTML`＋`skip_confirmation: true` 一次成功、返回 `queued: true`，`email_sent: true`。形态序列 …→未注册(10/22)→正常(10/23)→未注册(10/24)→正常(10/25)，隔日抖动第四次出现。本日成功不构成修复证据（10/16-10/18 三日正常后第 4 日即复发已证伪，10/21-10/22 连续两日失效后 10/23 即恢复），severity 维持 major。
+
+
+- **2026-10-26（周一）恢复正常（第 12 次观察）**：ToolSearch 以精确名 `mcp__qq-mail__SendMessage`、`mcp__qq-mail__GetMe` 一次命中；`GetMe` 返回 scopes 含 `mail:send`、日配额 2000、单附件上限 1 MB；`SendMessage` 用标准写法（`to` 传对象数组）＋`body_format: HTML`＋`skip_confirmation: true` 直发，返回 `queued: true`、`email_sent: true`。形态序列：…→未注册(10/24)→正常(10/25)→**正常(10/26)**，为 10/16-10/18 之后**第二次出现连续两日正常**（10/26 为第 2 日），仍远低于「连续 5 个交易日正常」的升级判据，**不构成修复证据**，severity 维持 major。
+- **入参体积经验（固化）**：脚本自动生成的全量 HTML 在 10/25 为 20 420 字节（过长，需重写）、紧凑版 12 045 字节可用；本期手写紧凑版 **11 447 字节 / 8 329 字符**直传入参一次成功。结论：邮件正文入参控制在 ≤12 KB 量级可稳定投递，且不必先生成全量再改写，直接按紧凑版标准生产即可。

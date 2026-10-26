@@ -208,7 +208,13 @@
     "D:\\workspace\\每日金价资讯\\scripts\\mail_2026-10-25.py": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\outbox\\2026-10-25-morning.html": 1,
     "D:\\workspace\\每日金价资讯\\scripts\\buglog_2026-10-25.py": 1,
-    "D:\\workspace\\每日金价资讯\\logs\\2026-10-25-morning_briefing.json": 1
+    "D:\\workspace\\每日金价资讯\\logs\\2026-10-25-morning_briefing.json": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261026.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\check_briefing.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\mail_20261026.py": 1,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\outbox\\2026-10-26-morning.html": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\append_buglog_20261026.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\log_20261026.py": 1
   },
   "triggered_files": {
     "__cross_file__": true,
