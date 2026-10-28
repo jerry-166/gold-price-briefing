@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-10-28",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "周三早报（触发 13:35／延迟约 275 分钟，刷新最严重延迟记录）：伦敦金 4035.0（-0.62%）、AU9999 869.0（+1.01%，国内补涨夜盘）、中间价 6.7165（调升 6 基点）；数据与 JSON、manifest、Git 推送全部成功，邮件因 QQ邮箱工具未注册 + agent-mail 未开通而失败（BUG-006 第十三次复发），HTML 落 .workbuddy/outbox/。"
+    },
+    {
       "date": "2026-10-27",
       "type": "inspection_pm",
       "status": "no_action",

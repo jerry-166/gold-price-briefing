@@ -1,0 +1,94 @@
+# -*- coding: utf-8 -*-
+import json, os
+
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+mail_body = """🌅 今日金价早报 | 2026年10月28日 周三
+
+【今晚别急着动手】北京时间明晨 2:00 美联储公布 10 月决议、2:30 沃什发布会，周四还有 PCE。
+
+【金价快照】
+· 招行积存金买入价（估算）871.3 元/克，较昨晨 867.2 元高 4.1 元
+· 伦敦金 XAUUSD 4035.0 美元/盎司，-0.62%
+· 上海金 AU9999 869.0 元/克，+1.01%（国内补涨昨日夜盘）
+· 人民币中间价 6.7165，调升 6 个基点
+· WTI 原油（12 月）100.20 美元/桶，-1.53%
+
+【昨夜大事】
+1. 美联储今晚 2:00 决议，按兵不动定价 93%，12 月加息仍有 83%-84%
+2. 油价两连跌：WTI 12 月 100.20（-1.53%）、布伦特 12 月 109.74（-0.90%）
+3. 美元指数三连涨收 102.38，10 年期美债站上 5.00%
+4. 路透调查：31 个经济体 2027 年通胀预测被上调，高利率将维持更久
+5. 中东缓和与升级信号并存：以色列大选两阵营均未过半，美方警告或再打伊朗
+
+【趋势】短 震荡 / 中 偏弱 / 长 看多 → 观望，决议前别追高
+
+【买卖时机】
+买：4030-4035 美元（约 870-871 元/克）先上 3 成；4005-4015（865-867）加 3 成；3985-3995（861-863）用最后一份钱
+卖：4070-4075 美元（约 879-880 元/克）先减一半；4095-4105（884-886）全部落袋
+止损：收盘破 4030（约 870 元/克）减半，破 3990（约 862 元/克）清仓
+
+【今日学一招】同一个早上国际金跌 0.62%、国内金涨 1.01%：AU9999 的基准是 10/27 15:30 国内收盘时的结算价 860.31，当时国际金还在 3990，夜盘涨到 4060 这一段国内已关门，今天开盘才补上。
+
+网站：https://jerry-166.github.io/gold-price-briefing/
+（本次邮件未发出，原因见日志；HTML 底稿已存 .workbuddy/outbox/2026-10-28-morning.html）"""
+
+log = {
+    "date": "2026-10-28",
+    "type": "morning_briefing",
+    "status": "partial",
+    "summary": "周三早报（触发 13:35／延迟约 275 分钟，为历史最严重延迟）：数据与 JSON、manifest、Git 推送全部成功，邮件因 QQ邮箱连接器工具未注册 + agent-mail 未开通而发送失败（BUG-006 第十三次复发）。",
+    "timestamp": "13:41 CST",
+    "steps": [
+        {
+            "num": 1, "name": "获取数据", "status": "success", "duration_ms": 168000,
+            "result": "伦敦金 13:35 亚市 4034.97（-0.62%，开 4059.50／高 4070.57／低 4032.42，东财 4036.96 交叉）、AU9999 869.0（+1.01%，SGE 延时行情，昨结 860.31；金投 870.00、NeoData 866.90、沪金主力 870.58 交叉）、中间价 6.7165（调升 6 基点，四源同值）、WTI 12 月 100.20／-1.53%、布油 12 月 109.74／-0.90%、美元指数 102.38、10Y 美债 5.00%、12 月加息定价 83%-84.4%。",
+            "source": "neodata-financial-search + WebSearch（金投网、SGE、中国货币网、金十数据、汇通网、东方财富、中宏网）"
+        },
+        {
+            "num": 2, "name": "生成早报JSON", "status": "success", "duration_ms": 32000,
+            "result": "已写入 daily/2026-10-28.json；chart 丢 09-28 补 10-28，昨日的 10-27 点由亚市快照 4015.53 回填为真实收盘 4060.1，events 整体 -1 并剔除滚出窗口的 09-28；自检脚本 check_briefing.py 0 error 一次通过（advice 150 字、6 组价位配对全部复算一致）。",
+            "source": "scripts/build_20261028.py + scripts/check_briefing.py"
+        },
+        {
+            "num": 3, "name": "更新manifest", "status": "success", "duration_ms": 6500,
+            "result": "已在 briefings 数组头部插入 {date: 2026-10-28, weekday: 周三}，记录数 67→68。"
+        },
+        {
+            "num": 4, "name": "Git推送", "status": "success", "duration_ms": 18500,
+            "result": "commit 035fe69（每日早报 2026-10-28），已 SSH 推送至 jerry-166/gold-price-briefing；ls-remote 与 rev-parse 均为 035fe69，一致。"
+        },
+        {
+            "num": 5, "name": "发送邮件", "status": "failed", "duration_ms": 58000,
+            "result": "未发送。QQ邮箱连接器在 list_installed_plugins 中显示 connected/bound/enabled，但 mcp__qq-mail__* 工具未注册进工具索引——ToolSearch 精确名 mcp__qq-mail__SendMessage / GetMe 均回落到 agent-mail 命名空间；agent-mail 返回 not_bound（智能体邮箱尚未开通）；reconnect_plugin 在无人值守下被拒或超时。HTML 底稿已落 .workbuddy/outbox/2026-10-28-morning.html（14 667 字节）。",
+            "outputs": [{"label": "邮件内容", "body": mail_body}]
+        }
+    ],
+    "summary_stats": {
+        "total_steps": 5, "success_steps": 4, "failed_steps": 1,
+        "total_duration_ms": 283000, "email_sent": False, "git_pushed": True
+    },
+    "scheduler_note": "本次触发时点 13:35，标称 09:00，延迟 275 分钟，远超历史区间 4-152 分钟的上界（前纪录 10/21 的 152 分钟），刷新最严重延迟记录；早报本身数据完整、无断档，但读者在 13:35 才收到当日早报，快照时点已从亚市早盘偏移到亚市午后。",
+    "gap_check": {
+        "last_success_briefing": "2026-10-27",
+        "missed_trading_days": [],
+        "note": "10/19-10/28 连续十个自然日、八个交易日全部产出，无缺跑、无提前触发。"
+    }
+}
+
+p = os.path.join(BASE, "logs", "2026-10-28-morning_briefing.json")
+json.dump(log, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+print("written", p)
+
+# logs/manifest.json
+mp = os.path.join(BASE, "logs", "manifest.json")
+m = json.load(open(mp, encoding="utf-8"))
+assert m["logs"][0]["date"] != "2026-10-28" or m["logs"][0]["type"] != "morning_briefing"
+m["logs"].insert(0, {
+    "date": "2026-10-28",
+    "type": "morning_briefing",
+    "status": "partial",
+    "summary": "周三早报（触发 13:35／延迟约 275 分钟，刷新最严重延迟记录）：伦敦金 4035.0（-0.62%）、AU9999 869.0（+1.01%，国内补涨夜盘）、中间价 6.7165（调升 6 基点）；数据与 JSON、manifest、Git 推送全部成功，邮件因 QQ邮箱工具未注册 + agent-mail 未开通而失败（BUG-006 第十三次复发），HTML 落 .workbuddy/outbox/。"
+})
+json.dump(m, open(mp, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+print("manifest logs:", len(m["logs"]))
