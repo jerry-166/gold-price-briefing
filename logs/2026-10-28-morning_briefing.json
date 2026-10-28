@@ -1,8 +1,8 @@
 {
   "date": "2026-10-28",
   "type": "morning_briefing",
-  "status": "partial",
-  "summary": "周三早报（触发 13:35／延迟约 275 分钟，为历史最严重延迟）：数据与 JSON、manifest、Git 推送全部成功，邮件因 QQ邮箱连接器工具未注册 + agent-mail 未开通而发送失败（BUG-006 第十三次复发）。",
+  "status": "success",
+  "summary": "数据、JSON、manifest、Git 全部成功；邮件首轮因连接器鉴权失败，用户授权后于 13:47 补发成功",
   "timestamp": "13:41 CST",
   "steps": [
     {
@@ -38,9 +38,9 @@
     {
       "num": 5,
       "name": "发送邮件",
-      "status": "failed",
-      "duration_ms": 58000,
-      "result": "未发送。QQ邮箱连接器在 list_installed_plugins 中显示 connected/bound/enabled，但 mcp__qq-mail__* 工具未注册进工具索引——ToolSearch 精确名 mcp__qq-mail__SendMessage / GetMe 均回落到 agent-mail 命名空间；agent-mail 返回 not_bound（智能体邮箱尚未开通）；reconnect_plugin 在无人值守下被拒或超时。HTML 底稿已落 .workbuddy/outbox/2026-10-28-morning.html（14 667 字节）。",
+      "status": "success",
+      "duration_ms": 111000,
+      "result": "已发送至 2132049351@qq.com（13:47 补发成功，SendMessage 返回 queued=true）。首轮 13:41 失败：qq-mail 连接器状态 auth-required、mcp__qq-mail__* 未注册进工具索引、agent-mail 返回 not_bound、reconnect 被拒。用户随后手动授权，13:45 工具索引恢复、GetMe 返回 alias_A9yF9wF5eP0o6Tc1uUpRq71T8H09（scopes 含 mail:send），13:46 首次调用返回 42801 需确认令牌，带 confirmation_token 重发成功。",
       "outputs": [
         {
           "label": "邮件内容",
@@ -51,10 +51,10 @@
   ],
   "summary_stats": {
     "total_steps": 5,
-    "success_steps": 4,
-    "failed_steps": 1,
-    "total_duration_ms": 283000,
-    "email_sent": false,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 336000,
+    "email_sent": true,
     "git_pushed": true
   },
   "scheduler_note": "本次触发时点 13:35，标称 09:00，延迟 275 分钟，远超历史区间 4-152 分钟的上界（前纪录 10/21 的 152 分钟），刷新最严重延迟记录；早报本身数据完整、无断档，但读者在 13:35 才收到当日早报，快照时点已从亚市早盘偏移到亚市午后。",
@@ -97,5 +97,46 @@
     "BUG-006",
     "BUG-012",
     "BUG-013"
-  ]
+  ],
+  "email_retry": {
+    "first_attempt": "13:41 失败（连接器 auth-required / 工具未注册 / agent-mail not_bound / reconnect 被拒）",
+    "reauthorized_by_user": "13:44 用户确认连接器已授权，13:45 状态转为 connected",
+    "resend": "13:47 补发成功，SendMessage 返回 queued=true",
+    "root_cause": "QQ 邮箱远程 MCP（https://api.mail.qq.com/mcp）OAuth 授权过期，需用户手动重新授权；授权后工具索引自动恢复，无需重启会话",
+    "note": "首轮失败事实保留在 step5.result 与 buglog BUG-006 记录中，未删除"
+  },
+  "step5_first_failure": "未发送。QQ邮箱连接器在 list_installed_plugins 中显示 connected/bound/enabled，但 mcp__qq-mail__* 工具未注册进工具索引——ToolSearch 精确名 mcp__qq-mail__SendMessage / GetMe 均回落到 agent-mail 命名空间；agent-mail 返回 not_bound（智能体邮箱尚未开通）；reconnect_plugin 在无人值守下被拒或超时。HTML 底稿已落 .workbuddy/outbox/2026-10-28-morning.html（14 667 字节）。",
+  "buglog_verification_email_retry": {
+    "date": "2026-10-28",
+    "purpose": "BUG-006 定性修正（auth-required 根因）+ 补发成功留痕",
+    "grep_2026_10_28_counts": {
+      ".buglog/bugs\\2026-09-08-briefing-scheduler-missed-days.md": 2,
+      ".buglog/bugs\\2026-09-14-inspection-email-connector-down.md": 3,
+      ".buglog/bugs\\2026-09-25-inspection-scheduler-silent-miss.md": 2,
+      ".buglog/bugs\\2026-09-26-buglog-hook-misfire.md": 3
+    },
+    "file_bytes_sha1": {
+      ".buglog/bugs\\2026-09-08-briefing-scheduler-missed-days.md": {
+        "bytes": 59445,
+        "sha1": "73a30907e0f9796147b5caad3f97d568d0b6eb41"
+      },
+      ".buglog/bugs\\2026-09-14-inspection-email-connector-down.md": {
+        "bytes": 39680,
+        "sha1": "f718da745a999f90915563bba7c2b6c2b3a7f784"
+      },
+      ".buglog/bugs\\2026-09-25-inspection-scheduler-silent-miss.md": {
+        "bytes": 48830,
+        "sha1": "f89dccc59b9ba94b73ae822616abb3f75abee10d"
+      },
+      ".buglog/bugs\\2026-09-26-buglog-hook-misfire.md": {
+        "bytes": 49204,
+        "sha1": "c341d69559b70d16de18904f7951d23732e75eff"
+      }
+    },
+    "index_md": {
+      "bytes": 28758,
+      "sha1": "fb44a07adaf5ba3983bc3b18a675ad62354a2d3d"
+    },
+    "bug006_row_count": 8
+  }
 }

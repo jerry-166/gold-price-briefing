@@ -229,7 +229,9 @@
     "D:/workspace/每日金价资讯/scripts/build_20261028.py": 1,
     "D:/workspace/每日金价资讯/.workbuddy/outbox/2026-10-28-morning.html": 1,
     "D:/workspace/每日金价资讯/scripts/log_20261028.py": 1,
-    "D:/workspace/每日金价资讯/scripts/buglog_20261028.py": 1
+    "D:/workspace/每日金价资讯/scripts/buglog_20261028.py": 1,
+    "D:/workspace/每日金价资讯/scripts/fix_log_20261028_email.py": 1,
+    "D:/workspace/每日金价资讯/scripts/buglog_fix_20261028.py": 1
   },
   "triggered_files": {
     "__cross_file__": true,

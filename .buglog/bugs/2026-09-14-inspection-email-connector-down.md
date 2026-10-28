@@ -147,3 +147,14 @@ reported_at: 2026-09-14T22:05:00
   - 三重叠加 → **无任何降级路径**，`email_sent: false`、status partial，完整 HTML 落 `.workbuddy/outbox/2026-10-28-morning.html`（14 667 字节）待人工补发。
 - 形态序列：正常(10/25) → 正常(10/26) → 正常(10/27) → **未注册(10/28)**。这是 10/16-10/18「连续三日正常」之后**第二次**出现「连续三日正常 → 第 4 日即复发」，与 10/19 的轨迹完全一致。**结论升级为判据：正常窗口 ≤3 日不构成任何改善证据，只有连续 ≥5 日正常才进入「疑似修复」观察**。
 - 新增线索：本次 `reconnect_plugin` 首次被实际调用并留下「无人值守下被拒／超时」的凭据，说明该 bug 在无人值守场景下**没有自愈通道**；若宿主侧不修复注册层，早报邮件将长期以「隔几日断一日」的节奏失败。
+
+
+- **2026-10-28 13:44-13:47 补记：用户手动授权后 13:47 补发成功，并推翻本期「工具未注册」的定性 —— 真正根因是 OAuth 凭证过期（status: auth-required）**：
+  - 13:44 用户回复「连接器已授权」后复检：会话 `connector-status` 明确标注 `qq-mail QQ邮箱 | auth-required`，`list_installed_plugins` 返回 `qq-mail@workbuddy-connector-plugins-official: status=auth-required, bound=true, enabled=true`。**这与 13:41 首轮读到的 connected 相互矛盾，说明 `list_installed_plugins` 的 status 字段存在缓存滞后，不能单独作为判断依据。**
+  - 13:45 调 `reconnect_plugin`（`pluginName=qq-mail@workbuddy-connector-plugins-official`）→ 返回空结果（无 error），随后会话 `connector-status` 变为 `connected`，**同一秒内 `mcp__qq-mail__GetMe` 即可被 ToolSearch 以精确名命中并调用成功**（返回 `alias_A9yF9wF5eP0o6Tc1uUpRq71T8H09`、scopes 含 `mail:send`、日配额 2000）。
+  - 13:46 首次 `SendMessage` 返回 `42801 requires confirmation`，携带 `confirmation_token` 后重发；13:47 返回 `queued: true`；13:45:46 CST 在「已发送」箱核实到 `msg_FTyru1l5FlYOkH2JWm_EEYmyK15HG48wyUE_KpEHJG3rmQ`（主题 `🌅 今日金价早报 | 2026年10月28日 周三`、无附件）。
+  - **定性修正（关键）**：10/6 以来长期记为「MCP 工具未被注册进会话索引」，本质上很可能是 **OAuth 凭证过期 → 连接器进入 auth-required → 该连接器的 MCP 工具整体不被装载进 deferred tools 索引**。也就是说「工具未注册」是**症状**，不是根因。本期拿到了此前一直缺失的因果链证据：授权恢复后工具索引**立即**恢复，无需重启会话、无需重装插件、无需改配置。
+  - **对历史结论的影响**：10/10 记录的 `connector-states.v3.json` 显示 enabled、`.credentials.v3.json` OAuth 凭证「完好」——该「完好」只证明字段存在，不证明令牌未过期，**不足以排除 auth 过期**。今后凡遇「ToolSearch 精确名回落 agent-mail／零命中」，第一步先看 `connector-status` 是否 auth-required，而不是先去推断注册层。
+  - **可复用处置路径（写成 SOP）**：① 看会话 `connector-status` 是否标 auth-required → ② 是则提示用户手动重新授权（无人值守下无法自愈）→ ③ 授权后调一次 `reconnect_plugin` 触发状态刷新 → ④ `GetMe` 验证 scopes 含 mail:send → ⑤ `SendMessage` 若返回 42801 则带 `confirmation_token` 重发（也可直接 `skip_confirmation: true` 省掉往返）。
+  - **形态序列更新**：正常(10/25)→正常(10/26)→正常(10/27)→auth-required 致工具不可见(10/28 13:41)→**同日 13:47 授权恢复并发送成功**。因此 10/28 最终 **`email_sent: true`、status success**，不再是 partial；「连续三日正常→第 4 日复发」的判据结论保留（复发确实发生），但复发原因归为授权过期。
+  - 入参体积：本期 HTML 正文约 13.9 KB 一次投递成功，说明 12 KB 并非硬上限；但首次因缺 confirmation_token 多耗一次往返，仍建议压到 12 KB 量级。
