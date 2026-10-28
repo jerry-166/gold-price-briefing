@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-28",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "晚间巡检（22:00 准时触发）：伦敦金 XAUUSD 现报 $4049.93/oz、日内振幅约 1.06% 低于 1.5% 阈值；无美联储今晚紧急声明或全新重大事件（FOMC 决议周四凌晨 02:00 落地且市场已充分定价按兵不动、中东/油价/12 月加息均延续早报已覆盖因素），静默跳过、未发邮件。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 8500,
+      "result": "当前金价 XAUUSD $4049.93/oz，日内 -0.25%（昨收 4060.02、最高 4070.57、最低 4027.60），振幅约 1.06%",
+      "source": "金投网现货 XAUUSD / TradingView 交叉验证"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 6200,
+      "result": "美联储 10 月利率决议将于北京时间周四 02:00 公布、市场充分定价按兵不动（加息概率仅约 7%-10.5%）；中东胡塞袭沙特炼油设施、霍尔木兹风险未消、油价 WTI 重回 102／布伦特 111-115、12 月加息预期仍约八成，均为早报已覆盖延续因素，无美联储今晚紧急声明或全新重大突发事件",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 600,
+      "result": "振幅 1.06% 未越 1.5% 阈值 ＋ 无全新重大事件 → 未触发预警"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 15300,
+    "alert_triggered": false
+  }
+}
