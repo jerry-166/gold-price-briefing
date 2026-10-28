@@ -62,5 +62,40 @@
     "last_success_briefing": "2026-10-27",
     "missed_trading_days": [],
     "note": "10/19-10/28 连续十个自然日、八个交易日全部产出，无缺跑、无提前触发。"
-  }
+  },
+  "buglog_verification": {
+    "date_marker": "2026-10-28",
+    "files": {
+      "2026-09-08-briefing-scheduler-missed-days.md": {
+        "grep_c": 2,
+        "bytes": 59445,
+        "sha1": "73a30907e0f9796147b5caad3f97d568d0b6eb41"
+      },
+      "2026-09-14-inspection-email-connector-down.md": {
+        "grep_c": 2,
+        "bytes": 36465,
+        "sha1": "2dfadc87aa7359e1c2de11f0bf2acd7184f580a5"
+      },
+      "2026-09-25-inspection-scheduler-silent-miss.md": {
+        "grep_c": 2,
+        "bytes": 48830,
+        "sha1": "f89dccc59b9ba94b73ae822616abb3f75abee10d"
+      },
+      "2026-09-26-buglog-hook-misfire.md": {
+        "grep_c": 3,
+        "bytes": 49204,
+        "sha1": "c341d69559b70d16de18904f7951d23732e75eff"
+      }
+    },
+    "index_sha1": "752d5a90ff5d7e73ec1afd92353cf1241c3ba489",
+    "counters_check": "index 头部 Open/Fixed/Total = 11/5/16；stats.json 已同步为 11/5/16",
+    "index_bytes": 27660,
+    "total_hits": 9
+  },
+  "buglog_written": [
+    "BUG-003",
+    "BUG-006",
+    "BUG-012",
+    "BUG-013"
+  ]
 }

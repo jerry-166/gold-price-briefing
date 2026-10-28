@@ -137,3 +137,13 @@ reported_at: 2026-09-14T22:05:00
 
 - **2026-10-27（周二）恢复正常（第 13 次观察）**：ToolSearch 以精确名 `mcp__qq-mail__SendMessage` 一次命中；`SendMessage` 用标准写法（`to` 传对象数组）＋`body_format: HTML`＋`skip_confirmation: true` 直发，返回 `queued: true`、`email_sent: true`。形态序列：…→未注册(10/24)→正常(10/25)→正常(10/26)→**正常(10/27)**，为 10/16-10/18 之后**首次连续三日正常**（追平本 bug 历史最长正常窗口），但仍远低于「连续 5 个交易日正常」的升级判据 → **不构成修复证据**，severity 维持 major。
 - **入参体积（经验续记）**：本期邮件底稿 **9 273 字节**（比 10/26 的 11 447 字节再缩 19%），一次投递成功，进一步印证「≤12 KB 可稳定投递」，且压线越低压越稳。
+
+
+- **2026-10-28（周三）第十三次复发：回到「工具未注册」形态，且首次出现「连接器显示 connected ＋ 工具不可达 ＋ 重连被拒」三重叠加**：
+  - `list_installed_plugins` 返回 `qq-mail@workbuddy-connector-plugins-official`：`status: connected`、`bound: true`、`enabled: true`；`connector-status` 亦声明 connected。
+  - 但 ToolSearch 用精确名 `mcp__qq-mail__SendMessage` / `mcp__qq-mail__GetMe` 检索，**两次均回落到 agent-mail 命名空间**（返回的全是 `mcp__agent-mail__*`），即 qq-mail 的 MCP 工具根本没有进入本会话工具索引。
+  - `mcp__agent-mail__GetMe` 返回 `{"_agentmail_meta":{"status":"not_bound"}}`（智能体邮箱尚未开通，请勿重试）。
+  - 对 qq-mail 执行 `reconnect_plugin` 返回 **「User refused, no changes applied. Reconnection cancelled or timed out」**——无人值守场景下重连流程无法完成。
+  - 三重叠加 → **无任何降级路径**，`email_sent: false`、status partial，完整 HTML 落 `.workbuddy/outbox/2026-10-28-morning.html`（14 667 字节）待人工补发。
+- 形态序列：正常(10/25) → 正常(10/26) → 正常(10/27) → **未注册(10/28)**。这是 10/16-10/18「连续三日正常」之后**第二次**出现「连续三日正常 → 第 4 日即复发」，与 10/19 的轨迹完全一致。**结论升级为判据：正常窗口 ≤3 日不构成任何改善证据，只有连续 ≥5 日正常才进入「疑似修复」观察**。
+- 新增线索：本次 `reconnect_plugin` 首次被实际调用并留下「无人值守下被拒／超时」的凭据，说明该 bug 在无人值守场景下**没有自愈通道**；若宿主侧不修复注册层，早报邮件将长期以「隔几日断一日」的节奏失败。

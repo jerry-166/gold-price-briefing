@@ -164,3 +164,7 @@ related_bugs: []
 
 
 - **2026-10-27 第二十九次连续命中（9/26-10/27）**：hook 再次透传自动化提示词全文 → 判误判、未按字面建档。附带误报本期出现两类形态：①把 `scripts/check_briefing.py` 的两次编辑弱提示为「正在修 bug」——**本次该提示是对的**，该脚本确有真实缺陷（硬编码上一日汇率与价位 token，日更必报 7 条假错），已独立建档为 **BUG-016**，这是首次出现「弱提示指向真缺陷」的反例，说明弱提示不可一律忽略，需逐条判内容；②把 `scripts/build_20261027.py` 的 `%` 格式化 `ValueError` 修复弱提示为 bug 修复，实为写作前未预判字面 `%` 的正常返工（10/23 已固化的经验：正文一律 f-string 或 `{{TOKEN}}` + `str.replace`，不用 `%`）。双重复核已执行（逐文件 `grep -c` 计数＋五文件字节数/SHA-1 ＋ index 哈希，均写入 `logs/2026-10-27-morning_briefing.json` 的 `buglog_verification`）。
+
+
+- **2026-10-28（周三）第 30 次连续命中**（9/26-10/28）：hook 再次把自动化提示词全文（以「你是金价早报自动化助手」开头、含「第一步/第二步」流程编号）判为「用户报告的 bug」→ **判误判、未按字面建档**。附带误报本期形态：对 `scripts/build_20261028.py` 与 `scripts/log_20261028.py` 的正常创建、以及 `daily/2026-10-28.json` 的生成做弱提示。本期真实工具调用零失败、零用户纠正（邮件发送失败属 BUG-006 既有故障，非本次新缺陷）。双重复核已执行：逐文件 `grep -c` 计数＋四文件字节数与 SHA-1 已写入 `logs/2026-10-28-morning_briefing.json` 的 `buglog_verification`，`index.md` 与 `bugs/` 内容一致。
+- **附带修复（归档一致性）**：本次发现 `.buglog/stats.json` 长期滞后（open 11／fixed 4／total 15，而 `index.md` 头部为 Open 11 | Fixed 5 | Total 16，差的就是 10/27 新增的 BUG-016）→ 本期一并修正为 11／5／16，并把 BUG-016 补入 `recent_fixed`。
