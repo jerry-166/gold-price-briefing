@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-29",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "触发 09:20:04（延迟约 20 分钟）；数据/JSON/manifest/Git/邮件五步全部成功，伦敦金 4054.09、AU9999 870.6、中间价 6.7147，邮件 queued:true",
+  "timestamp": "09:20 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 106000,
+      "result": "伦敦金 4054.09 美元/盎司（09:14:55 金投网，-13.25／-0.33%，昨收 4067.34）；AU9999 870.6 元/克（上金所延时行情 09:20，基准 10/28 收盘 868.99，+0.19%）；中间价 6.7147（调升 18 基点，四源同值）；新闻 5 条（美联储 10:2 维持利率、沃什取消前瞻指引、今晚 20:30 GDP+PCE+初请、胡塞袭击沙特炼油厂推油价、人民币中间价续升）",
+      "source": "金投网 + 上海黄金交易所 + WebSearch（证券时报/汇通财经/每日经济新闻/同花顺/东方财富）"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 62000,
+      "result": "已写入 daily/2026-10-29.json（自检 0 error；ASCII 引号 0 处；chart 30/30、events 30 条日期索引逐条对齐）"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 8000,
+      "result": "已追加记录到 manifest.json（briefings 头部插入 2026-10-29，共 69 条）"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 22000,
+      "result": "已提交并推送 f401d95，git ls-remote 与 rev-parse 一致（SSH 通道）"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 91000,
+      "result": "已发送至 2132049351@qq.com（queued: true，skip_confirmation 直发，未触发 confirmation_token 往返）",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "主题：🌅 今日金价早报 | 2026年10月29日 周四\n金价快照：积存金估算 875.2 元/克（-0.33%）｜AU9999 870.6（+0.19%）｜伦敦金 4054.1 美元（-0.33%）｜中间价 6.71（调升 18 基点）\n昨夜今晨：美联储 10:2 维持 3.75%-4%（两张反对票主张加息）／沃什取消前瞻指引并削减明年议息次数／今晚 20:30 三季度 GDP＋9 月 PCE＋初请三雷同发／胡塞导弹袭击沙特拉斯塔努拉炼油厂推油价回 100 上方\n趋势：短 0／中 -1／长 1，action=watch\n买卖时机：买 4036-4040（871-872 元/克）／4010-4020（866-868）／3990-4000（861-864）；卖 4082-4085（881-882）／4100-4110（885-887）；止损收盘破 4036、破 3990 离场\n今日学一招：美联储『不预告下一步』为什么对金价是坏消息（前瞻指引退场 → 波动搬到数据日）\n底部链接：https://jerry-166.github.io/gold-price-briefing/"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 289000,
+    "email_sent": true,
+    "git_pushed": true
+  },
+  "gap_check": {
+    "last_morning_briefing": "2026-10-28",
+    "last_status": "success",
+    "missed_trading_days": [],
+    "note": "上次早报 10/28（周三）全部成功，10/29 为其后第一个交易日，其间无缺失交易日 → 无断档"
+  },
+  "health_check": {
+    "inspection_noon_last": "2026-10-28",
+    "inspection_pm_last": "2026-10-28",
+    "consecutive_zero_output_trading_days": 0,
+    "note": "两条线 10/28 同日双产出（noon 14:05、pm 22:00 准点 no_action），未达 BUG-012 复合升级判据；未用历史读数相同当作「持续正常」的证据"
+  },
+  "scheduler": {
+    "nominal": "09:00",
+    "actual": "09:20:04",
+    "delay_minutes": 20,
+    "form": "延迟（正常触发）",
+    "note": "落在 4-275 分钟极宽摆动区间低位；前一日 10/28 为 275 分钟"
+  },
+  "buglog_verification": {
+    "date_marker": "2026-10-29",
+    "per_file": [
+      {
+        "file": "2026-09-08-briefing-scheduler-missed-days.md",
+        "grep_count": 2,
+        "bytes": 60731,
+        "sha1": "61d77de0c5f03bd41f3daf144c73def1acab8f58"
+      },
+      {
+        "file": "2026-09-14-inspection-email-connector-down.md",
+        "grep_count": 1,
+        "bytes": 40459,
+        "sha1": "e814ff2868c270969edf7fafddb2fc5279e8862c"
+      },
+      {
+        "file": "2026-09-25-inspection-scheduler-silent-miss.md",
+        "grep_count": 1,
+        "bytes": 49450,
+        "sha1": "611818a9d60bc0cb7eae54a7b102939e42b6de26"
+      },
+      {
+        "file": "2026-09-26-buglog-hook-misfire.md",
+        "grep_count": 3,
+        "bytes": 50174,
+        "sha1": "fdaa4748e2c9d527a58040eab4883f7b7184a50d"
+      }
+    ],
+    "index_md": {
+      "bytes": 29788,
+      "sha1": "90e2359ec3dfd77104be69c4b323a3d171adb24a",
+      "has_2026_10_29_section": true
+    },
+    "stats": {
+      "open_count": 11,
+      "fixed_count": 5,
+      "total_count": 16,
+      "recent_fixed": [
+        "BUG-016",
+        "BUG-010",
+        "BUG-009",
+        "BUG-005"
+      ]
+    }
+  },
+  "notes": {
+    "idempotency": "daily/2026-10-29.json 事前不存在、logs/manifest.json 头部无当日记录、git log 无当日早报提交 → 无中断残留",
+    "chart_roll": "丢 09-29、补 10-29；10-28 由亚市快照 4035.0 回填为真实收盘 4067.3，事件文案同步改写为全日「先跌后涨」；events 索引整体 -1 并剔除 index<0 的 09-29（本期恰为 index 0）",
+    "hero_layers": "875.2 = 871.3(昨晨估算) + 7.0(昨晨快照 4035.0 → 真实收盘 4067.3) - 2.9(今日盘中 -13.25 美元) - 0.2(人民币升值 18bp)；口径差：中间价折算比市场即期约高 6 元/克",
+    "deviation": "第 ⑦ 条 in_progress 占位兜底未启用（会话单段连续完成、无中断），如实记录"
+  }
+}

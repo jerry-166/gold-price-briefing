@@ -35,9 +35,9 @@
     "last_time": "2026-10-01T02:55:42.072Z"
   },
   "Edit: String to replace not found in file. 当前文件内容与 old_string 不一致，请先 Read 最新内容再 Edit.\n": {
-    "count": 6,
-    "last_error": "String to replace not found in file. 当前文件内容与 old_string 不一致，请先 Read 最新内容再 Edit.\nString: \"  - **会话审查/buglog**：本自动任务无人值守，本次价格查询(金投网)+新闻扫描(WebSearch)全部成功、无用户纠正/未解决失败；hook 将任务提示词透传为「用户报告 bug」（BUG-013 复现），判定误判不建档，无需 /buglog add。\"",
-    "last_time": "2026-10-15T06:07:14.762Z"
+    "count": 7,
+    "last_error": "String to replace not found in file. 当前文件内容与 old_string 不一致，请先 Read 最新内容再 Edit.\nString: \"  - **会话审查/buglog**：本自动任务无人值守、价格查询(金投网)+新闻扫描(WebSearch)全部成功、无用户纠正/未解决失败；本次 hook 将任务提示词（含「防文件名冲突」约定）透传为「用户报告 bug」（BUG-013 复现），判定误判不建档，无 /buglog 工具且无真实异常需记录，无需 /buglog add。\"",
+    "last_time": "2026-10-28T06:09:15.510Z"
   },
   "Write: File has not been read yet: D:\\workspace\\每日金价资讯\\logs\\N-N-N-morning_briefing": {
     "count": 1,
@@ -48,5 +48,10 @@
     "count": 1,
     "last_error": "File has not been read yet: D:\\workspace\\每日金价资讯\\.workbuddy\\outbox\\2026-10-25-morning.html. Read it first before writing to it.",
     "last_time": "2026-10-25T02:44:19.820Z"
+  },
+  "WebFetch: Error: Error during web fetch for https://m.cngold.org/quote/gjs/gjhj_auN.htm": {
+    "count": 1,
+    "last_error": "Error: Error during web fetch for https://m.cngold.org/quote/gjs/gjhj_au9999.html: Request failed with status code 404 Not Found and empty response body",
+    "last_time": "2026-10-29T01:21:24.742Z"
   }
 }

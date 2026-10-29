@@ -158,3 +158,5 @@ reported_at: 2026-09-14T22:05:00
   - **可复用处置路径（写成 SOP）**：① 看会话 `connector-status` 是否标 auth-required → ② 是则提示用户手动重新授权（无人值守下无法自愈）→ ③ 授权后调一次 `reconnect_plugin` 触发状态刷新 → ④ `GetMe` 验证 scopes 含 mail:send → ⑤ `SendMessage` 若返回 42801 则带 `confirmation_token` 重发（也可直接 `skip_confirmation: true` 省掉往返）。
   - **形态序列更新**：正常(10/25)→正常(10/26)→正常(10/27)→auth-required 致工具不可见(10/28 13:41)→**同日 13:47 授权恢复并发送成功**。因此 10/28 最终 **`email_sent: true`、status success**，不再是 partial；「连续三日正常→第 4 日复发」的判据结论保留（复发确实发生），但复发原因归为授权过期。
   - 入参体积：本期 HTML 正文约 13.9 KB 一次投递成功，说明 12 KB 并非硬上限；但首次因缺 confirmation_token 多耗一次往返，仍建议压到 12 KB 量级。
+
+- **2026-10-29 正常（第 14 次观察）**：`ToolSearch` 以精确名 `mcp__qq-mail__SendMessage`／`GetMe` 一次命中，`SendMessage` 标准写法（`to` 传对象数组、`body_format: HTML`、`skip_confirmation: true`）直发返回 `queued: true`，未触发 42801 confirmation_token 往返；`email_sent: true`。形态序列：正常(10/25)→正常(10/26)→正常(10/27)→复发-未注册(10/28)→**正常(10/29)**。10/28 的复发再次印证「正常窗口 ≤3 日不构成改善证据」的升级判据（10/25-10/27 连续三日正常，第 4 日即复发）；本期恢复为单日正常，连续性归零重新计数，**距「连续 ≥5 日正常」的疑似修复门槛仍有 4 日**。另记：10/28 已把本 bug 定性修正为「OAuth 过期 → status=auth-required → 连接器 MCP 工具整体不进 deferred tools 索引」，本期 `connector-status` 显示 qq-mail 为 connected，与定性一致。

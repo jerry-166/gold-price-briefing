@@ -78,3 +78,12 @@ Open: 11 | Fixed: 5 | Total: 16
 | BUG-013 | 第 30 次连续命中，判误判跳过建档；附带弱提示为两个新脚本的正常创建与 JSON 生成；双重复核已执行 |
 | BUG-016 | 附带修复归档一致性：`.buglog/stats.json` 由 11/4/15 修正为 11/5/16，与 index 头部对齐，并把 BUG-016 补入 `recent_fixed` |
 | BUG-006 | **10/28 补记：根因修正为 OAuth auth-required（非「工具未注册」），用户授权后 13:47 补发成功**：13:44 复检 `connector-status` 与 `list_installed_plugins` 均为 `status=auth-required`（与 13:41 读到的 connected 矛盾 → 该字段有缓存滞后，不可单凭）；13:45 `reconnect_plugin` 空返回后状态转 connected，**同一秒内 `mcp__qq-mail__GetMe` 即被索引命中**，13:46 `SendMessage` 首次返回 42801 需 confirmation_token、带令牌重发 13:47 返回 `queued: true`，已发送箱核实 `msg_FTyru1l5FlYOkH2JWm_EEYmyK15HG48wyUE_KpEHJG3rmQ`（13:45:46 CST，无附件）。**结论：所谓「工具未注册」是 auth 过期后的症状，授权恢复即工具恢复，无需重启会话/重装插件**；10/10 依据 `.credentials.v3.json`「凭证完好」排除授权的判断被推翻。本期最终 `email_sent: true`、status success。SOP：看 auth-required → 请用户授权 → 调一次 reconnect → GetMe 验 scope → SendMessage（42801 则带 confirmation_token 或直接 skip_confirmation） | open |
+
+## 2026-10-29（周四）观察更新
+
+| ID | 本期结论 |
+|---|---|
+| BUG-003 | 延迟约 20 分钟（09:20:04 起始实测、09:24:53 收尾），序列 47 日 …/约 51/275/约 20，为本月第二低位；10/19-10/29 连续十一日、九个交易日无缺跑无提前。注意前一日 275 分钟，摆动无收敛迹象 |
+| BUG-006 | **正常（第 14 次观察）**：ToolSearch 精确名一次命中、`SendMessage` 标准写法直发返回 `queued: true`、无需 confirmation_token 往返；形态序列 正常×3（10/25-10/27）→ 复发（10/28）→ 正常（10/29）。连续正常计数重新从 1 起算，距「连续 ≥5 日」门槛仍有 4 日 |
+| BUG-012 | 两线最近产出均为 10/28（noon 14:05 延迟 5 分钟、pm 22:00 准点 no_action），连续零产出交易日数 0，未达复合判据；`grep -c 2026-10-28-inspection` ＝ 2 |
+| BUG-013 | 第 31 次连续命中，判误判跳过建档；附带误报为两个新脚本的正常迭代（自检验证 float 值、汇率精度改 2 位、邮件 HTML 拆行改动导致的临时 SyntaxError）；双重复核已执行 |
