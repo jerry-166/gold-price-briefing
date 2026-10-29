@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-29",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检（22:00 准时触发）：伦敦金 XAUUSD 现报约 $4,025/oz、日内振幅约 1.65%（高 4082 / 低 4015）超 1.5% 阈值 → 触发波动型预警，已发邮件；今晚 20:30 美国 Q3 GDP +3.4% 超预期、9 月 PCE 同比 +3.6%、初请 19.4 万强劲，强化 12 月加息预期、直接放大金价波动。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 9200,
+      "result": "当前金价 XAUUSD $4024.71/oz（showgoldprice 22:03 实时），日内 -1.05%（昨收 4067.34、最高 4082、最低 4015），振幅约 1.65%",
+      "source": "金投网/showgoldprice 实时现货 + livegoldsignal/TradingView 交叉验证"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 7300,
+      "result": "美联储按兵不动（10:2，两票主张加息）后，今晚 20:30 三大数据落地——Q3 GDP +3.4%（超预期）、9 月 PCE 同比 +3.6%／核心 +3.1%（符合预期但远高于 2% 目标）、初请 19.4 万（强劲），强化 12 月加息预期（约 80%-86%）；中东胡塞袭沙特炼厂／霍尔木兹风险、油价 WTI~102／布伦特~110-115 为早报已覆盖延续因素；无美联储今晚紧急声明或全新地缘突发",
+      "source": "WebSearch / 美国经济分析局(BEA) / finwire 财经"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 800,
+      "result": "振幅 1.65% 越 1.5% 阈值 ＋ 20:30 三大偏鹰数据放大波动 → 触发波动型预警，已发邮件"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 17300,
+    "alert_triggered": true
+  }
+}
