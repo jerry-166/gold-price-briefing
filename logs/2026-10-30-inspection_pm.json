@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-30",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检（22:00 准时触发）：伦敦金 XAUUSD 现货 $3916.02/oz、日内振幅约 2.75%（高 4026.24 / 低 3915.49）超 1.5% 阈值，且日内跌 -2.62%、叠加美联储前副主席称 12 月或加息 50 基点、油价破 114 美元、白银跌超 4% 等风险共振，触发波动＋事件型预警，已发邮件。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 742, "result": "当前金价 XAUUSD $3916.02/oz，较昨收 $4021.23 跌 2.62%；日内振幅约 2.75%（高 4026.24 / 低 3915.49）", "source": "Sina 实时行情 hq.sinajs.cn/list=hf_XAU（22:01 CST）" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 3218, "result": "重大事件：美联储前副主席罗杰·弗格森预计 12 月加息 50 基点；今夜全球风险资产杀跌，现货黄金跌超 2%、白银跌破 50 美元（日内跌超 4%）、布油站上 114 美元、币安遭黑客攻击冻结超 30 亿美元资产；特朗普称伊朗战事将很快结束。多源确认金价日内重挫。", "source": "WebSearch（腾讯新闻 / 汇通网 / 中国新闻网，2026-10-30）" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 28, "result": "振幅 2.75% + 日内 -2.62% 越 1.5% 阈值，叠加重大宏观/地缘事件 → 触发预警" }
+  ],
+  "summary_stats": {
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 3988, "alert_triggered": true
+  }
+}
