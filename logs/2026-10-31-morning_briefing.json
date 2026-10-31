@@ -40,7 +40,7 @@
       "name": "发送邮件",
       "status": "failed",
       "duration_ms": 60000,
-      "result": "未发送：ToolSearch 三组关键词（qq mail send email／qq／qqmail send_message）均只命中 agent-mail，mcp__qq-mail__* 未进会话工具索引；agent-mail GetMe 返回 not_bound。BUG-006 第十六次复发，双通道同时失效。",
+      "result": "未发送：ToolSearch 三组关键词（qq mail send email／qq／qqmail send_message）均只命中 agent-mail，mcp__qq-mail__* 未进会话工具索引；agent-mail GetMe 返回 not_bound；按 10/28 SOP 调一次 reconnect_plugin 返回「User refused / cancelled or timed out」——无人值守会话无法自行恢复授权。BUG-006 第十六次复发，双通道同时失效。",
       "outputs": [
         {
           "label": "邮件内容",
@@ -61,21 +61,21 @@
     "date_stamp": "2026-10-31",
     "per_file_grep_c": {
       ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md": 3,
-      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": 2,
+      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": 3,
       ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md": 2,
       ".buglog/bugs/2026-09-26-buglog-hook-misfire.md": 3,
       ".buglog/index.md": 3
     },
     "bytes": {
       ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md": 64029,
-      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": 42509,
+      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": 43300,
       ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md": 51184,
       ".buglog/bugs/2026-09-26-buglog-hook-misfire.md": 51510,
       ".buglog/index.md": 32866
     },
     "sha1": {
       ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md": "cec9cc670469129bbcf4ee6da3e23a058ec9de02",
-      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": "db9001a4c1042fb30ab58f0173861091d73ae4ac",
+      ".buglog/bugs/2026-09-14-inspection-email-connector-down.md": "4ede24daf3a7c1e42c4e1b4ff46cb0b57d88d4bf",
       ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md": "99be254a7c5bda2ca003acdbf82bb44d93664b92",
       ".buglog/bugs/2026-09-26-buglog-hook-misfire.md": "1420a5400b9b4261231d7ecff3a1e052f66f707b",
       ".buglog/index.md": "7afcff30c29e19a71ed65e5aa3daf1c6eb809b43"
