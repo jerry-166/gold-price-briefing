@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-10-31",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "周六休市版：伦敦金 3876.69（-3.59%）跌破 3900 创一年新低、AU9999 夜盘 833.0（-2.55%）、积存金估 836.8；数据与推送成功，邮件双通道同时不可用（email_sent:false）。触发延迟约 747 分钟，为观察期最大。"
+    },
+    {
       "date": "2026-10-30",
       "type": "inspection_pm",
       "status": "partial",

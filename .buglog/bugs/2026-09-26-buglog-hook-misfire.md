@@ -172,3 +172,7 @@ related_bugs: []
 - **2026-10-29 第三十一次连续命中（9/26-10/29）**：hook 再次把自动化任务提示词全文（以「你是金价早报自动化助手」开头、含第一步至第七步流程编号）透传为「用户报告的 bug」，判为 BUG-013 误判，未按字面建档，改为人工盘点本期真实异常（仅 BUG-003 延迟 20 分钟属常态摆动、BUG-006 恢复正常）后逐条留痕。附带误报本期形态：①`scripts/build_20261029.py` 被编辑 2 次 → 弱提示「正在修 bug」，实为 `prices[2].value` 由 float 改字符串（自检脚本 `check_briefing.py` 对 float 调 `.split()` 抛 TypeError）与汇率精度 4 位改 2 位（自检规则要求），属正常修改非缺陷修复；②`scripts/mail_20261029.py` 被编辑 2 次 → 弱提示，实为把新闻块拆行以便回读全文（Read 单行截断）时误插裸换行导致 `SyntaxError: unterminated string literal`，随即修正，属工具链适配非产品缺陷。双重复核已执行：逐文件 `grep -c "2026-10-29"` 计数与字节数／SHA-1 写入 `logs/2026-10-29-morning_briefing.json` 的 `buglog_verification`。
 
 - **2026-10-30 第 32 次连续命中**（9/26-10/30）：hook 再次透传自动化任务提示词全文 → 判误判、未按字面建档。本期附带误报为 `scripts/build_20261030.py` 的「2 次编辑」弱提示 —— 实为`_meta.updated` 由初稿硬编码的 09:52 改为 `date` 实测的 09:47（当时实际 09:47，初稿写到了未来时间），属正常自检返工，非 bug 修复。本期工具调用零失败、零报错、零用户纠正。双重复核已执行：逐文件 `grep -c "2026-10-30"` 计数与四文件字节数/SHA-1 已写入 `logs/2026-10-30-morning_briefing.json` 的 `buglog_verification`，index 与 bugs/ 已同步。
+
+- **2026-10-31 第三十三次连续命中**：hook 再次把自动化任务提示词全文透传为「用户报告的 bug」，判误判、未按字面建档。
+- 附带误报本期形态：`scripts/build_20261031.py` 的多次编辑被弱提示为「在修 bug」——实为 `trend.advice` 226 → 220 → 196 字的三次压缩（自检拦下「too long」）与 3730 折算值 806 → 805 的修正，均属正常自检返工。
+- 双重复核已执行：逐文件 `grep -c "2026-10-31"` 计数、四文件字节数与 SHA-1 全部写入 `logs/2026-10-31-morning_briefing.json` 的 `buglog_verification`；index.md 本期结论与 bugs/ 实际内容已同步。
