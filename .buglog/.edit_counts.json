@@ -251,7 +251,12 @@
     "D:/workspace/每日金价资讯/scripts/build_20261031.py": 1,
     "D:/workspace/每日金价资讯/scripts/mail_20261031.py": 1,
     "D:/workspace/每日金价资讯/scripts/buglog_20261031.py": 1,
-    "D:/workspace/每日金价资讯/scripts/log_20261031.py": 1
+    "D:/workspace/每日金价资讯/scripts/log_20261031.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261101.py": 3,
+    "D:\\workspace\\每日金价资讯\\scripts\\manifest_20261101.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\mail_20261101.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261101.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\log_20261101.py": 1
   },
   "triggered_files": {
     "__cross_file__": true,
@@ -325,6 +330,7 @@
     "D:\\workspace\\每日金价资讯\\scripts\\check_briefing.py": true,
     "D:\\workspace\\每日金价资讯\\scripts\\build_20261029.py": true,
     "D:\\workspace\\每日金价资讯\\scripts\\mail_20261029.py": true,
-    "D:\\workspace\\每日金价资讯\\scripts\\build_20261030.py": true
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261030.py": true,
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261101.py": true
   }
 }

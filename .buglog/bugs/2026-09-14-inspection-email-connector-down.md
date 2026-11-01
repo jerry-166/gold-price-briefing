@@ -168,3 +168,7 @@ reported_at: 2026-09-14T22:05:00
 - **新增判据冲突证据**：`connector-status` 报告 agent-mail 为 `connected`，而 `GetMe` 同一会话内返回 `not_bound`；结合 10/28 记录的「status 字段缓存滞后」，再次确认宿主侧状态字段不能作为可用性凭据，必须以一次真实调用（`GetMe` / `SendMessage`）为准。
 
 - **2026-10-31 补充：无人值守会话无法自行恢复授权（自动恢复路径的第一份否定证据）**：本期 `list_installed_plugins` 报 `status=connected / bound=true / enabled=true`，与「`mcp__qq-mail__*` 未进工具索引」并存；按 10/28 记录的 SOP 调用了一次 `reconnect_plugin("qq-mail@workbuddy-connector-plugins-official")`，返回「User refused, no changes applied. Reconnection cancelled or timed out.」。结论：**reconnect 需要真人在场确认，定时任务里 agent 无法靠它自愈**。SOP 修订——无人值守场景遇到 auth／索引问题，一次探测后即止，如实记 `email_sent:false` ＋ status `partial`、HTML 落 outbox 待人工补发，不重复尝试 reconnect；人工在场时再按 10/28 流程恢复。
+
+- **2026-11-01 恢复正常（第 17 次观察，连续正常 1 日）**：`connector-status` 报 qq-mail `connected`；实测三步全通——`GetMe` 返回 alias `2132049351@qq.com`（scopes: alias:read / mail:read / mail:send，日发送配额 2000）、`SendMessage` 返回 `{"queued":true}`、`ListMessages(dir=sent)` 在 02:11:29Z（＝北京时间 10:11:29）确认新邮件已在「已发送」目录。`email_sent: true`。
+- **新增可用性诱因证据（重要）**：本期与昨日的关键差异不在「服务是否在线」，而在**工具检索方式**——10/31 用三组关键词（`qq mail send email` / `qq` / `qqmail send_message`）检索 ToolSearch，全部只命中 agent-mail；本期改用 `tool_names` 精确名检索（`mcp__qq-mail__SendMessage`、`mcp__qq-mail__GetMe`），一次命中并可直接调用。据此提出新假设：BUG-006 的一部分「工具未注册」现象，实为**关键词检索拿不到 deferred tools 索引**导致的假阴性，而非服务端真的未注册。建议后续每次先用精确名检索一次，仍失败再判定为服务端故障。
+- 待验证：若精确名检索也失败，才可归入服务端/鉴权类。该假设需在后续 3 至 5 期内复现验证，暂不结案。

@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-01",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "周日休市版：伦敦金 3876.69（-3.59%）、AU9999 夜盘 833.0（-2.55%）、积存金估 836.8、中间价 6.7138 全部沿用周五；补入 11/4 打击传闻、Sinokor 禁令、运费与战争险暴涨与下周数据周；推送与邮件均成功（email_sent:true），触发延迟约 67 分钟。"
+    },
+    {
       "date": "2026-10-31",
       "type": "morning_briefing",
       "status": "partial",

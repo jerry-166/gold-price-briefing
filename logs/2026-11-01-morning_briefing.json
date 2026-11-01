@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-01",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "周日休市版：价格与涨跌幅沿用 10-30 周五收盘（伦敦金 3876.69/-3.59%、AU9999 夜盘 833.0/-2.55%、积存金估 836.8、中间价 6.7138），补入周末三大增量（11/4 打击传闻、Sinokor 禁令、运费与战争险暴涨）与下周数据周日程；Git 推送与邮件发送全部成功。",
+  "timestamp": "10:11 CST（原定 09:00，实测触发 10:07，延迟约 67 分钟）",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 110000,
+      "result": "新浪 hf_XAU 返回 10-30 收盘 3876.69（昨收 4021.23、高 4026.24、低 3870.05，时间戳 2026-10-31 04:55）；gds_AU9999 夜盘收 833.00（昨结 854.76，归属 11-02）；gds_AUTD 831.10。周日三地休市，取数与昨日完全一致。中间价沿用 10-30 的 6.7138（外汇交易中心周日不发布）。WebSearch 六组检索补齐周末增量：财联社 11/4 打击传闻、华尔街见闻 Sinokor 禁令、参考消息运费与战争险、财联社下周财经日历、统计局 10 月 PMI 49.3、金价查询网 11/1 金饰报价。",
+      "source": "neodata-financial-search + WebSearch"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 26000,
+      "result": "已写入 daily/2026-11-01.json；check_briefing.py 一次通过（0 error、advice 195 字、11 组价位复算全中）；图表丢 10-02 补 11-01，10-30/10-31/11-01 三点同值 3876.7。"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 9000,
+      "result": "已追加记录到 manifest.json，总数 71 → 72，头部顺序 11-01 / 10-31 / 10-30 校验通过。"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 22000,
+      "result": "commit 7ec1f98「每日早报 2026-11-01」；git push 成功（8c2b810..7ec1f98），git ls-remote 与 rev-parse 一致。"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 46000,
+      "result": "已发送至 2132049351@qq.com，SendMessage 返回 queued=true，ListMessages(dir=sent) 于 10:11:29 CST 确认入「已发送」目录（message_id msg_GEf_jmzo_CyBqVml7Nscx6l0sBd2YuGss6GsRGvYYBHLgw）。",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 | 2026年11月01日 周日\n（周日休市 · 价格沿用 10-30 周五收盘）\n\n【金价快照】\n招行积存金(估) 836.8 元/克  -3.59%\n上海金 AU9999  833.0 元/克  -2.55%\n伦敦金 XAUUSD  3876.7 美元/盎司  -3.59%\n美元汇率(中间价) 6.71  0.00%\n注：与昨天完全同值，因周日三地休市、非算错；涨跌幅沿用周五口径不归零。\n\n【一句话看懂】周末价格没动、消息在动：美方被曝已通报海湾盟友为最快 11 月 4 日的打击做准备；伊朗 11 月 1 日起对占海峡 VLCC 过半运力的 Sinokor 全船队下禁令；VLCC 中东到中国日租金 135 万美元。三件事都没进价格，周一开盘一次性补，大概率跳空。\n\n【周末大事】①美方被曝 11 月 4 日再打伊朗、白宫不置可否、鲁比奥称尚未决定；②伊朗封杀 Sinokor（93 艘 VLCC、占海峡通行量过半）；③运费与战争险：每桶运费约 30 美元、占油价 20%-40%，战争险 6%-10%；④洛根称至少还加两次、12 月加息定价 76%-85%；⑤下周数据周：11/2 ISM、11/3 中期选举+AMD、11/4 ADP、11/5 英央行、11/6 非农（预期 5.5 万）；⑥中国 10 月制造业 PMI 49.3 重回收缩。\n\n【趋势】短 -1 / 中 -1 / 长 +1，动作 watch。\n\n【买卖时机】买入分批：3800-3830 美元（约 820-827 元/克）上三成、3730-3760（805-812）、3650-3680（788-794）打光；卖出：3960-3990（855-861）减半、4010-4040（866-872）止盈；止损破 3800（820）减仓、破 3730（805）离场。\n\n【今日学一招】同一天的布伦特为什么一个 117.64、一个 113.43——原油要按合约月份看，12 月合约 10-30 到期、1 月合约 113.43 才是周一能交易的价格。\n\n网站：https://jerry-166.github.io/gold-price-briefing/"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 213000,
+    "email_sent": true,
+    "git_pushed": true
+  },
+  "buglog_verification": {
+    "date_appended": "2026-11-01",
+    "files": [
+      {
+        "path": ".buglog/bugs/2026-09-08-briefing-scheduler-missed-days.md",
+        "bug": "BUG-003",
+        "grep_count": 1,
+        "bytes": 65380,
+        "sha1": "f6ebdd51175208275c1539cfd89824ac822df2f8"
+      },
+      {
+        "path": ".buglog/bugs/2026-09-14-inspection-email-connector-down.md",
+        "bug": "BUG-006",
+        "grep_count": 1,
+        "bytes": 44561,
+        "sha1": "cec664859c8f38d919935359540e73d9f4385e14"
+      },
+      {
+        "path": ".buglog/bugs/2026-09-25-inspection-scheduler-silent-miss.md",
+        "bug": "BUG-012",
+        "grep_count": 2,
+        "bytes": 51988,
+        "sha1": "9749eeb99ad0b9172c7566131d9ecd51621830a7"
+      },
+      {
+        "path": ".buglog/bugs/2026-09-26-buglog-hook-misfire.md",
+        "bug": "BUG-013",
+        "grep_count": 3,
+        "bytes": 52425,
+        "sha1": "dbe1635dfe07e28c0564a299b684308ec2af01ba"
+      },
+      {
+        "path": ".buglog/index.md",
+        "bug": "索引同步",
+        "grep_count": 2,
+        "bytes": 34397,
+        "sha1": "76bcb1f872c78f8503e59c9dd23709308517d42e"
+      }
+    ],
+    "note": "逐文件 grep -c 计数与字节数/SHA-1 由 scripts/buglog_20261101.py 在追加后即时计算，index.md 与 bugs/ 内容已同步。"
+  }
+}
