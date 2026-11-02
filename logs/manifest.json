@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-02",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "周一复市版：伦敦金 3909.85（+0.86%，亚市超跌反抽但均线全在头上）、AU9999 837.89（-1.97%）、中间价 6.7146 调低 8 点、积存金估 844.1；伊朗两天计划→油价跳水→加息预期松为今日主线；推送与邮件均成功（email_sent:true），触发延迟约 59 分钟。"
+    },
+    {
       "date": "2026-11-01",
       "type": "morning_briefing",
       "status": "success",
