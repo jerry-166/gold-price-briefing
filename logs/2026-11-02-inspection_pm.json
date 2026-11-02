@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-02",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检（22:00 准时触发）：伦敦金 XAUUSD 现货 $3937.05/oz、较昨收 $3876.69 涨 +1.56%、日内振幅约 1.77%（高 3950.32 / 低 3881.88）超 1.5% 阈值，触发波动型预警；新闻面无美联储今晚紧急声明或全新地缘突发，反弹属上周五跌破3900后的超跌修复延续，预警邮件已发送。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 812,
+      "result": "当前金价 XAUUSD $3937.05/oz，较昨收 $3876.69 涨 +1.56%；日内振幅约 1.77%（高 3950.32 / 低 3881.88）",
+      "source": "Sina 实时行情 hq.sinajs.cn/list=hf_XAU（22:00 CST）"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 3367,
+      "result": "无美联储今晚紧急声明或全新地缘突发；主导因素（美联储12月加息预期75%–85%、鹰派官员洛根称需至少两次25bp加息、伊朗缓和谈判致油价回落、科技股去杠杆抛售）均为早报已覆盖延续因素，今日反弹属上周五跌破3900后的超跌技术修复。",
+      "source": "WebSearch（汇通网 / 印度时报 / 中新经纬 / 财联社，2026-11-02）"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 26,
+      "result": "振幅 1.77% 越 1.5% 阈值 → 触发波动型预警（新闻面无全新重大事件，纯波动触发）"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 4205,
+    "alert_triggered": true
+  },
+  "email_sent": true,
+  "email_to": "2132049351@qq.com"
+}
