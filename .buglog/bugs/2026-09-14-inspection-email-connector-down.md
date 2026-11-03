@@ -174,3 +174,5 @@ reported_at: 2026-09-14T22:05:00
 - 待验证：若精确名检索也失败，才可归入服务端/鉴权类。该假设需在后续 3 至 5 期内复现验证，暂不结案。
 
 - **2026-11-02（周一）恢复正常（第 18 次观察，连续正常 2 日）**：`GetMe` 返回 alias `2132049351@qq.com`、scopes 含 `mail:send`、日配额 2000；`SendMessage` 以 `body_format: HTML` ＋ `skip_confirmation: true` 直发，返回 `queued: true`，`email_sent: true`。正文 12 056 字符 / 17 358 字节、最长行 501 字符，一次投递无 42801 往返。**检索方式假设第二次验证成功**：本期继续只用 ToolSearch 的 `tool_names` 精确名（`mcp__qq-mail__SendMessage`、`mcp__qq-mail__GetMe`）检索，两个工具均一次命中、未出现「回落 agent-mail 命名空间」现象 → 「关键词检索拿不到 deferred tools 索引」的解释得到第 2 次正面支持（11/01、11/02 连续两期）。按判据仍需连续 ≥5 日正常才进入「疑似修复」观察，当前连续计数 2。
+
+- **2026-11-03（周二）正常（第 19 次观察，连续正常 3 日）**：`GetMe` 返回 alias （alias_A9yF9wF5eP0o6Tc1uUpRq71T8H09）与 scopes（alias:read / mail:read / mail:send）、日配额 2000；`SendMessage` 标准写法（`to` 传对象数组 ＋ `body_format:HTML` ＋ `skip_confirmation:true`）一次返回 `queued: true`；`ListMessages(dir=sent, limit=3)` 于 10:26:17 CST 确认入「已发送」（message_id 以 msg_oOcBSW1 开头）。`email_sent: true`。**「精确名检索」假设第 3 次正面验证**（11/01、11/02、11/03 连续三期 `ToolSearch(tool_names=[…])` 均一次命中，未回落 agent-mail 命名空间），距「连续 ≥5 日」门槛还差 2 日。仍不构成修复证据——历史上 10/16-10/18 曾连续三日正常、第 4 日即复发，「最长正常窗口 3 日」已被本期追平。

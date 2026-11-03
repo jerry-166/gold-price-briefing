@@ -182,3 +182,5 @@ related_bugs: []
 - 双重复核已执行：逐文件 `grep -c "2026-11-01"` 计数、四文件字节数与 SHA-1 全部写入 `logs/2026-11-01-morning_briefing.json` 的 `buglog_verification`；index.md 本期结论与 bugs/ 实际内容已同步。
 
 - **2026-11-02（周一）第 35 次连续命中（9/26-11/02）**：hook 再次透传自动化任务提示词全文并声明「用户报告了一个 bug」，判误判、未按字面建档。附带误报本期两次：①`scripts/build_20261102.py` 的「2 次编辑」——实为 `trend.advice` 由 205 字压缩到 188 字（自检拦下 `advice too long: 205`，正常返工）；②`scripts/mail_20261102.py` 经 heredoc 两次改写 `width:100%%` → `width:100%`，该次确有真缺陷，已另立 **BUG-017** 单独立档，不混入本条。双重复核已执行（逐文件 `grep -c` ＋ 字节数/SHA-1 写入 logs 的 `buglog_verification`）。
+
+- **2026-11-03 第 36 次连续命中（9/26-11/03）**：hook 再次透传自动化提示词全文 → 判误判、未按字面建档。附带误报本期形态：①对 `scripts/build_20261103.py` 的 2 次编辑弱提示为「正在修 bug」——实为生成前的两处自纠（`round(3944.05,1)` 会得 3944.0，改为字面量 3944.1；`市场still在给加息定价` 的英文词残留改为「仍在」），且发生在脚本首次运行**之前**，不属 bug 修复；②`mail_20261103.py` 的 TypeError **确为真缺陷，已另立 BUG-018**。双重复核已执行（逐文件 `grep -c` 计数 ＋ 五个 bug 文件字节数/SHA-1 写入 logs 的 `buglog_verification`）。
