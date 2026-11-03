@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-03",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检（22:00）：伦敦金 XAUUSD $3959.64/oz、日内振幅约 1.91% 超 1.5% 阈值，叠加美伊局势突变（美袭伊朗格什姆岛）＋中期选举投票，触发波动型预警，已发邮件。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 1500,
+      "result": "当前金价 XAUUSD $3959.64/oz，昨收 $3946.47，日内 +0.33%；最高 $3970.90 / 最低 $3895.36，日内振幅约 1.91%",
+      "source": "新浪财经实时行情 hf_XAU（GBK 解码）"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 9000,
+      "result": "美伊局势突变（美国袭击伊朗格什姆岛）→ 油价单日反转上涨（WTI +2.09% 至 98.48、布油 +2.15% 至 106.43），通胀与加息预期重燃、金价承压；11/3 美国中期选举投票日；世界黄金协会 Q3 全球央行净购金 321 吨（同比 +42%）、ETF 持仓 4256 吨创新高。属重大事件共振。",
+      "source": "WebSearch（汇通网 / 腾讯新闻 / 金价查询网 / 中证网 公开报道）"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 300,
+      "result": "振幅 1.91% 越 1.5% 阈值 ＋ 美伊局势突变重大事件 → 触发波动型预警"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 10800,
+    "alert_triggered": true,
+    "email_sent": true
+  }
+}
