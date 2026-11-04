@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-04",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检（22:00）：伦敦金 XAUUSD $4046.43/oz、日内振幅约 3.35% 超 1.5% 阈值，叠加午后重回 4000 大关＋中期选举催化，触发波动型预警，已发邮件。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 1800,
+      "result": "当前金价 XAUUSD $4046.43/oz，昨收 $3930.09，日内 +2.96%（+$116.34）；最高 $4051.33 / 最低 $3919.85，日内振幅约 3.35%",
+      "source": "新浪财经实时行情 hf_XAU（GBK 解码）"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 9000,
+      "result": "午后现货黄金直线拉涨、重回 4000 美元大关、涨超 1.8%（中新经纬 11/4）；美国中期选举投票日（本周关键催化），特朗普称伊朗战事对共和党选情「有一定影响」；CME FedWatch 12 月加息 25bp 概率 78.9%；世界黄金协会 11/3 报告 Q3 全球央行净购金 321 吨（同比 +42%）。属波动主导、事件共振。",
+      "source": "WebSearch（中新经纬 / 汇通网 / 环球网 / 央广财经 公开报道）"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 300,
+      "result": "振幅 3.35% 越 1.5% 阈值 ＋ 午后重回 4000＋中期选举催化 → 触发波动型预警"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 11100,
+    "alert_triggered": true,
+    "email_sent": true
+  }
+}
