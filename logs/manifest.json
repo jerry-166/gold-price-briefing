@@ -2,6 +2,12 @@
   "logs": [
     {
       "date": "2026-11-04",
+      "type": "inspection_noon",
+      "status": "partial",
+      "summary": "午后巡检：伦敦金 XAUUSD $4022.76/oz，较早报基准涨约+1.8%超1.5%阈值，叠加中期选举突发冲击触发预警；邮件双通道不可用未发出（BUG-006复发）。"
+    },
+    {
+      "date": "2026-11-04",
       "type": "morning_briefing",
       "status": "success",
       "summary": "早报 5/5 成功：3951.4(+0.54%)、Au9999 848.5、中间价 6.7180，邮件已发"
