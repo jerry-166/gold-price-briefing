@@ -187,3 +187,8 @@ related_bugs: []
 
 - **2026-11-04 第 37 次连续命中（9/26-11/04），判误判、未按字面建档**。hook 再次把自动化任务提示词全文透传为「用户报告的 bug」，按惯例跳过。**附带误报本期形态**：①把 `scripts/build_2026_11_04.py` 的 2 次 Edit 弱提示为「在修 bug」——实为生成前自纠（11-03 事件文案里误写的「ADB」占位与「两连阴」措辞，在生成前改掉，**按既有判定「生成前自纠一律不算 bug 修复」**）；②把 `scripts/mail_2026_11_04.py` 的 2 次 Edit 弱提示为「在修 bug」——实为修复 patch 脚本自身把 `\n` 还原成真换行导致的 f-string 语法错误。本期另有 3 次 `ValueError: unsupported format character` 真实报错，已按「同类错误第三次出现」单独立 **BUG-019**，不并入本条。
 - **双重复核本期已执行**：逐文件 `grep -c 2026-11-04` 计数与字节数/SHA-1 见 `logs/2026-11-04-morning_briefing.json` 的 `buglog_verification`；index.md 头部计数与 ID 表已同步至 Open 13 / Fixed 9 / Total 20。
+
+
+- **2026-11-05（周四）第 38 次连续命中，判误判跳过建档**：hook 在用户消息前再次把自动化任务提示词（「你是金价早报自动化助手…」）整段判为「用户报告了一个 bug」，与 BUG-013 的既有描述完全一致，连续第 38 次。
+- 本期附带弱提示两次，逐条判定：①新建 `scripts/build_20261105.py` 后提示「进行了 2 次编辑…通常表示你在修复 bug」——实为该脚本的创建与后续两次 `Edit`（advice 字数收敛 215→210→198），属正常写稿返工，**按 11/03 确立的「生成前自纠一律不算 bug 修复」判定，不计入 buglog**；②本次 JSON 生成脚本无任何异常抛出、`check_briefing.py` 一次 0 error 通过，故本期无新增 bug。
+- 双重复核已执行：`grep -c` 计数 ＋ 文件字节数/SHA-1 比对，凭据落在 `logs/2026-11-05-morning_briefing.json` 的 `buglog_verification` 字段。
