@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-05",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检（22:00）：伦敦金 XAUUSD $4124.75/oz、日内振幅约 2.19%（高 4146.77 / 低 4057.76）超 1.5% 阈值，叠加中期选举后超跌反弹延续，触发波动型预警，已发邮件。",
+  "timestamp": "22:00 CST",
+  "email_sent": true,
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 820,
+      "result": "当前金价 XAUUSD $4124.75/oz（新浪实时 22:01 CST），较昨收 $4060.01 涨 +1.59%，日内振幅约 2.19%（高 4146.77 / 低 4057.76）",
+      "source": "新浪财经 hf_XAU 实时接口"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 2600,
+      "result": "无美联储今晚紧急声明或全新地缘突发；金价延续 11/4 中期选举落地后的超跌反弹（民主党大胜→财政扩张受限重定价→美元回落、10Y 美债收益率跌至 4.86%、油价因中东缓和预期急跌至布油 ~94、12 月加息 25bp 概率降至 77.5%–81.5%），属事件延续非全新催化",
+      "source": "WebSearch（澎湃新闻/中新经纬/财经杂志/同花顺 2026-11-05）"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 300,
+      "result": "振幅 2.19% 超 1.5% 阈值 → 触发波动型预警（无全新重大事件，纯波动驱动）"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 3720,
+    "alert_triggered": true
+  }
+}
