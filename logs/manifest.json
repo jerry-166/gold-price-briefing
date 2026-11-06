@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-06",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "早报 5/5 成功：伦敦金 4076.76（-0.29%）、AU9999 875.0（-1.03%）、中间价 6.7168、积存金 880.4；已推送并发出邮件。"
+    },
+    {
       "date": "2026-11-05",
       "type": "inspection_pm",
       "status": "partial",

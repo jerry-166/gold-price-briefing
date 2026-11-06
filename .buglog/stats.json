@@ -1,12 +1,12 @@
 {
   "open_count": 11,
-  "fixed_count": 9,
-  "total_count": 20,
+  "fixed_count": 10,
+  "total_count": 21,
   "recent_fixed": [
+    "BUG-021",
     "BUG-020",
     "BUG-019",
     "BUG-018",
-    "BUG-017",
-    "BUG-016"
+    "BUG-017"
   ]
 }

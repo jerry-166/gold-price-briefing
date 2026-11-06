@@ -185,3 +185,14 @@ reported_at: 2026-09-14T22:05:00
 - **判据达成**：「精确名检索」假设（11/01 提出）第 5 次正面验证 —— 11/01、11/02、11/03、11/04、11/05 连续五期 `ToolSearch(tool_names=[…])` 均一次命中、未回落 agent-mail 命名空间。结合 10/28 的定性修正（真因是 OAuth 过期导致 MCP 工具整体不进 deferred tools 索引，「工具未注册」只是症状）与 11/01 的检索方式假设，本期给出**两条并行结论**：(a) 连续正常 5 日 → 按 10/28 升级后的判据，正式进入「疑似修复」观察期，不再计为「间歇复发窗口内的一次正常」；(b) 「精确名检索」可稳定规避关键词检索的假阴性 → **后续所有 qq-mail 调用一律走 `tool_names` 精确名，禁止用关键词检索后即判故障**。
 - **为何仍不结案**：本 bug 历史上出现过 10/16-10/18 三日正常后第 4 日复发、10/25-10/27 三日正常后 10/28 即复发的两次「窗口假象」。5 日门槛是 10/28 人为上调的判据，本期首次达标只能说明「疑似修复」，需再观察 2 周（至 11/19 前后）确认不再出现 auth-required／工具缺失形态，方可改 status 为 fixed。
 - 附带记录：本期 `connector-status` 报 qq-mail `connected`、agent-mail `connected`，两通道均未见 auth-required 标记；`list_installed_plugins` 的缓存滞后问题本期未复现（未单独调用验证）。
+
+## 2026-11-06（周五）
+
+- **正常（第 22 次观察，连续正常第 6 日）**：`connector-status` 报 qq-mail `connected`；
+  按 `tool_names` 精确名检索 `mcp__qq-mail__SendMessage/ListMessages/GetMe` 一次命中，
+  `SendMessage`（`to` 传对象数组 + `body_format: HTML` + `skip_confirmation: true`）返回 `queued: true`，
+  `ListMessages(dir=sent)` 于 **09:28:37 CST** 确认落箱（`msg_iQgtnH9lbCXj8KJeoI2wlsvWz_OQZveUL686evDgRrQbVA`）。
+- 已**连续 6 日**正常，超过「疑似修复」所需的 5 日门槛 1 日；「精确名检索」假设第 6 次正面验证。
+  仍是**疑似修复**而非 fixed：历史最长窗口为 10/16-10/18 的三日，5-6 日虽有质变但未过 2 周观察窗，
+  按既定判据需观察到 **11/19 前后**无复发方可改 status。
+- 附带记录：本期未出现 auth-required／工具缺失／-32602 三种历史形态中的任何一种。
