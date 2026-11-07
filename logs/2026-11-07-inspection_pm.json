@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-07",
+  "type": "inspection_pm",
+  "status": "partial",
+  "summary": "晚间巡检（周六/11:17 提前触发）：伦敦金 XAUUSD $4070.75/oz（周五收盘，周六休市沿用）；日内振幅约 1.92%（高 4106.79 / 低 4028.27）超 1.5% 阈值，叠加 10 月非农 16.5 万大超预期（12 月加息概率跳至 77%-80%）重大事件，触发波动型+事件型预警，已发邮件。",
+  "timestamp": "11:17 CST",
+  "note": "原定 22:00 触发，本次于 11:17 提前约 10.7 小时触发（BUG-012 早触发复发）。周六休市，价格与涨跌幅沿用 2026-11-06 纽约收盘口径，不归零、不造波动。波动判定取最近交易日（周五 11/06）真实日内极值。",
+  "price_check": {
+    "instrument": "XAUUSD (伦敦金现货)",
+    "price_usd": "4070.75",
+    "prev_close_usd": "4088.80",
+    "day_change_pct": "-0.44",
+    "intraday_high": "4106.79",
+    "intraday_low": "4028.27",
+    "intraday_amplitude_pct": "1.92",
+    "threshold_pct": "1.5",
+    "market_status": "closed_weekend_saturday"
+  },
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 3200,
+      "result": "当前金价 XAUUSD $4070.75/oz（周五纽约收盘，周六休市沿用）；日内振幅约 1.92%（高 4106.79 / 低 4028.27），较昨收 $4088.80 跌 0.44%",
+      "source": "新浪财经 hf_XAU 实时接口（GBK 解码）＋ daily/2026-11-07.json 交叉校验"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 4800,
+      "result": "周五(11/06)美国10月非农新增16.5万（预期仅6.5万），失业率降至4.1%，12月加息概率由67%跳升至77%-80%；高盛下调2026年底目标价至4150美元。周六无全新地缘突发，属非农数据重大事件延续。",
+      "source": "WebSearch（金投网/陆家嘴财经早餐/金价查询网/高盛报告）"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 400,
+      "result": "波动 1.92% 超 1.5% 阈值 + 非农重大数据事件 → 触发波动型+事件型预警"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 8400,
+    "alert_triggered": true
+  },
+  "email": {
+    "sent": true,
+    "to": "2132049351@qq.com",
+    "subject": "⚠️ 金价预警 | 晚间播报",
+    "channel": "qq-mail"
+  }
+}
