@@ -205,3 +205,11 @@ related_bugs: []
   未造成产物损坏。双重复核已执行：逐文件 `grep -c "2026-11-06"` 计数 ＋ 字节数/SHA-1 比对，
   凭据落在 `logs/2026-11-06-morning_briefing.json` 的 `buglog_verification` 字段；
   `index.md` 与 `bugs/` 内容一致性已同步校验。
+
+- **2026-11-07（周六）第 40 次连续命中**（9/26 起），hook 再次透传自动化任务提示词全文，并附加「请回顾本次会话中是否有多次失败、报错、用户纠正的情况」，判误判、未按字面建档。
+- 附带弱提示 4 次（均忽略，不计入）：
+  ① `scripts/build_20261107.py` 创建后 1 次 Edit —— 实为 `trend.advice` 201→197 字收敛，属生成前自纠；
+  ② 同一文件「2 次编辑即视为在修 bug」的弱提示，与①重叠；
+  ③ `scripts/mail_20261107.py` 由 Write 一次落盘、零修补（改用 f-string 与字符串拼接，未用 `%` 格式化），百分号家族 bug 未复发；
+  ④ 本期工具调用零失败、零报错、零用户纠正。
+- **本期零新增 bug、零修复**；`check_briefing.py` 一次通过（首轮 advice 201 字超限后收敛，属生成前自纠）。双重复核已执行：逐文件 `grep -c "2026-11-07"` 计数 ＋ 字节数/SHA-1 比对，凭据落在 `logs/2026-11-07-morning_briefing.json` 的 `buglog_verification` 字段；`index.md` 与 `bugs/` 内容一致性已同步校验。

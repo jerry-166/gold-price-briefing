@@ -196,3 +196,5 @@ reported_at: 2026-09-14T22:05:00
   仍是**疑似修复**而非 fixed：历史最长窗口为 10/16-10/18 的三日，5-6 日虽有质变但未过 2 周观察窗，
   按既定判据需观察到 **11/19 前后**无复发方可改 status。
 - 附带记录：本期未出现 auth-required／工具缺失／-32602 三种历史形态中的任何一种。
+
+- **2026-11-07（周六）正常（第 23 次观察，连续正常 7 日）**：`GetMe` 返回 scope 含 `mail:send`、日配额 2000、别名 2132049351@qq.com；`SendMessage` 用 `to` 对象数组 ＋ `body_format: HTML` ＋ `skip_confirmation: true` 一次成功返回 `queued: true`；`ListMessages(dir=sent)` 于 11:15:31 CST 确认入已发送箱（`msg_z88u2fppLffg9wDilg-lEdz4hgTiMEBELLUF1W3qVTmoMQ`），正文 10 098 字符／14 276 字节。「精确名检索（ToolSearch 传 `tool_names` 而非关键词）」第 7 次正面验证、连续 7 次无误。仍是**疑似修复**：连续 7 日已远超历史最长窗口 3 日，但按判据需观察到 11/19 前后无复发方可改 fixed。
