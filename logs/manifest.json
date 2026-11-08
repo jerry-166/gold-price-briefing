@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-08",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "周日休市版：数据/JSON/manifest/推送 4 步成功，邮件因 QQ 邮箱连接器授权失效未发出（HTML 已落盘待补发）"
+    },
+    {
       "date": "2026-11-07",
       "type": "inspection_pm",
       "status": "partial",

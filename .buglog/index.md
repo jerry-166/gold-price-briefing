@@ -180,3 +180,13 @@ Open: 11 | Fixed: 10 | Total: 21
 | BUG-006 | **正常（第 23 次观察，连续正常 7 日）**：`SendMessage` 返回 `queued: true`、`ListMessages(dir=sent)` 于 11:15:31 CST 确认（`msg_z88u2fppLffg9wDilg-lEdz4hgTiMEBELLUF1W3qVTmoMQ`）。「精确名检索」第 7 次正面验证。仍为**疑似修复**，需观察到 11/19 前后无复发方可改 fixed |
 | BUG-012 | 本期 11:10 执行、早于两条巡检时点，不判缺跑。回看 11-06：noon 有产出、pm 零产出，属**单线缺跑**、未呈镜像形态（新观察点）。连续零产出交易日数 0，未达复合判据，不升降级 |
 | BUG-013 | **第 40 次连续命中**，判误判跳过建档；附带弱提示 4 次，其中 `build_20261107.py` 的 1 次 Edit 实为 advice 201→197 字收敛（生成前自纠，不计入）。本期零新增 bug、零修复 |
+
+
+## 2026-11-08（周日）观察更新
+
+| ID | 本期结论 |
+|---|---|
+| BUG-003 | **延迟约 170 分钟**（11:50:58 触发，`date` 实测），超过 10/21 的 152 分钟，区间上界改写为「4-170 分钟极宽摆动」；序列续记至 9/13-11/08 共 57 日。因周日全天休市，延迟对读数危害 **0 档**（非交易日档危害恒为 0，11-07 结论复用）。本期无需「昨晨快照 vs 真实收盘」修正（上期已用真实收盘 4070.75），该形态中断一期 |
+| BUG-006 | **第十六次复发（第 24 次观察）：连续正常 7 日后中断**。形态回到「工具未注册／待重新授权」——`list_installed_plugins` 仍报 connected/bound/enabled，但三重证据齐备：①ToolSearch 精确名 `mcp__qq-mail__SendMessage`／`GetMe` 回落 agent-mail 命名空间；②三组关键词检索同样零命中 qq-mail；③直接调用 `mcp__qq-mail__GetMe` 返回 not found in the deferred tools index。`reconnect_plugin` 被拒/超时（无人值守无授权通道）→ **自动化任务不具备自愈通道**；`agent-mail` GetMe 返回 `not_bound` → 双通道失效、无降级路径。`email_sent: false`、status partial，HTML 落 `.workbuddy/outbox/2026-11-08-morning-briefing.html`（9 373 字节）待人工补发。连续正常计数 7 → 0，「观察至 11/19 前后无复发即可 fixed」的判据作废、需重新计时 |
+| BUG-012 | 本期 11:50 执行、早于两条巡检时点，不判缺跑。回看 11-07：`inspection_pm` 11:17 提前触发（相对 22:00 提前约 10h43m）、`inspection_noon` 当日零产出，属「单线提前＋单线缺跑」，非镜像形态。连续零产出交易日数 0，未达复合判据，不升降级 |
+| BUG-013 | **第 41 次连续命中**，判误判跳过建档；附带弱提示 2 次：`scripts/build_2026-11-08.py` 的 advice 220→181 字收敛、hero note 折算参数修正，均属生成前自纠，不计入 |
