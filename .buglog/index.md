@@ -1,6 +1,6 @@
 # Buglog 索引
 
-Open: 11 | Fixed: 10 | Total: 21
+Open: 12 | Fixed: 10 | Total: 22
 
 | ID | Title | Severity | Status |
 |---|---|---|---|
@@ -24,6 +24,7 @@ Open: 11 | Fixed: 10 | Total: 21
 | BUG-019 | 生成脚本在 % 格式化的长中文串里混入裸百分号，同一文件连续三次抛 `ValueError: unsupported format character`（2026-11-04 发现并修复，百分号家族第三代：转义正确性依赖「该行是否被格式化」的隐性前提） | minor | fixed |
 | BUG-020 | 油价叙事只取单一二手源、未复用仓库内 22:00 巡检快照交叉校验，导致「油价没涨」漏掉盘中 +2% 冲高、邮件发出后才订正（2026-11-04） | minor | fixed |
 | BUG-021 | 邮件 HTML 整体 `%` 格式化时字面量百分号未转义，脚本连抛两次 `ValueError: unsupported format character`（2026-11-06 发现并修复；百分号家族第四代，范围从「单行是否被格式化」扩大到「整篇是否被格式化」） | minor | fixed |
+| BUG-022 | hero note 的多占位符 `%` 格式化参数顺序错位，第三方折算值被填成主值（2026-11-08 生成时自纠；879.1 冒充 873.1，同一句自相矛盾；check_briefing.py 不覆盖 note 自然语言数值，靠独立复算发现） | minor | fixed |
 
 ## 2026-10-23（周五）观察更新
 
@@ -190,3 +191,4 @@ Open: 11 | Fixed: 10 | Total: 21
 | BUG-006 | **第十六次复发（第 24 次观察）：连续正常 7 日后中断**。形态回到「工具未注册／待重新授权」——`list_installed_plugins` 仍报 connected/bound/enabled，但三重证据齐备：①ToolSearch 精确名 `mcp__qq-mail__SendMessage`／`GetMe` 回落 agent-mail 命名空间；②三组关键词检索同样零命中 qq-mail；③直接调用 `mcp__qq-mail__GetMe` 返回 not found in the deferred tools index。`reconnect_plugin` 被拒/超时（无人值守无授权通道）→ **自动化任务不具备自愈通道**；`agent-mail` GetMe 返回 `not_bound` → 双通道失效、无降级路径。`email_sent: false`、status partial，HTML 落 `.workbuddy/outbox/2026-11-08-morning-briefing.html`（9 373 字节）待人工补发。连续正常计数 7 → 0，「观察至 11/19 前后无复发即可 fixed」的判据作废、需重新计时 |
 | BUG-012 | 本期 11:50 执行、早于两条巡检时点，不判缺跑。回看 11-07：`inspection_pm` 11:17 提前触发（相对 22:00 提前约 10h43m）、`inspection_noon` 当日零产出，属「单线提前＋单线缺跑」，非镜像形态。连续零产出交易日数 0，未达复合判据，不升降级 |
 | BUG-013 | **第 41 次连续命中**，判误判跳过建档；附带弱提示 2 次：`scripts/build_2026-11-08.py` 的 advice 220→181 字收敛、hero note 折算参数修正，均属生成前自纠，不计入 |
+| BUG-022 | **新增（fixed）**：`build_2026-11-08.py` 的 hero note 四个 `%.1f` 占位符实参顺序错位，第三方折算值被填成主值（873.1 → 879.1），同句出现「两者差 6.0 元/克」却两个数字相同的自相矛盾；`check_briefing.py` 只校验结构化字段、不解析 note 里的自然语言数值，靠写完后独立复算发现并修正 |

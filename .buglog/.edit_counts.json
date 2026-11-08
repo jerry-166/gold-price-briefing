@@ -298,7 +298,9 @@
     "D:\\workspace\\每日金价资讯\\logs\\2026-11-07-inspection_pm.json": 1,
     "D:/workspace/每日金价资讯/scripts/build_2026-11-08.py": 1,
     "D:/workspace/每日金价资讯/scripts/mail_2026-11-08.py": 1,
-    "D:/workspace/每日金价资讯/scripts/log_2026-11-08.py": 1
+    "D:/workspace/每日金价资讯/scripts/log_2026-11-08.py": 1,
+    "D:/workspace/每日金价资讯/.workbuddy/memory/2026-11-08.md": 1,
+    "D:/workspace/每日金价资讯/.buglog/bugs/2026-11-08-hero-note-format-args-misorder.md": 1
   },
   "triggered_files": {
     "__cross_file__": true,
