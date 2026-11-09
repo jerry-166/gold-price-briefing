@@ -300,7 +300,12 @@
     "D:/workspace/每日金价资讯/scripts/mail_2026-11-08.py": 1,
     "D:/workspace/每日金价资讯/scripts/log_2026-11-08.py": 1,
     "D:/workspace/每日金价资讯/.workbuddy/memory/2026-11-08.md": 1,
-    "D:/workspace/每日金价资讯/.buglog/bugs/2026-11-08-hero-note-format-args-misorder.md": 1
+    "D:/workspace/每日金价资讯/.buglog/bugs/2026-11-08-hero-note-format-args-misorder.md": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261109.py": 7,
+    "D:\\workspace\\每日金价资讯\\scripts\\mail_20261109.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\log_20261109.py": 1,
+    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-11-09-percent-format-cjk-source-field.md": 1,
+    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-11-09-mail-html-join-kills-newlines.md": 1
   },
   "triggered_files": {
     "__cross_file__": true,
@@ -385,6 +390,7 @@
     "D:\\workspace\\每日金价资讯\\scripts\\build_20261105.py": true,
     "D:\\workspace\\每日金价资讯\\scripts\\build_20261106.py": true,
     "D:\\workspace\\每日金价资讯\\scripts\\mail_20261106.py": true,
-    "D:\\workspace\\每日金价资讯\\scripts\\build_20261107.py": true
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261107.py": true,
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261109.py": true
   }
 }
