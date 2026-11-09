@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-09",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "伦敦金收复 4100 报 4120.95(+1.23%)，积存金 890.2 元/克，邮件已发"
+    },
+    {
       "date": "2026-11-08",
       "type": "morning_briefing",
       "status": "partial",
