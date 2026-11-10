@@ -213,3 +213,10 @@ related_bugs: []
   ③ `scripts/mail_20261107.py` 由 Write 一次落盘、零修补（改用 f-string 与字符串拼接，未用 `%` 格式化），百分号家族 bug 未复发；
   ④ 本期工具调用零失败、零报错、零用户纠正。
 - **本期零新增 bug、零修复**；`check_briefing.py` 一次通过（首轮 advice 201 字超限后收敛，属生成前自纠）。双重复核已执行：逐文件 `grep -c "2026-11-07"` 计数 ＋ 字节数/SHA-1 比对，凭据落在 `logs/2026-11-07-morning_briefing.json` 的 `buglog_verification` 字段；`index.md` 与 `bugs/` 内容一致性已同步校验。
+
+## 2026-11-10（周二）早报期观测
+- **第二十五次连续命中**（9/26 起），hook 再次透传自动化提示词全文 → 判误判、未按字面建档。
+- 附带弱提示本期两次：`build_20261110.py` 被 Edit 3 次（实为 `trend.advice` 237→214→191 字自检返工，
+  属生成前自纠）、`manifest_20261110.py` 被 Edit 2 次（实为把写死的 status 改成 argv 入参）——均忽略。
+- 双重复核本期已执行：逐文件 `grep -c "2026-11-10"` 计数与四文件字节数/SHA-1 写入
+  `logs/2026-11-10-morning_briefing.json` 的 `buglog_verification`；index.md 计数维持 Open 12 / Fixed 12 / Total 24（本期无新增、无状态变更）。
