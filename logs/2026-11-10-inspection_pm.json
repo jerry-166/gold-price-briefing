@@ -1,57 +1,57 @@
 {
   "date": "2026-11-10",
   "type": "inspection_pm",
-  "status": "no_action",
-  "summary": "晚间巡检（22:00 任务提前至 11:40 触发）：伦敦金 XAUUSD $4112.93/oz（Sina 实时 11:40 CST），较昨收 $4140.94（周一纽约收盘）跌 0.68%；截至当前日内振幅约 0.92%（高 4146.43 / 低 4110.04）远低于 1.5% 阈值；今晚无美联储紧急声明，美伊缓和、油价崩跌、12 月加息概率 84.2% 均为昨日财经早餐已覆盖延续因素，21:30 CPI 为既定数据（非突发），静默跳过、未发邮件。",
-  "timestamp": "11:40 CST",
-  "note": "原定 22:00 触发，本次于 11:38-11:40 提前约 10.3 小时触发（BUG-012 早触发复发）。周二交易日，价格与涨跌幅取实时口径；但纽约时段尚未开盘，当前日内振幅为亚欧盘片段、样本不完整，真实波动检验以今晚 22:00 正常触发为准。",
+  "status": "partial",
+  "summary": "晚间巡检（22:00 权威触发，覆盖 11:40 提前触发的 no_action 占位）：伦敦金 XAUUSD $4056.39/oz（Sina 实时 22:01 CST），较昨收 $4140.94 跌 2.04%；日内振幅 2.57%（高 4146.43 / 低 4039.99）超 1.5% 阈值，且美联储理事沃勒鹰派放话（暗示 12 月加息、CPI 恶化或加 50bp）叠加 21:30 美国 10 月 CPI，金价盘中急跌约 70 美元 → 触发波动 + 事件双命中预警，已发邮件。",
+  "timestamp": "22:01 CST",
+  "note": "原定 22:00 任务于 11:40 提前触发（BUG-012 早触发复发）并先写了 no_action 占位（彼时纽约时段未开盘、振幅仅 0.92% 为亚欧盘片段）；本次 22:01 权威触发覆盖该占位：纽约时段金价直线下挫、低点探至 4039.99，真实日内振幅 2.57% 超阈，且沃勒鹰派 + CPI 构成重大事件，故修正为 partial 并补发预警邮件（沿用 2026-10-23 覆盖占位先例，manifest 条目就地修正、不重复追加）。",
   "price_check": {
     "instrument": "XAUUSD (伦敦金现货)",
-    "price_usd": "4112.93",
+    "price_usd": "4056.39",
     "prev_close_usd": "4140.94",
-    "day_change_pct": "-0.68",
+    "day_change_pct": "-2.04",
     "intraday_high": "4146.43",
-    "intraday_low": "4110.04",
-    "intraday_amplitude_pct": "0.92",
+    "intraday_low": "4039.99",
+    "intraday_amplitude_pct": "2.57",
     "threshold_pct": "1.5",
-    "market_status": "trading_day_partial_session_early_trigger"
+    "market_status": "trading_day_ny_session"
   },
   "steps": [
     {
       "num": 1,
       "name": "价格查询",
       "status": "success",
-      "duration_ms": 1800,
-      "result": "当前金价 XAUUSD $4112.93/oz（Sina 实时 11:40 CST）；日内振幅约 0.92%（高 4146.43 / 低 4110.04），较昨收 $4140.94（周一纽约收盘）跌 0.68%",
+      "duration_ms": 1900,
+      "result": "当前金价 XAUUSD $4056.39/oz（Sina 实时 22:01 CST）；日内振幅 2.57%（高 4146.43 / 低 4039.99），较昨收 $4140.94 跌 2.04%",
       "source": "新浪财经 hf_XAU 实时接口（GBK 解码）"
     },
     {
       "num": 2,
       "name": "新闻扫描",
       "status": "success",
-      "duration_ms": 6200,
-      "result": "无美联储今晚紧急声明；美伊缓和（特朗普淡化再袭伊朗）、油价崩跌近 6%、12 月加息概率 84.2% 均为昨日财经早餐已覆盖延续因素；今晚 21:30 美国 10 月 CPI、21:15 ADP 为既定数据（非突发）；中国央行 10 月增持约 25.8 吨为托底延续。无全新重大突发事件。",
-      "source": "WebSearch（汇通网/新浪财经/金价查询网/ET Now）"
+      "duration_ms": 6300,
+      "result": "重大事件：美联储理事沃勒（伦敦讲话）释放强硬鹰派信号，支持 12 月加息、并称若 10 月 CPI 恶化将考虑一次性加息 50bp；市场定价 12 月加息概率约 85%-99%；21:30 美国 10 月 CPI 数据窗口临近/公布，金价盘中急跌约 70 美元、最低探至 4039.99。证券时报/汇通网/21 世纪经济报道均报沃勒为「最明确加息信号」。属重大政策事件，非纯延续。",
+      "source": "WebSearch（汇通网/证券时报/21世纪经济报道/快报）"
     },
     {
       "num": 3,
       "name": "预警判断",
       "status": "success",
-      "duration_ms": 300,
-      "result": "波动 0.92% 未超 1.5% 阈值 + 无全新重大事件（CPI 为既定数据） → 不触发"
+      "duration_ms": 400,
+      "result": "波动 2.57% 超 1.5% 阈值 ＋ 沃勒鹰派 + CPI 重大事件 → 触发（波动 + 事件双命中）"
     }
   ],
   "summary_stats": {
     "total_steps": 3,
     "success_steps": 3,
     "failed_steps": 0,
-    "total_duration_ms": 8300,
-    "alert_triggered": false
+    "total_duration_ms": 8600,
+    "alert_triggered": true
   },
   "email": {
-    "sent": false,
+    "sent": true,
     "to": "2132049351@qq.com",
-    "subject": null,
-    "channel": null
+    "subject": "⚠️ 金价预警 | 晚间播报",
+    "channel": "qq-mail"
   }
 }
