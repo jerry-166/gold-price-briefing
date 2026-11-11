@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-11",
+  "type": "inspection_noon",
+  "status": "no_action",
+  "summary": "午后巡检：伦敦金 XAUUSD $4057.21，较早报基准($4046.85)变动 +0.26%，日内较昨收 +0.61%、振幅约 0.98%，全部远低于 1.5% 阈值；午后延续 CPI 冲击＋加息预期升温（12 月加息 98.6% 定价）叙事，无美联储紧急声明或全新地缘突发，静默跳过未发邮件。",
+  "timestamp": "14:17 CST",
+  "steps": [
+    { "num": 1, "name": "价格查询", "status": "success", "duration_ms": 1643, "result": "当前金价 XAUUSD $4057.21（新浪财经 hf_XAU 14:17 实时），昨收 4032.73、今开 4035.41、高 4065.92、低 4026.55；距早报基准 $4046.85 变动 +0.26%，日内较昨收 +0.61%。与早报同口径新浪现货，无数据源偏差。", "source": "新浪财经 hf_XAU" },
+    { "num": 2, "name": "新闻扫描", "status": "success", "duration_ms": 7821, "result": "未发现美联储紧急声明或全新地缘突发；午后报道集中于「CPI 超预期→加息预期重燃、12 月加息概率升至 98.6% 且出现 50bp 可能、沃勒/洛根/鲍曼齐放鹰」「金价 4030-4050 窄幅震荡、4000 关口受检」「特朗普对伊朗缓和信号、油价重挫」——均为早报(11-11)已覆盖因素的延续，非全新突发。", "source": "WebSearch" },
+    { "num": 3, "name": "预警判断", "status": "success", "duration_ms": 905, "result": "波动 +0.26%（较早报）／日内 +0.61%／振幅 ~0.98% 全部未超 1.5% 阈值；无重大突发事件 → 不触发预警；email_sent=false（未发送，静默跳过）。" }
+  ],
+  "summary_stats": {
+    "total_steps": 3, "success_steps": 3, "failed_steps": 0,
+    "total_duration_ms": 10369, "alert_triggered": false
+  }
+}
