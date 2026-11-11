@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-11",
+  "type": "inspection_pm",
+  "status": "no_action",
+  "summary": "晚间巡检：伦敦金 XAUUSD $4034.37/oz，较昨收（$4032.73）+0.04%、日内振幅约1.00%（高 4066.87 / 低 4026.55），低于 1.5% 阈值；CPI 冲击后金价于 4000 一线多空博弈、12 月加息预期升温为延续因素、无美联储今晚紧急声明或全新突发，静默跳过。",
+  "timestamp": "22:00 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 2200,
+      "result": "当前金价 XAUUSD $4034.37/oz，较昨收 $4032.73 +0.04%，日内振幅约 1.00%（高 4066.87 / 低 4026.55）",
+      "source": "Sina 实时行情 hq.sinajs.cn"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 5800,
+      "result": "CPI 冲击后续：金价于 4000 一线多空博弈，美联储 12 月加息 25bp 完全定价、50bp 概率约 10%（沃勒鹰派延续）；高盛下调年底目标至 4150；中国金币集团发布波动风险提示。均为早报／昨日已覆盖延续因素，无美联储今晚紧急声明或全新突发",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 60,
+      "result": "波动 1.00% 未越 1.5% 阈值 + 无全新重大事件 → 不触发预警"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 8060,
+    "alert_triggered": false
+  }
+}
