@@ -205,3 +205,13 @@ reported_at: 2026-09-14T22:05:00
   `ListMessages(dir=sent)` 于 **11:52:50 CST** 确认落地（`msg_AEPpZ_1STNcA55caGGYmSZ4356WNnAhc96cXvcIkZmhECQ`）。
 - 「精确名检索」（ToolSearch 传 `tool_names`）第 9 次验证通过，仍未出现关键词检索假阴性。
 - 依历史规律（10/16-10/18 曾连续 3 日正常、第 4 日即复发），两日正常不构成修复证据，观察期继续。
+
+
+## 2026-11-11（周三）早报期观测
+
+- **复发（「工具未注册」形态）**。11/09、11/10 连续正常 2 日后中断，连续正常计数归零。
+- 三重证据：① ToolSearch 传 tool_names 精确名（mcp__qq-mail__SendMessage／GetMe／ListMessages）**三次均回落 agent-mail 命名空间**；② 直接 DeferExecuteTool 调 mcp__qq-mail__GetMe **两次返回 `Tool not found in the deferred tools index`**；③ 同时 list_installed_plugins 显示 `qq-mail@workbuddy-connector-plugins-official`、status = connected、bound = true、enabled = true —— **连接器自报已连接、工具链未注册，两者矛盾再次出现**。
+- **新增结论一（状态字段不可作判据）**：本期 connector-status 注入快照显示 `qq-mail: connecting`，而数分钟后 list_installed_plugins 已为 `connected`。说明「connecting → connected」的状态翻转**并不代表 MCP 工具索引已装载**。判定可用性的唯一可靠办法是「按名调用是否返回 not found」，不是看状态字段。
+- **新增结论二（「精确名检索」假设的适用边界）**：11/01 提出的「用 tool_names 精确名检索可规避假阴性」本期首次只对了一半 —— 检索方式没错，仍回落到 agent-mail。说明该假设成立的前提是「工具确实已装载」，它只能避免**检索写法**导致的假阴性，无法兜底**索引未装载**。后续表述应改为「精确名检索 + 按名调用验证」两步，而不是一步即判。
+- 处置：email_sent = false、status = partial，邮件 HTML 落 `.workbuddy/outbox/mail-2026-11-11.html`（13 310 字符 / 20 256 字节 / 107 行 / maxline 701）待人工补发；早报 JSON、manifest、日志均已正常推送（commit 084b98d）。
+- 与历史形态对照：本日为「未注册」形态第 N 次复现（10/06、10/10、10/12、10/19、10/21、10/22 之后），且发生在「连续 2 日正常」之后 —— 与 10/16-10/18 三日正常后复发、10/25-10/27 三日正常后复发属同一类窗口假象，**再次证伪「连续成功＝修复」**。

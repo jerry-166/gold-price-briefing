@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-11",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "延迟 50 分钟；伦敦金 4046.85(+0.35%) 自隔夜低 4013.53 反抽，AU9999 869.0(-1.63%) 补跌，中间价 6.7191 调贬 24bp，积存金 874.2；已回填 11-10 真实收盘 4032.7；JSON＋manifest 已推送 084b98d；邮件失败（BUG-006），HTML 落盘待补发。"
+    },
+    {
       "date": "2026-11-10",
       "type": "inspection_noon",
       "status": "no_action",

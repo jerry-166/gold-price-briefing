@@ -53,5 +53,10 @@
     "count": 1,
     "last_error": "Error: Error during web fetch for https://m.cngold.org/quote/gjs/gjhj_au9999.html: Request failed with status code 404 Not Found and empty response body",
     "last_time": "2026-10-29T01:21:24.742Z"
+  },
+  "Edit: Found N matches of the string to replace, but replace_all is false. To replace a": {
+    "count": 1,
+    "last_error": "Found 2 matches of the string to replace, but replace_all is false. To replace all occurrences, set replace_all to true. To replace only one occurrence, please provide more context to uniquely identify the instance.\nString: - **会话审查/buglog**：本自动任务无人值守、价格查询(新浪实时接口)+新闻扫描(WebSearch)全部成功、无用户纠正/未解决失败；本回合",
+    "last_time": "2026-11-10T06:13:52.904Z"
   }
 }
