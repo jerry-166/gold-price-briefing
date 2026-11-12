@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-12",
+  "type": "inspection_pm",
+  "status": "partial",
+  "email_sent": true,
+  "summary": "晚间巡检：伦敦金 XAUUSD $3895.44/oz，较昨收（$3987.69）跌 2.31%、日内振幅 2.89%（高 4000.31 / 低 3884.93）跌破 3900 关口，超 1.5% 阈值；叠加 10 月 CPI 超预期 + 沃勒鹰派加息重定价重大事件，触发波动+事件双命中预警，已发邮件。",
+  "timestamp": "22:01 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 820,
+      "result": "当前金价 XAUUSD $3895.44/oz（新浪财经 hf_XAU 22:01 实时；昨收 3987.69、今开 3990.89、最高 4000.31、最低 3884.93），较昨收跌 2.31%；日内振幅 2.89%，跌破 3900 关口",
+      "source": "新浪财经 hf_XAU 实时接口"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 3600,
+      "result": "重大事件：10 月 CPI 超预期（环比 +0.4% vs 预期 0.3%，核心 +0.3% 连续三月）、美联储理事沃勒鹰派（核心 CPI≥0.3% 考虑 12 月加息 50bp）；市场完全定价 12 月加息 25bp、50bp 概率约 12%；美元指数升至 19 个月新高 102.90、10Y 实际收益率 2.66%；现货金跌破 3900（11 月二次失守 4000），沪金 851.33 元/克跌 2.48%、金饰克价年内暴跌超 500 元；机构分歧高盛看 4150 / 渣打看 4850、华侨银行预警 3870。均围绕 CPI 后加息重定价，属重大事件",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 260,
+      "result": "振幅 2.89% 超 1.5% 阈值 → 触发波动型预警；叠加 CPI + 沃勒加息重定价重大事件 → 波动+事件双命中，alert_triggered=true"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 4680,
+    "alert_triggered": true
+  }
+}
