@@ -55,5 +55,41 @@
     "total_duration_ms": 258000,
     "email_sent": true,
     "git_pushed": true
+  },
+  "buglog_verification": {
+    "date": "2026-11-13",
+    "grep_counts": {
+      "BUG-003": 1,
+      "BUG-006": 1,
+      "BUG-012": 1,
+      "BUG-013": 3
+    },
+    "file_bytes_sha1": {
+      "2026-09-08-briefing-scheduler-missed-days.md": {
+        "hit": 1,
+        "bytes": 78771,
+        "sha1": "8537edc6"
+      },
+      "2026-09-14-inspection-email-connector-down.md": {
+        "hit": 1,
+        "bytes": 56500,
+        "sha1": "c7be808d"
+      },
+      "2026-09-25-inspection-scheduler-silent-miss.md": {
+        "hit": 1,
+        "bytes": 59084,
+        "sha1": "1ad729b0"
+      },
+      "2026-09-26-buglog-hook-misfire.md": {
+        "hit": 3,
+        "bytes": 63110,
+        "sha1": "e908bd4e"
+      }
+    },
+    "index_md_bytes": 64939,
+    "index_md_sha1": "e853e9bf",
+    "new_bugs": 0,
+    "status_change": "none",
+    "counts": "Open 12 / Fixed 12 / Total 24"
   }
 }
