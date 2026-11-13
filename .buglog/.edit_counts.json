@@ -340,7 +340,8 @@
     "D:/workspace/每日金价资讯/scripts/mail_2026-11-13.py": 1,
     "D:/workspace/每日金价资讯/scripts/buglog_20261113.py": 1,
     "D:/workspace/每日金价资讯/.buglog/index.md": 2,
-    "D:/workspace/每日金价资讯/.buglog/bugs/2026-09-26-buglog-hook-misfire.md": 2
+    "D:/workspace/每日金价资讯/.buglog/bugs/2026-09-26-buglog-hook-misfire.md": 2,
+    "D:/workspace/每日金价资讯/scripts/buglog_fix_20261113.py": 1
   },
   "triggered_files": {
     "__cross_file__": true,

@@ -58,11 +58,11 @@
   },
   "buglog_verification": {
     "date": "2026-11-13",
-    "grep_counts": {
+    "grep_counts_lines": {
       "BUG-003": 1,
       "BUG-006": 1,
       "BUG-012": 1,
-      "BUG-013": 3
+      "BUG-013": 2
     },
     "file_bytes_sha1": {
       "2026-09-08-briefing-scheduler-missed-days.md": {
@@ -86,10 +86,12 @@
         "sha1": "e908bd4e"
       }
     },
-    "index_md_bytes": 64939,
-    "index_md_sha1": "e853e9bf",
-    "new_bugs": 0,
-    "status_change": "none",
-    "counts": "Open 12 / Fixed 12 / Total 24"
+    "index_md_bytes": 64064,
+    "index_md_sha1": "8620d5a9",
+    "index_section_count_1113": 1,
+    "new_bugs": 1,
+    "status_change": "BUG-025 新增并标记 fixed",
+    "counts": "Open 12 / Fixed 13 / Total 25",
+    "incident": "收尾重跑 buglog 脚本时 index.md 重复追加一份 11-13 章节（9abfac0 已推送），已截断修复并登记 BUG-025"
   }
 }
