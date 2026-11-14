@@ -232,3 +232,8 @@ reported_at: 2026-09-14T22:05:00
 - 两步法第二次完整执行：① ToolSearch 传 `tool_names` 精确名（mcp__qq-mail__SendMessage／GetMe）**一次命中、未回落 agent-mail**；② 按名实际调用 `SendMessage`（标准写法：`to` 对象数组 ＋ `body_format:HTML` ＋ `skip_confirmation:true`）返回 `queued:true`。
 - 邮件规格：12 269 字节（落盘含标签换行拆分）；`grep -c '100%%'` = 0，`width:100%` 命中 2 处（百分号家族与 BUG-024 均未复现）。
 - 不构成修复证据。历史已四次证伪「连续成功＝修复」（10/16-10/18 三日、10/25-10/27 三日、11/09-11/10 两日、11/11 单日复发），仍需观察到 11/19 前后无复发方可考虑改 fixed。
+
+- **正常（连续正常第 3 日，自 11/11 复发后计数 1→3）**。
+- 两步法第三次完整执行：① ToolSearch 传 `tool_names` 精确名（`mcp__qq-mail__SendMessage`／`GetMe`／`ListMessages`）**一次命中、未回落 agent-mail**；② 按名实际调用 `GetMe` 返回 alias `2132049351@qq.com`（scopes 含 mail:send）、`SendMessage` 返回 `queued:true`、`ListMessages(dir=sent)` 于 2026-11-14T02:03:08Z（北京时间 10:03:08）确认发出，message_id `msg_3qt5F_cDsOYN6YPRFxg0gBW4fHBS8ywhNbuKFU5Ah40GWQ`。
+- 邮件规格：13 142 字符 / 18 076 字节 / 117 行 / maxline 410（远低于 1500 门禁）；`100%%` 计数 0，`width:100%` 命中 2 处。
+- 不构成修复证据。历史已四次证伪「连续成功＝修复」（10/16-10/18、10/25-10/27、11/09-11/10、11/11 单日复发），现为**连续正常第 3 日**，距 11/19 观察窗结束尚有 5 日，继续逐日记录。
