@@ -237,3 +237,14 @@ reported_at: 2026-09-14T22:05:00
 - 两步法第三次完整执行：① ToolSearch 传 `tool_names` 精确名（`mcp__qq-mail__SendMessage`／`GetMe`／`ListMessages`）**一次命中、未回落 agent-mail**；② 按名实际调用 `GetMe` 返回 alias `2132049351@qq.com`（scopes 含 mail:send）、`SendMessage` 返回 `queued:true`、`ListMessages(dir=sent)` 于 2026-11-14T02:03:08Z（北京时间 10:03:08）确认发出，message_id `msg_3qt5F_cDsOYN6YPRFxg0gBW4fHBS8ywhNbuKFU5Ah40GWQ`。
 - 邮件规格：13 142 字符 / 18 076 字节 / 117 行 / maxline 410（远低于 1500 门禁）；`100%%` 计数 0，`width:100%` 命中 2 处。
 - 不构成修复证据。历史已四次证伪「连续成功＝修复」（10/16-10/18、10/25-10/27、11/09-11/10、11/11 单日复发），现为**连续正常第 3 日**，距 11/19 观察窗结束尚有 5 日，继续逐日记录。
+
+
+## 2026-11-15（周日）早报期观测
+
+- **复发（11/12-11/14 连续正常 3 日后中断，新序列第 1 日失败）**。email_sent = false，整期 status 记 partial。
+- **形态：MCP 工具未装载进 deferred tools 索引**，四重证据：① ToolSearch 传 `tool_names` 精确名（mcp__qq-mail__SendMessage／GetMe／ListMessages）**两次，两次都回落 agent-mail 命名空间**、只返回 mcp__agent-mail__*；② 关键词检索（qq-mail 发送邮件 / QQ邮箱 send message）同样只出 agent-mail；③ 按名调用 `DeferExecuteTool("mcp__qq-mail__GetMe")` → `not found in the deferred tools index`；④ `list_installed_plugins` 显示 `qq-mail@workbuddy-connector-plugins-official` status=connected、bound=true、enabled=true。
+- **结论升级**：「connected ＋ bound ＋ enabled」三真 ＋ 精确名检索回落 agent-mail = 索引未装载，这是 BUG-006 的**第 3 种可复现证据组合**（前两种：工具 not found 单证、connector-status 显示 connecting 但工具不可用）。
+- **新增限制：reconnect 在无人值守时段不可用**。按 connector-status 指引调用 `reconnect_plugin(qq-mail@workbuddy-connector-plugins-official)`，返回 `User refused, no changes applied. Reconnection cancelled or timed out.`——重连需要人机交互确认，自动化时段无人点「授权」，所以**这条自愈路径对定时任务实际上是断的**。
+- **备用通道也不通**：`mcp__agent-mail__GetMe` 返回 `not_bound`（Agent 邮箱尚未开通），故本期无任何可用发信通道。
+- 产物：HTML 落 `.workbuddy/outbox/mail-2026-11-15.html`（11 315 字符／16 961 字节／70 行／maxline 561；`grep -c '100%%'` = 0、`width:100%` 正常），待人工补发。
+- **建议（新增）：把「发信」从 MCP 依赖里解耦**。要么在 09:00 前人工确认 qq-mail 工具已装载，要么改用可脚本化的 SMTP/第三方 API 直发，否则每天的发信成功率完全取决于宿主当天的工具索引状态，任务侧无法自愈。

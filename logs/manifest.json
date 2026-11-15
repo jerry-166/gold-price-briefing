@@ -1,6 +1,12 @@
 {
  "logs": [
   {
+   "date": "2026-11-15",
+   "type": "morning_briefing",
+   "status": "partial",
+   "summary": "20:39 触发（延迟约 700 分钟、历史第二大值；周日休市危害 0 档）；前四步全成已推送 2fe2efd，价格沿用 11-13 收盘；邮件未发出（qq-mail 工具未装载、reconnect 被取消、备用邮箱未开通），HTML 待人工补发"
+  },
+  {
    "date": "2026-11-14",
    "type": "morning_briefing",
    "status": "success",
