@@ -57,7 +57,7 @@
     "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-09-20-manual-entry-typos.md": 1,
     "C:\\Users\\ASUS\\.workbuddy\\skills\\gold-price-briefing\\SKILL.md": 41,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-20.md": 1,
-    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\MEMORY.md": 80,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\MEMORY.md": 83,
     "D:\\workspace\\每日金价资讯\\daily\\2026-09-21.json": 1,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-21-morning_briefing.json": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-21.md": 1,
@@ -353,7 +353,8 @@
     "D:\\workspace\\每日金价资讯\\scripts\\manifest_20261115.py": 1,
     "D:\\workspace\\每日金价资讯\\scripts\\mail_20261115.py": 1,
     "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261115.py": 1,
-    "D:\\workspace\\每日金价资讯\\scripts\\log_20261115.py": 1
+    "D:\\workspace\\每日金价资讯\\scripts\\log_20261115.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\mem_20261115.py": 1
   },
   "triggered_files": {
     "__cross_file__": true,
