@@ -354,7 +354,11 @@
     "D:\\workspace\\每日金价资讯\\scripts\\mail_20261115.py": 1,
     "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261115.py": 1,
     "D:\\workspace\\每日金价资讯\\scripts\\log_20261115.py": 1,
-    "D:\\workspace\\每日金价资讯\\scripts\\mem_20261115.py": 1
+    "D:\\workspace\\每日金价资讯\\scripts\\mem_20261115.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261116.py": 3,
+    "D:\\workspace\\每日金价资讯\\scripts\\mail_20261116.py": 2,
+    "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261116.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\log_20261116.py": 1
   },
   "triggered_files": {
     "__cross_file__": true,
@@ -448,6 +452,8 @@
     "D:\\workspace\\每日金价资讯\\scripts\\_tmp_prepend_pm.py": true,
     "D:/workspace/每日金价资讯/.buglog/index.md": true,
     "D:/workspace/每日金价资讯/.buglog/bugs/2026-09-26-buglog-hook-misfire.md": true,
-    "D:\\workspace\\每日金价资讯\\scripts\\build_20261115.py": true
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261115.py": true,
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261116.py": true,
+    "D:\\workspace\\每日金价资讯\\scripts\\mail_20261116.py": true
   }
 }

@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-16",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "10:59 触发（延迟约 119 分钟，交易日、危害 1 档：错过「冲 3901.15→回落 3874.63」的完整窗口）；五步全成，邮件 11:03:57 CST 已落 sent；伦敦金 3874.63(-0.14%)、AU9999 832.85(-0.56%)、中间价 6.7141、积存金 836.4；主叙事为「3900 反抽失败 + 10 月数据全面走弱 + 金银珠宝零售 -28.7%」；本期零跨日回填（连续第三日）",
+  "timestamp": "10:59 CST",
+  "gap_check": {
+    "last_morning_briefing": "2026-11-15",
+    "missing_trading_days": [],
+    "note": "11-14（周六）、11-15（周日）为休市日、均有早报产物；11-15 早报邮件未送达（BUG-006），HTML 留 .workbuddy/outbox/mail-2026-11-15.html 待人工补发，本期邮件头部已提示。无交易日断档。"
+  },
+  "delay_check": {
+    "nominal": "09:00",
+    "actual": "10:59",
+    "delay_minutes": 119,
+    "harm_level": "1 档（交易日，方向结论被小幅改变）",
+    "cross_day_backfill_days": 0,
+    "note": "09:00 时点处于亚市冲高段内（当日最高 3901.15），10:59 取数已回落至 3874.63，交付句由「冲击 3900」变为「3900 失败」；建议 ⑬（>360 分钟标注）本期未触发，仍已在邮件头部标注延迟。"
+  },
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 132000,
+      "result": "伦敦金 3874.63（昨收 3879.92、开 3873.03、高 3901.15、低 3860.27）、AU9999 832.85（昨结 837.55）、T+D 832.64、COMEX 3878.6、沪银 11450(-5.02%)；中间价 6.7141（调升 11 个基点）、在岸即期 6.6701；10 月经济数据（社零 +0.4%、金银珠宝 -28.7%）；霍尔木兹油轮触雷；金饰 1162-1178 元/克",
+      "source": "新浪财经行情接口（hf_XAU／gds_AU9999／gds_AUTD／fx_susdcny）+ WebSearch（国家统计局、中国经济网、汇通网、东方财富、金价查询网）"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 88000,
+      "result": "已写入 daily/2026-11-16.json；check_briefing.py 0 error（advice 194 字、价位 pairs 15 组全中）；图表丢 10-17、补 11-16，events 整体 -1 并追加当日事件"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 8000,
+      "result": "已追加记录到 manifest.json（briefings 头部 2026-11-16 周一，共 87 条）"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 30000,
+      "result": "已提交并推送 d6f3d9e（SSH；rev-parse 与 ls-remote 一致）"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 42000,
+      "result": "已发送至 2132049351@qq.com，ListMessages(dir=sent) 11:03:57 CST 确认（msg_Y43_jSyMRnHKOuJzoTV59y8vFMoDLCQVRwR1UrPw87wXwA；HTML 14 055 字符／19 078 字节／105 行／maxline 477）",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报 | 2026年11月16日 周一（第 87 期）\n⚠️ 延迟交付：生成于 10:59 CST，比标称 09:00 晚约 2 小时，价格为亚市盘中读数。\n\n【金价快照】招行积存金 836.4 元/克（-0.14%）｜上海金 AU9999 832.85 元/克（-0.56%）｜美元中间价 6.7141（-0.02%，调升 11 个基点）｜伦敦金 3874.6 美元/盎司（-0.14%，高 3901.15／低 3860.27）\n\n【一句话】亚市冲高 3901.15 又被打回，3900 成了天花板、3852 是生死线；10 月数据全面走弱，其中金银珠宝零售暴跌 28.7%，国内买盘撑不住价格——现在不是抄底的时候，是分批接的时候。\n\n【昨夜今晨 5 件大事】\n1. 12 月加息 25 个基点已被 84.7%-95% 完全定价，50 个基点 5%-15%；\n2. 10 月社零只增 0.4%（预期 0.9%）、金银珠宝零售 -28.7%、工业增加值 +4.8%、1-10 月固投 -8.1%；\n3. 霍尔木兹海峡被宣布封锁、两艘油轮触雷一艘沉没，布伦特反跌 0.73% 至 95.33——避险没给黄金；\n4. 本周两个裁判：周二美国 10 月零售销售、本周内美联储 10 月会议纪要（周三/周四口径不一）；\n5. 美元指数 103.40 创 19 个月新高、10Y 站上 5.1%，沪银单日 -5.02% 比黄金惨得多。\n\n【趋势】短期偏空／中期偏空／长期偏多 · 动作：观望\n买：3852-3820（约 831-825 元/克）两成，3800-3780（约 820-816 元/克）再两成，3750-3730（约 810-805 元/克）再两成。\n卖：3900-3920（约 842-846 元/克）减三成，3965-3980（约 856-859 元/克）再减三成，破 3730（约 805 元/克）认错。\n\n【今日学一招】金价跌了、金条还卖光，为什么 10 月金银珠宝零售额反而暴跌 28.7%？因为零售额记的是「钱」不是「克」，跌价时量也在掉，量价双杀；投资金条与金饰是两拨人。\n\n网站：https://jerry-166.github.io/gold-price-briefing/\n（HTML 底稿：.workbuddy/outbox/mail-2026-11-16.html）"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 300000,
+    "email_sent": true,
+    "git_pushed": true
+  },
+  "buglog_verification": {
+    "measured_after_all_writes": true,
+    "note": "逐文件 grep -c「2026-11-16」= 1/1/1/1（BUG-003/006/012/013），index.md = 4 次出现 / 3 行命中；计数取自实测，不照抄预估。index 表头计数 Open 12 / Fixed 13 / Total 25 未变动。",
+    "files": {
+      "BUG-003": {
+        "file": "2026-09-05-briefing-scheduler-missed-days.md",
+        "occurrences": 1,
+        "hit_lines": 1,
+        "bytes": 11388,
+        "sha1": "031425d48b3213be0092c6dbfa32961338383651"
+      },
+      "BUG-006": {
+        "file": "2026-09-14-inspection-email-connector-down.md",
+        "occurrences": 1,
+        "hit_lines": 1,
+        "bytes": 60432,
+        "sha1": "8558ce070bb494bfd898c7a6e20cdf8e1acecc00"
+      },
+      "BUG-012": {
+        "file": "2026-09-25-inspection-scheduler-silent-miss.md",
+        "occurrences": 1,
+        "hit_lines": 1,
+        "bytes": 61432,
+        "sha1": "7b0c61f1f39e2530936968eed837b3b0a521d0e0"
+      },
+      "BUG-013": {
+        "file": "2026-09-26-buglog-hook-misfire.md",
+        "occurrences": 1,
+        "hit_lines": 1,
+        "bytes": 65787,
+        "sha1": "a38d40e0f57f46e73ec1b25496900e5d879a3e40"
+      },
+      "index": {
+        "file": "index.md",
+        "occurrences": 4,
+        "hit_lines": 3,
+        "bytes": 70593,
+        "sha1": "c5e7d61aa9b99c8331a470127adb4a6debeef937"
+      }
+    }
+  }
+}
