@@ -2,6 +2,12 @@
   "logs": [
     {
       "date": "2026-11-17",
+      "type": "inspection_noon",
+      "status": "no_action",
+      "summary": "午后巡检：伦敦金 XAUUSD $3872.73，距早报 -0.06%、较昨收 +0.43%、日内振幅约 1.12%，均远低于 1.5% 阈值；鹰派叙事延续无重大突发，静默跳过未发邮件。"
+    },
+    {
+      "date": "2026-11-17",
       "type": "morning_briefing",
       "status": "partial",
       "summary": "数据/JSON/manifest/推送全部成功；QQ Mail 工具未装载，邮件未发出（HTML 已落 outbox 待人工补发）"
