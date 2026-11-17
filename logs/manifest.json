@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-17",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "数据/JSON/manifest/推送全部成功；QQ Mail 工具未装载，邮件未发出（HTML 已落 outbox 待人工补发）"
+    },
+    {
       "date": "2026-11-16",
       "type": "inspection_pm",
       "status": "partial",
