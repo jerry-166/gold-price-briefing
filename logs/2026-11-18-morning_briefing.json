@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-18",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "五步全成（数据/JSON/manifest/推送/邮件）；伦敦金失守 3800 至 3800.29 创 2025 年 9 月以来新低、AU9999 817.00；标称 09:00，实际 10:25 触发、10:30 生成，延迟约 90 分钟",
+  "timestamp": "10:30 CST（实际触发 10:25，延迟约 90 分钟）",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 96000,
+      "result": "伦敦金 3800.29 美元/盎司（-48.88／-1.27%，昨收 3849.17，最低 3792.10，2025 年 9 月以来新低）；AU9999 817.00 元/克（-15.50／-1.86%，基准 11-17 日盘收盘 832.50）；黄金 T+D 816.35（-1.92%）；中间价 6.7118（调升 14bp）；在岸即期 6.6675；COMEX 主力 3802.2（-1.60%）；现货白银 46.13（-2.64%）",
+      "source": "新浪财经 hf_XAU／gds_AU9999／gds_AUTD／fx_susdcny 实时接口 + 东方财富 push2（COMEX GC00Y） + WebSearch 交叉验证（中国经济网/中金网/新华网中间价、金十数据收评、新华财经、腾讯新闻、新浪财经）。注：neodata-financial-search skill 本地未安装（plugins/cache 与 skills 下均无 query.py），未假装调用"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 88000,
+      "result": "已写入 daily/2026-11-18.json（6 条新闻、4 条 knowledge、chart 30 点、events 30 条；11-17 图表点由 13:17 快照 3875.1 回填为纽约真实收盘 3849.2）；scripts/check_briefing.py 自检 0 error",
+      "source": "本地生成 + scripts/check_briefing.py"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 3000,
+      "result": "已追加 {date:2026-11-18, weekday:周三} 到 manifest.json 头部，briefings 共 89 条",
+      "source": "manifest.json"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 7000,
+      "result": "已提交并推送：早报 b47dd34、时间戳校正 f9e4ddd（SSH，rev-parse 与 ls-remote 均为 f9e4ddd，一致）",
+      "source": "git push (SSH)"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 86000,
+      "result": "已发送至 2132049351@qq.com（QQ Mail 连接器本次可用，返回 queued:true，需 confirmation_token 二次确认后成功；BUG-006 本期未复现）",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "🌅 今日金价早报｜2026年11月18日 周三。金价快照：招行积存金买入价 820.1 元/克（-1.29%）、上海金 AU9999 817.0 元/克（-1.86%）、美元汇率 6.71（-0.02%）、伦敦金 XAUUSD 3800.3 美元/盎司（-1.27%）。昨夜大事：①穆萨莱姆称春季前可能需要数次加息、实际政策利率还需上升约 1 个百分点；②12 月加息 25bp 概率 96.8%、到 2027 年 9 月累计收紧预期从 50bp 上调到 80bp 以上；③10 年期美债 5.11%、年内第 27 个交易日站上 5%；④美股三大指数集体收跌、欧股 DAX -2.08%；⑤高盛年内第二次下调 2027 年底目标至 4650 美元；⑥美军空袭伊朗格什姆岛、霍尔木兹船只遇袭，油价反弹但金价没跟。趋势：短期偏空／中期偏空／长期偏多，动作观望。买卖时机：买 3780-3760（约 816-811 元/克）两成、3730-3700（约 805-798 元/克）再两成、破 3680（约 794 元/克）认错；卖 3880-3900（约 837-842 元/克）减三成、3950-3970（约 852-857 元/克）再减三成。今日学一招：实际利率 = 名义利率 − 通胀预期，为什么这句话比加息本身更伤黄金。底部附网站链接 https://jerry-166.github.io/gold-price-briefing/ 。HTML 已落 .workbuddy/outbox/mail-2026-11-18.html（18 934 字节／88 行／maxline 717／零 100%／零 CSS width:100）。"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 280000,
+    "email_sent": true,
+    "git_pushed": true
+  },
+  "notes": [
+    "BUG-006：本期 QQ Mail 精确名 ToolSearch 一次命中，SendMessage 返回 42801 要求 confirmation_token，携 token 重试后 queued:true → 本期正常，不记为故障（无人值守下 42801 属正常确认链路，不是 MCP 未装载）。",
+    "BUG-003：标称 09:00、实际 10:25 触发、10:30 生成，延迟约 90 分钟；当日有行情且方向一致（延迟窗口内金价从约 3830 继续下行破 3800），危害 1 档，已在邮件头部与 _meta.updated 标注真实生成时点。",
+    "口径：11-17 早报的积存金 836.4 与伦敦金 3875.12 均为 13:17 快照，11-17 纽约真实收盘 3849.17（金十 3849.35／-0.17%），本期图表已回填 3849.2；今日 820.1 vs 收盘折算 830.8 = -10.7 元/克，已在 hero note 三层说明。",
+    "工具坑：用 bash heredoc 给 .py 打补丁、在替换串里写换行分隔符时，反斜杠 n 经 JSON 与 bash 两层转义后变成真实换行，把 mail_1118.py 写成 SyntaxError（第 75 行 unterminated string）——再次印证「给 .py 打补丁一律用 Edit，禁用 sed/heredoc」。已改用 Edit 修复。",
+    "hook 每期提示为 bug 报告属误判（BUG-013 模式）；本期无新增缺陷入册，脚本层问题已在 notes 记录。"
+  ]
+}
