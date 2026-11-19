@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-19",
+  "type": "morning_briefing",
+  "status": "success",
+  "summary": "五步全成：伦敦金 3710.58（−0.38%）亚市冲高 3758.42 后回落、3700 关口首次被测试，AU9999 797.50（−1.64%），中间价 6.7128 调贬 10bp；主线是 10 月 FOMC 纪要放鹰＋沃勒主张 12 月加 50bp；标称 09:00、实际 10:59 触发延迟约 119 分钟，邮件已发。",
+  "timestamp": "11:06 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "获取数据",
+      "status": "success",
+      "duration_ms": 78000,
+      "result": "伦敦金 3710.58（−14.09／−0.38%，昨收 3724.67，高 3758.42、低 3704.64）；AU9999 797.50（−13.29／−1.64%，基准 810.79，高 816.00、低 795.52）；黄金 T+D 796.72（−1.66%）；现货白银 44.61（−1.01%）；人民币中间价 6.7128（调贬 10bp）、在岸即期 6.6664；5 条新闻（FOMC 纪要、沃勒 50bp、美元与利率双升、金银铜齐跌、伊朗袭科威特）均带原始 url",
+      "source": "新浪财经 hf_XAU／gds_AU9999／gds_AUTD／fx_susdcny 实时接口 + WebSearch 交叉验证（neodata-financial-search skill 本地未安装，未假装调用）"
+    },
+    {
+      "num": 2,
+      "name": "生成早报JSON",
+      "status": "success",
+      "duration_ms": 195000,
+      "result": "已写入 daily/2026-11-19.json（47810 字节，SHA-1 55e486196137）；check_briefing.py 0 errors／OK，advice 185 字、价位配对 10 组；图表滚动丢 10-20 补 11-19，11-18 由快照 3800.3 回填为真实收盘 3724.7",
+      "source": "scripts/build_20261119.py"
+    },
+    {
+      "num": 3,
+      "name": "更新manifest",
+      "status": "success",
+      "duration_ms": 2500,
+      "result": "已追加记录到 manifest.json，briefings 头部为 2026-11-19，总数 89 → 90",
+      "source": "inline python"
+    },
+    {
+      "num": 4,
+      "name": "Git推送",
+      "status": "success",
+      "duration_ms": 13000,
+      "result": "已提交并推送 8bff234，git rev-parse 与 git ls-remote 均为 8bff2340…，比对一致",
+      "source": "git push origin HEAD:master（SSH）"
+    },
+    {
+      "num": 5,
+      "name": "发送邮件",
+      "status": "success",
+      "duration_ms": 88000,
+      "result": "已发送至 2132049351@qq.com（首次返回 42801 需 confirmation_token，携 token 重试即 queued:true，属正常确认链路）；HTML 13077 字符／18044 字节／129 行／maxline 493，零 %% 、零 CSS width:100%",
+      "source": "mcp__qq-mail__SendMessage",
+      "outputs": [
+        {
+          "label": "邮件内容",
+          "body": "主题：🌅 今日金价早报 | 2026年11月19日 周四。正文含金价快照（积存金 800.8 −0.36%／AU9999 797.5 −1.64%／汇率 6.71 +0.01%／伦敦金 3710.6 −0.38%）＋三层口径说明、昨夜大事 5 条（FOMC 纪要、沃勒 50bp、美元 19 个月新高与短长端分叉、金银铜十个品种齐跌、伊朗袭科威特但避险溢价消失）、趋势判断（短 −1／中 −1／长 +1，action=watch）、买卖时机（回踩 3660-3680 约 790-794 元/克买第一批、3600-3620 约 777-781 元/克第二批、破 3650 停手；反弹 3780-3810 约 816-822 元/克减一半、破 3650 约 788 元/克止损）、今日学一招（纪要为什么能砸掉 3%），底部附站点链接。"
+        }
+      ]
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 5,
+    "success_steps": 5,
+    "failed_steps": 0,
+    "total_duration_ms": 376500,
+    "email_sent": true,
+    "git_pushed": true
+  },
+  "buglog_verification": {
+    "measured_after_all_writes": true,
+    "index_bytes": 78227,
+    "index_sha1_12": "da4199aa999a",
+    "day_string_count": 6,
+    "header_counts": "Open 12 / Fixed 15 / Total 27",
+    "bugs_dir_files": 27,
+    "new_bugs": [
+      {"id": "BUG-026", "file": ".buglog/bugs/2026-11-19-json-percent-literal.md", "bytes": 2305, "sha1_12": "82cf9d26a4b4", "status": "fixed"},
+      {"id": "BUG-027", "file": ".buglog/bugs/2026-11-19-cny-baseline-rate-mixup.md", "bytes": 2115, "sha1_12": "27dc0bac3873", "status": "fixed"}
+    ],
+    "idempotency_guard": "scripts/buglog_20261119.py 先检测 ## 2026-11-19 是否存在，存在即 SKIP"
+  },
+  "notes": "延迟 119 分钟（10:59:56 触发 vs 标称 09:00），未超 360 分钟阈值，故邮件头与 _meta.updated 只标真实数据时点 11:00 CST，不做延迟专段标注；updateTime 仍固定 09:00。"
+}
