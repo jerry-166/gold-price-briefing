@@ -64,23 +64,29 @@
     "邮件改用 skip_confirmation:true 直发，未再出现 42801 确认链路，一次 queued:true；HTML 打点用 width=\"100%\" 属性，彻底规避 BUG-017 家族"
   ],
   "buglog_verification": {
-    "mode": "新增 1 个 bug 文件 + index 观察更新（写入后测量）",
+    "mode": "新增 2 个 bug 文件 + index 观察更新（写入后测量）",
     "files": [
       {
         "path": ".buglog/index.md",
-        "bytes": 82384,
-        "sha1": "2caf6c8d901c51215927a419367a65b8c4201100",
-        "date_hits": 7
+        "bytes": 83113,
+        "sha1": "ced883b36f429df380e903dce02a7c3130d0f2fd",
+        "date_hits": 9
       },
       {
         "path": ".buglog/bugs/2026-11-20-percent-literal-in-format-string.md",
         "bytes": 2948,
         "sha1": "77eedefaba2a211296af7e9df4f82c149f70d4ff",
         "date_hits": 3
+      },
+      {
+        "path": ".buglog/bugs/2026-11-20-outbox-filename-collision.md",
+        "bytes": 2363,
+        "sha1": "c41e9ade73fb2e52f53d7446978bc80c02c5cf83",
+        "date_hits": 9
       }
     ],
-    "bugs_dir_count": 28,
-    "counts": "Open 12 / Fixed 16 / Total 28",
-    "note": "BUG-003/006/012/013 为既有条目观察更新（记入 index），BUG-028 新增并 fixed；计数取自重读后的 index 表头"
+    "bugs_dir_count": 29,
+    "counts": "Open 13 / Fixed 16 / Total 29",
+    "note": "BUG-003/006/012/013 为既有条目观察更新（记入 index）；BUG-028 新增 fixed、BUG-029 新增 open；计数取自重读后的 index 表头"
   }
 }

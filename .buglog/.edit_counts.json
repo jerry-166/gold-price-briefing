@@ -389,7 +389,8 @@
     "D:\\workspace\\每日金价资讯\\scripts\\mail_20261120.py": 1,
     "D:\\workspace\\每日金价资讯\\scripts\\log_20261120.py": 2,
     "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-11-20-percent-literal-in-format-string.md": 1,
-    "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261120.py": 1
+    "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261120.py": 1,
+    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-11-20-outbox-filename-collision.md": 1
   },
   "triggered_files": {
     "__cross_file__": true,

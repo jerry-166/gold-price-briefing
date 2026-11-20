@@ -1,6 +1,6 @@
 # Buglog 索引
 
-Open: 12 | Fixed: 16 | Total: 28
+Open: 13 | Fixed: 16 | Total: 29
 
 | ID | Title | Severity | Status |
 |---|---|---|---|
@@ -370,10 +370,11 @@ Open: 12 | Fixed: 16 | Total: 28
 | BUG-012 | **新增第三种镜像形态的极端案例：巡检先于早报。** 今日 `logs/2026-11-20-inspection_pm.json` 于 **11:29** 落盘（`timestamp: 11:29 CST`、status partial、波动型预警），相对标称 22:00 **提前约 10.5 小时**；且该次巡检 **早于** 本期早报（11:32 触发）—— 同一调度器把「晚间巡检」排到了「早间早报」之前，顺序倒置为观察期首次。当日 `inspection_noon` 无产出、14:00 未到不判缺跑；按「当日有任一巡检产出即非零产出」口径连续零产出交易日数 = 0，未达复合判据 → 不升级不降级 |
 | BUG-013 | **第 32 次连续命中**，hook 再次把自动化提示词全文透传为「bug 报告」→ 判误判、未按字面建档。附带弱提示本期 2 次：`scripts/log_20261120.py` 一次编辑（实为把文案里的双百分号改成中文表述以过产物门禁）被判为「在修 bug」；`build_20261120.py` 的 `.format` 改造属真实修复（见 BUG-028），已正常建档。**本期确有真实故障（BUG-028），按「真实失败优先」未因 hook 误判而漏记** |
 | BUG-028 | **新增、fixed**：`build_20261120.py` 在**被 `%` 格式化的** `prices[0].note` 里夹带字面涨跌幅 `（−2.51%）`，首次运行即抛 `TypeError: not enough arguments for format string`（注意不是 `unsupported format character` —— 全角 `）` 被当成下一个占位符的起始）。**百分号家族第七代**，首次落在「被格式化的中文长文案字段」上。修法：该字段改用 `.format()`（`{}` 占位），从根上消除「该行是否被格式化」的隐性前提；最小正反例已实测记录。凭据：`build` 前置门禁 `raw.count('%%')==0` 两次均通过，`check_briefing.py` errors 0 / OK |
+| BUG-029 | **新增、open**：邮件底稿命名 `mail-<日期>.html` **只编码日期、不编码任务类型**，同日两任务都发信失败时后者必然覆盖前者。本期实锤：11:29 晚间巡检（提前触发、qq-mail 未装载）把待补发底稿落在 `.workbuddy/outbox/mail-2026-11-20.html`，11:35 早报的 `mail_20261120.py` 以写模式打开同一路径直接覆盖 → 巡检那份 HTML 底稿不可恢复（仅剩 logs 里的纯文本 summary）。属无人值守下的**静默数据丢失**：不报错、日志里也看不出。建议：文件名加类型后缀 ＋ 写盘前存在性检查 ＋ 在 logs 记 `outbox_path` |
 
 ### 本期 buglog 复核凭据（2026-11-20）
 
-- **有新增 bug**：新增 `bugs/2026-11-20-percent-literal-in-format-string.md`（BUG-028），status=fixed
-- 计数取自本文件表头（写入后重读，非照抄上期）：Open 12 / Fixed 16 / Total 28（Fixed 15→16、Total 27→28 各 +1）
+- **有新增 bug**：新增 `bugs/2026-11-20-percent-literal-in-format-string.md`（BUG-028，fixed）与 `bugs/2026-11-20-outbox-filename-collision.md`（BUG-029，open）
+- 计数取自本文件表头（写入后重读，非照抄上期）：Open 13 / Fixed 16 / Total 29（Open 12→13、Fixed 15→16、Total 27→29）
 - 幂等守卫：`scripts/buglog_20261120.py` 先检测 `## 2026-11-20` 是否已存在，存在即 SKIP（BUG-025 教训内置）
-- 完整性：`bugs/` 目录 27 → **28** 个文件；`index.md` 字节数与 SHA-1、当日串出现次数见 `logs/2026-11-20-morning_briefing.json` 的 `buglog_verification`（**在全部写入动作之后测量**）
+- 完整性：`bugs/` 目录 27 → **29** 个文件；`index.md` 字节数与 SHA-1、当日串出现次数见 `logs/2026-11-20-morning_briefing.json` 的 `buglog_verification`（**在全部写入动作之后测量**）
