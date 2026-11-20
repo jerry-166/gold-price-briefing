@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-20",
+      "type": "inspection_pm",
+      "status": "partial",
+      "summary": "晚间巡检（提前触发 11:29）：XAUUSD $3523.53 跌 2.75%、日内振幅 3.29% 超 1.5% 阈值；金价刷新约 14 个月低点＋纪要放鹰＋12 月加息概率 96.4%，波动+事件双命中触发预警；但邮件双通道不可用（qq-mail 未装载、agent-mail not_bound），邮件未发出、HTML 落 outbox 待补发。"
+    },
+    {
       "date": "2026-11-19",
       "type": "inspection_noon",
       "status": "no_action",
