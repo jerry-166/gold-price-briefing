@@ -1,6 +1,6 @@
 # Buglog 索引
 
-Open: 13 | Fixed: 16 | Total: 29
+Open: 14 | Fixed: 17 | Total: 31
 
 | ID | Title | Severity | Status |
 |---|---|---|---|
@@ -378,3 +378,21 @@ Open: 13 | Fixed: 16 | Total: 29
 - 计数取自本文件表头（写入后重读，非照抄上期）：Open 13 / Fixed 16 / Total 29（Open 12→13、Fixed 15→16、Total 27→29）
 - 幂等守卫：`scripts/buglog_20261120.py` 先检测 `## 2026-11-20` 是否已存在，存在即 SKIP（BUG-025 教训内置）
 - 完整性：`bugs/` 目录 27 → **29** 个文件；`index.md` 字节数与 SHA-1、当日串出现次数见 `logs/2026-11-20-morning_briefing.json` 的 `buglog_verification`（**在全部写入动作之后测量**）
+
+## 2026-11-21（周六）观察更新
+
+| ID | 本期结论 |
+|---|---|
+| BUG-003 | 延迟约 **129 分钟**（会话首条 `date` 实测 11:04:09、邮件投递 11:09:12，标称 09:00），近 9 期序列 `…/90/119/154/129`，未刷新 10/31 的 747 分钟上界。**周六国际盘 06:00 起休市、上金所与外汇交易中心全停，延迟窗口内无任何新行情 → 危害 0 档**（「非交易日延迟危害恒为 0」第四次生效），故未在邮件头部与 `_meta.updated` 标注延迟交付 |
+| BUG-006 | **正常（连续第 4 日成功，11-18→11-21）**。`ToolSearch` 精确名检索 `mcp__qq-mail__SendMessage/ListMessages` 一次命中、未回落 agent-mail；沿用 11-20 的 `skip_confirmation: true` 直发，**未出现 42801、一次 `queued:true`**；`sent` 目录回读 `created_at 2026-11-21T03:09:12Z`。连续性仍不构成修复证据，severity 维持 major |
+| BUG-012 | 今日 `logs/` 下无 `2026-11-21-inspection_*` 产出，14:00 与 22:00 均未到点，不判缺跑；按「当日有任一巡检产出即非零产出」口径连续零产出交易日数 = 0，未达复合判据 → 不升级不降级。另记：11-20 期出现的「巡检先于早报」顺序倒置未复发 |
+| BUG-013 | **第 33 次连续命中**，hook 再次把自动化提示词全文透传为「bug 报告」→ 判误判、未按字面建档。附带弱提示 2 次：`build_20261121.py` 两次编辑（实为首版缩进被打乱导致 `IndentationError` ＋ advice 207→192 字压缩）、`mail_20261121.py` 两次编辑（实为新增 `wrap_outside_tags`，对应真实 bug BUG-031）。**本期确有真实失败（BUG-030/031），按「真实失败优先」未因 hook 误判而漏记** |
+| BUG-030 | **新增、open**：图表平移只切片 `labels/values`、却对 `events` 整体 `index - 1`，首点（10-22）滚出窗口后残留 `index: -1` 孤儿事件，`check_briefing.py` 报 `event idx -1`。10-22 已出现过一次，本次为复发。修法加 `if e["index"] - 1 < 0: continue`；建议提炼 `lib_chart.shift_chart()` 公共件 |
+| BUG-031 | **新增、fixed**：邮件 HTML 单行 `max line = 3396`，超 `Read` 的 2000 字符单行上限 → 「回读 → 原样传参」链路必然缺块。历史「每条新闻独立成行」不足以覆盖 `plan.buy.trigger` 这类长段落。修法：`wrap_outside_tags(limit=1200)` 只在标签外换行，实测 19 行、maxline 1311，发信一次成功 |
+
+### 本期 buglog 复核凭据（2026-11-21）
+
+- **有新增 bug**：`bugs/2026-11-21-chart-event-orphan-index.md`（BUG-030，open）、`bugs/2026-11-21-mail-html-long-line-truncation.md`（BUG-031，fixed）
+- 计数取自本文件表头（写入后重读）：Open 14 / Fixed 17 / Total 31（Open 13→14、Fixed 16→17、Total 29→31）
+- 幂等守卫：本脚本先检测 `## 2026-11-21` 是否已存在，存在即 SKIP
+- 完整性：`bugs/` 目录 29 → **31** 个文件；`index.md` 字节数／SHA-1／当日串出现次数见 `logs/2026-11-21-morning_briefing.json` 的 `buglog_verification`（**在全部写入动作之后测量**）

@@ -52,7 +52,8 @@
     "触发 11:04、邮件 11:09，标称 09:00 → 延迟约 129 分钟；周六国际盘 06:00 起休市、上金所与外汇交易中心全停，窗口内无新行情，危害 0 档，未在邮件头部标注延迟（updateTime 仍固定 09:00）",
     "媒体报周五纽约收盘 3537.87（−2.47%），与站内 hf_XAU 3534.64 差约 3 美元，已在 prices[3].source 与 chart.source 写明来源差异",
     "AU9999 涨跌幅 −1.24% 只覆盖 11-20 夜盘，与伦敦金 −2.49%（覆盖整个 11-20 交易日）时段不对齐，已在 source 说明，避免读者以为数据矛盾",
-    "outbox 底稿按 BUG-029 规范命名 mail-2026-11-21-morning_briefing.html"
+    "outbox 底稿按 BUG-029 规范命名 mail-2026-11-21-morning_briefing.html",
+    "buglog：本期确有真实失败 → 新增 BUG-030（图表事件孤儿索引，复发）与 BUG-031（邮件 HTML 长行截断，已修），并更新 BUG-003/006/012/013 观察；计数 Open 14 / Fixed 17 / Total 31，bugs/ 29→31"
   ],
   "summary_stats": {
     "total_steps": 5,
@@ -62,5 +63,22 @@
     "email_sent": true,
     "git_pushed": true
   },
-  "outbox_path": ".workbuddy/outbox/mail-2026-11-21-morning_briefing.html"
+  "outbox_path": ".workbuddy/outbox/mail-2026-11-21-morning_briefing.html",
+  "buglog_verification": {
+    "checked_at": "2026-11-21 11:15 CST",
+    "index_bytes": 86237,
+    "index_sha1": "e83a24486a0a493735addc6874a57e1f91ff6633",
+    "date_string_occurrences": 8,
+    "bug_files_total": 31,
+    "per_file_grep": {
+      "2026-11-21-chart-event-orphan-index.md": 1,
+      "2026-11-21-mail-html-long-line-truncation.md": 2
+    },
+    "header_counts": "Open 14 | Fixed 17 | Total 31",
+    "stats_json": {
+      "open": 14,
+      "fixed": 17,
+      "total": 31
+    }
+  }
 }
