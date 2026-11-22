@@ -1,6 +1,6 @@
 # Buglog 索引
 
-Open: 14 | Fixed: 17 | Total: 31
+Open: 15 | Fixed: 17 | Total: 32
 
 | ID | Title | Severity | Status |
 |---|---|---|---|
@@ -28,6 +28,8 @@ Open: 14 | Fixed: 17 | Total: 31
 | BUG-023 | `%` 格式化串里夹带中文涨幅文案（`+1.41%`）再次触发 `TypeError: not enough arguments for format string`（2026-11-09；百分号家族第五代，危害面缩小到单个 3 行拼接的 `source` 字段，说明只要正文与占位符同处一个被格式化的字符串就必然漏） | minor | fixed |
 | BUG-024 | `''.join()` 抹掉 HTML 片段间的换行，邮件正文变成 2202 字符单行，超 Read 单行 2000 字符上限，会在静默截断后发出半截 HTML（2026-11-09 发送前由生成脚本的 `maxline` 自检拦下；首次出现「产物正确、链路断在读取」形态） | major | fixed |
 | BUG-025 | buglog 追加脚本的幂等守卫只写了 skip 分支、缺少 else，重跑脚本时 `.buglog/index.md` 被重复追加一份当日「观察更新」并已推送（2026-11-13 收尾发现并修复；与 BUG-014 同源——都是「重复执行没有真正幂等」） | minor | fixed |
+
+| BUG-032 | 邮件正文靠人工转抄，outbox 底稿与实际发送内容无程序化一致性校验（2026-11-22 首次主动用 GetMessage 回读比对，本期一致；服务端会把 `<br>` 规范化为 `<br />`，严格相等校验会误报） | major | open |
 
 ## 2026-10-23（周五）观察更新
 
@@ -396,3 +398,22 @@ Open: 14 | Fixed: 17 | Total: 31
 - 计数取自本文件表头（写入后重读）：Open 14 / Fixed 17 / Total 31（Open 13→14、Fixed 16→17、Total 29→31）
 - 幂等守卫：本脚本先检测 `## 2026-11-21` 是否已存在，存在即 SKIP
 - 完整性：`bugs/` 目录 29 → **31** 个文件；`index.md` 字节数／SHA-1／当日串出现次数见 `logs/2026-11-21-morning_briefing.json` 的 `buglog_verification`（**在全部写入动作之后测量**）
+
+## 2026-11-22（周日）观察更新
+
+| ID | 本期结论 |
+|---|---|
+| BUG-003 | 延迟约 **53 分钟**（会话起始 `date` 实测 09:53:34，标称 09:00），近 10 期序列 `…/90/119/154/129/53`，落回区间低位、未刷新上界。**周日国际现货盘自 11-21 06:00 停至 11-23 06:00，上金所与外汇交易中心全休，延迟窗口内零新报价 → 危害 0 档**（「非交易日延迟危害恒为 0」第五次生效），故邮件头部与 `_meta.updated` 不标延迟交付，`updateTime` 仍固定 09:00 |
+| BUG-006 | **正常（连续第 5 日成功，11-18→11-22）**。`ToolSearch` 精确名检索 `mcp__qq-mail__SendMessage/ListMessages` 一次命中、未回落 agent-mail；沿用 `skip_confirmation: true` 直发，**未出现 42801、一次 `queued:true`**；`sent` 回读 `created_at 2026-11-22T01:57:04Z`（09:57:04 CST）。连续 5 日仍不构成修复证据（本 bug 历史上 3 日正常后第 4 日即复发），severity 维持 major |
+| BUG-012 | 今日 `logs/` 下无 `2026-11-22-inspection_*` 产出，14:00 与 22:00 均未到点，不判缺跑。另记：11-21（周六）同样零巡检产出，周末不计入「连续零产出交易日」（分母修正第十一次生效）；按复合判据连续零产出交易日数 = 0，不升级不降级 |
+| BUG-013 | **第 34 次连续命中**，hook 再次把自动化提示词全文透传为「bug 报告」→ 判误判、未按字面建档。附带弱提示本期为 0 次（build/mail/log/manifest 四个脚本均一次写对、零返工）。**本期确有真实发现（BUG-032），按「真实发现优先」未因 hook 误判而漏记** |
+| BUG-030 | 本期**第二次手工规避**：`build_20261122.py` 平移图表时再次手抄 `if e["index"] - 1 < 0: continue`，`check_briefing.py` 未报孤儿索引。状态维持 open —— 建议的 `lib_chart.shift_chart()` 仍未落地，每期仍有一次性踩坑概率 |
+| BUG-031 | 本期沿用 `wrap_outside_tags(limit=1200)`，邮件 HTML 实测 14 185 字符／maxline 1274、零双百分号、零 CSS `width:100%`（容器统一用 `width="100%"` 属性），未复现截断。状态 fixed 成立 |
+| BUG-032 | **新增、open**：底稿文件与实发正文是两条独立路径，转抄环节零校验。本期首次主动 `GetMessage` 回读比对 → 一致（仅 `<br>`→`<br />` 序列化差异），但结论是事后手查的、不是流程保证的。建议把「回读→规范化→比对→不一致降级 partial」固化进 mail 脚本收尾，或补齐 `config/email.json` 改走已有 `scripts/send_email.py --body-file` |
+
+### 本期 buglog 复核凭据（2026-11-22）
+
+- **有新增 bug**：`bugs/2026-11-22-mail-body-no-consistency-check.md`（BUG-032，open）
+- 计数取自本文件表头（写入后重读）：Open 15 / Fixed 17 / Total 32（Open 14→15、Total 31→32；无 fixed 变动）
+- 幂等守卫：本脚本先检测 `## 2026-11-22` 是否已存在，存在即 SKIP
+- 完整性：`bugs/` 目录 31 → **32** 个文件；`index.md` 字节数／SHA-1／当日串出现次数见 `logs/2026-11-22-morning_briefing.json` 的 `buglog_verification`（**在全部写入动作之后测量**）

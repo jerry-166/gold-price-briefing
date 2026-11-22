@@ -395,7 +395,13 @@
     "D:\\workspace\\每日金价资讯\\scripts\\build_20261121.py": 5,
     "D:\\workspace\\每日金价资讯\\scripts\\mail_20261121.py": 2,
     "D:\\workspace\\每日金价资讯\\scripts\\log_20261121.py": 1,
-    "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261121.py": 1
+    "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261121.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261122.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\manifest_20261122.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\mail_20261122.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\log_20261122.py": 1,
+    "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-11-22-mail-body-no-consistency-check.md": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261122.py": 1
   },
   "triggered_files": {
     "__cross_file__": true,

@@ -55,5 +55,21 @@
     "total_duration_ms": 216000,
     "email_sent": true,
     "git_pushed": true
+  },
+  "buglog_verification": {
+    "measured_at": "after_all_writes",
+    "index_bytes": 89724,
+    "index_sha1": "ad1076fb40afdceed31d04b2bbc1e6e1a09607e7",
+    "date_occurrences": 8,
+    "bug_files_count": 32,
+    "counters": {
+      "open": 15,
+      "fixed": 17,
+      "total": 32
+    },
+    "bug032_file_sha1": "0b8368981f090a60a4e23d6e0ec01fe4929c6b25",
+    "grep_date_hits_per_file": {
+      "2026-11-22-mail-body-no-consistency-check.md": 2
+    }
   }
 }
