@@ -1,6 +1,6 @@
 # Buglog 索引
 
-Open: 15 | Fixed: 17 | Total: 32
+Open: 16 | Fixed: 17 | Total: 33
 
 | ID | Title | Severity | Status |
 |---|---|---|---|
@@ -30,6 +30,7 @@ Open: 15 | Fixed: 17 | Total: 32
 | BUG-025 | buglog 追加脚本的幂等守卫只写了 skip 分支、缺少 else，重跑脚本时 `.buglog/index.md` 被重复追加一份当日「观察更新」并已推送（2026-11-13 收尾发现并修复；与 BUG-014 同源——都是「重复执行没有真正幂等」） | minor | fixed |
 
 | BUG-032 | 邮件正文靠人工转抄，outbox 底稿与实际发送内容无程序化一致性校验（2026-11-22 首次主动用 GetMessage 回读比对，本期一致；服务端会把 `<br>` 规范化为 `<br />`，严格相等校验会误报） | major | open |
+| BUG-033 | neodata-financial-search 技能就位但跑不起来（缺 requests 依赖且 pip 源不可用），任务提示词的第一取数路径长期不可执行；`query.py` 缺依赖时 `exit 0`，属静默降级（2026-11-23） | minor | open |
 
 ## 2026-10-23（周五）观察更新
 
@@ -417,3 +418,22 @@ Open: 15 | Fixed: 17 | Total: 32
 - 计数取自本文件表头（写入后重读）：Open 15 / Fixed 17 / Total 32（Open 14→15、Total 31→32；无 fixed 变动）
 - 幂等守卫：本脚本先检测 `## 2026-11-22` 是否已存在，存在即 SKIP
 - 完整性：`bugs/` 目录 31 → **32** 个文件；`index.md` 字节数／SHA-1／当日串出现次数见 `logs/2026-11-22-morning_briefing.json` 的 `buglog_verification`（**在全部写入动作之后测量**）
+
+## 2026-11-23（周一）观察更新
+
+| ID | 本期结论 |
+|---|---|
+| BUG-003 | 延迟约 **153 分钟**（会话首次 `date` 实测 11:33:39，标称 09:00），近 6 期序列 `…/154/129/53/153`，在 11-22 的 53 分钟低位后**重新跳回 100 分钟以上**，仍属「4-747 分钟极宽摆动」区间。**今日为交易日且盘中有大行情**（06:00 跳空高开至 3559.83、09:20 冲高 3630.32、11:33 报 3605.04），延迟窗口内已错过开盘位置与冲高段 → **危害 2 档（有行情且错过关键时点）**，与周末期的「危害 0 档」形成对照。未达 360 分钟标注门槛，按建议 ⑬ 不在顶部标延迟交付 |
+| BUG-006 | **复发**（连续 5 日成功后的第 6 日失败）。`connector-status` 显示 qq-mail 为 connected，但 `ToolSearch` 精确名检索 4 组（`mcp__qq-mail__SendMessage`、`mcp__qq-mail__ListMessages`、`mcp__qq-mail__send_mail`、`mcp__qq-mail__send_email`）全部回落 `mcp__agent-mail__*`；`DeferExecuteTool mcp__qq-mail__SendMessage` 直接返回 `Tool "mcp__qq-mail__SendMessage" not found in the deferred tools index`；兜底 `mcp__agent-mail__GetMe` 返回 `{"status":"not_bound"}` 并提示「请在开通面板完成开通，当前请勿重试」→ **双通道同时失效、无降级路径**，`email_sent: false`、status partial，HTML 底稿落 `.workbuddy/outbox/mail-2026-11-23-morning_briefing.html`（14 788 字节／maxline 1314，零双百分号、零 CSS `width:100%`）待人工补发。形态序列：未注册(10-19)→正常(10-20)→未注册(10-21/22)→…→正常(11-18~11-22 五日)→**未注册(11-23)**。11-22 的「连续 5 日正常」再次被证伪为修复证据 |
+| BUG-012 | 今日 `logs/` 下无 `2026-11-23-inspection_*` 产出，14:00 与 22:00 均未到点，不判缺跑；连续零产出交易日数 = 0，按复合判据不升级不降级 |
+| BUG-013 | **第 35 次连续命中**（9/26 起），hook 再次把自动化提示词全文透传为「bug 报告」→ 判误判、未按字面建档。附带弱提示两条均属正常开发：①`build_20261123.py` 编辑 2 次＝`advice` 204→198 字压缩 + `_meta.updated` 占位符填真实时间；②`log_20261123.py` 编辑 1 次＝清单摘要笔误「交易所版」→「交易日版」 |
+| BUG-030 | 本期**第三次手工规避**：`build_20261123.py` 仍手抄 `if e["index"] - 1 < 0: continue`，另加 `assert labels[e["index"]] == e["date"]` 逐条比对兜底。建议的 `lib_chart.shift_chart()` 仍未落地 |
+| BUG-032 | 维持 open。本期邮件未发出，转抄环节不存在，故无一致性校验可做。**但本期实测否掉了建议的兜底路径：`config/` 目录根本不存在，`scripts/send_email.py` 一运行就会在「配置文件不存在」处 `return 1`，所以「补齐 config/email.json 改走 SMTP」不是补个文件的事，还需要 SMTP 授权码等人工输入** |
+| BUG-033 | **新增、open**：neodata-financial-search 技能已落 `skills-marketplace`（SKILL.md 与 `scripts/query.py` 齐全）、token 缓存也在，但 `query.py` 运行即报「需要安装 requests」，`pip install requests` 又因本地索引无此包而失败 → 第一取数路径实际不可执行，且脚本缺依赖时 `exit 0`，属静默降级。建议把 HTTP 层改标准库 `urllib.request`，彻底去掉外部依赖 |
+
+### 本期 buglog 复核凭据（2026-11-23）
+
+- **有新增 bug**：`bugs/2026-11-23-neodata-skill-blocked.md`（BUG-033，open）
+- 计数取自本文件表头（写入后重读）：Open 16 / Fixed 17 / Total 33（Open 15→16、Total 32→33；无 fixed 变动）
+- 幂等守卫：本脚本先检测 `## 2026-11-23` 是否已存在，存在即整体 SKIP
+- 完整性：`bugs/` 目录 32 → **33** 个文件；`index.md` 字节数／SHA-1／当日串出现次数已写入 `logs/2026-11-23-morning_briefing.json` 的 `buglog_verification`（在全部写入动作之后测量）

@@ -3,7 +3,7 @@
     "D:\\workspace\\每日金价资讯\\manifest.json": 27,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-10-morning_briefing.json": 1,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-09-10.md": 1,
-    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188098041\\memory.md": 42,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188098041\\memory.md": 43,
     "D:\\workspace\\每日金价资讯\\logs\\2026-09-10-inspection_pm.json": 1,
     "D:\\workspace\\每日金价资讯\\logs\\manifest.json": 74,
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\automations\\automation-1784188108172\\memory.md": 28,
@@ -401,7 +401,13 @@
     "D:\\workspace\\每日金价资讯\\scripts\\mail_20261122.py": 1,
     "D:\\workspace\\每日金价资讯\\scripts\\log_20261122.py": 1,
     "D:\\workspace\\每日金价资讯\\.buglog\\bugs\\2026-11-22-mail-body-no-consistency-check.md": 1,
-    "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261122.py": 1
+    "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261122.py": 1,
+    "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-11-22.md": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261123.py": 3,
+    "D:\\workspace\\每日金价资讯\\scripts\\manifest_20261123.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\mail_20261123.py": 1,
+    "D:\\workspace\\每日金价资讯\\scripts\\log_20261123.py": 2,
+    "D:\\workspace\\每日金价资讯\\scripts\\buglog_20261123.py": 1
   },
   "triggered_files": {
     "__cross_file__": true,
@@ -506,6 +512,8 @@
     "D:\\workspace\\每日金价资讯\\.workbuddy\\memory\\2026-11-20.md": true,
     "D:\\workspace\\每日金价资讯\\logs\\2026-11-20-inspection_pm.json": true,
     "D:\\workspace\\每日金价资讯\\scripts\\build_20261121.py": true,
-    "D:\\workspace\\每日金价资讯\\scripts\\mail_20261121.py": true
+    "D:\\workspace\\每日金价资讯\\scripts\\mail_20261121.py": true,
+    "D:\\workspace\\每日金价资讯\\scripts\\build_20261123.py": true,
+    "D:\\workspace\\每日金价资讯\\scripts\\log_20261123.py": true
   }
 }

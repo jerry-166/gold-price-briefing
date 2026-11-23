@@ -55,5 +55,18 @@
     "total_duration_ms": 723000,
     "email_sent": false,
     "git_pushed": true
+  },
+  "buglog_verification": {
+    "date": "2026-11-23",
+    "new_bug": "BUG-033",
+    "bugs_dir_count": 33,
+    "index_bytes": 93505,
+    "index_sha1": "5f4146610c2b450caddd08e43cd9d3b8add3a3ce",
+    "date_string_occurrences": 8,
+    "header_line": "Open: 16 | Fixed: 17 | Total: 33",
+    "consistency": {
+      "bugs_with_date": 1,
+      "index_has_section": true
+    }
   }
 }
