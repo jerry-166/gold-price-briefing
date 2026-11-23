@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-23",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "交易日版：伦敦金跳空高开 3605.0（+1.99%）、AU9999 775.5（+1.44%）；四步成功，邮件通道故障未发、底稿落 outbox 待补发"
+    },
+    {
       "date": "2026-11-22",
       "type": "morning_briefing",
       "status": "success",
