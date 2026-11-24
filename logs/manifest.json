@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-24",
+      "type": "morning_briefing",
+      "status": "success",
+      "summary": "交易日版：伦敦金 3661.7（+0.73%）、AU9999 787.0（+0.72%），中间价未发布沿用 6.7120；五步全成、邮件已送达"
+    },
+    {
       "date": "2026-11-23",
       "type": "morning_briefing",
       "status": "partial",
