@@ -1,6 +1,12 @@
 {
   "logs": [
     {
+      "date": "2026-11-25",
+      "type": "morning_briefing",
+      "status": "partial",
+      "summary": "伦敦金 3551.4（-0.12%）、AU9999 763.3（-1.85%）、中间价 6.7088（+23bp）；邮件通道故障，底稿待补发"
+    },
+    {
       "date": "2026-11-24",
       "type": "inspection_noon",
       "status": "no_action",
