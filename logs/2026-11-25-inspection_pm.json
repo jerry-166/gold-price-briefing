@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-25",
+  "type": "inspection_pm",
+  "status": "partial",
+  "email_sent": false,
+  "outbox_path": ".workbuddy/outbox/mail-2026-11-25-inspection_pm.html",
+  "summary": "晚间巡检（22:00 任务于 23:12 实际触发，延迟约 72 分钟）：XAUUSD $3465.57/oz 较昨收 $3555.83 跌 2.54%、日内振幅 3.39%（高 3574.84 / 低 3454.16）远超 1.5% 阈值，连破 3500/3490/3480/3470 四道关口创约 15 个月新低；叠加今晚 21:30 美国 10 月核心 PCE 同比 3.3% 超预期、12 月加息几成定局，波动＋事件双命中 → 触发预警。但邮件双通道不可用（qq-mail 工具未进索引、agent-mail 未开通），邮件未发出、HTML 底稿落 outbox 待人工补发。",
+  "timestamp": "23:12 CST",
+  "steps": [
+    {
+      "num": 1,
+      "name": "价格查询",
+      "status": "success",
+      "duration_ms": 1180,
+      "result": "当前金价 XAUUSD $3465.57/oz（新浪财经 hf_XAU 23:12:00 实时；昨收 3555.83、今开 3558.41、最高 3574.84、最低 3454.16），较昨收跌 2.54%（−$90.26）、日内振幅 3.39% 超 1.5% 阈值 → 触发波动型预警。今晚 21:30 核心 PCE 公布后加速下挫，连破 3500/3490/3480/3470 四道关口、最低 3454.16 创 2025 年 9 月以来新低，较年内高点 5598.88 回撤逾 38%。交叉验证：金价查询网引 Wind 伦敦金现 −2.49% 报 3467.36、最低 3454.16（与新浪完全一致）；中新经纬日内 −1.7%、昨结 3555.300 / 高 3575.220（与新浪昨收、高点吻合）；澎湃 −2.09% 报 3480.99（发稿时点偏早）。媒体 −1.7%~−2.49% 与本站 −2.54% 差异系取数时点不同。东财 COMEX 接口本次连接失败（exit 56），未取得旁证。neodata-financial-search 本机依赖缺失仍未调用，取数走新浪实时接口 + WebSearch 交叉验证。",
+      "source": "新浪财经 hq.sinajs.cn hf_XAU 实时接口 + WebSearch 交叉验证"
+    },
+    {
+      "num": 2,
+      "name": "新闻扫描",
+      "status": "success",
+      "duration_ms": 4350,
+      "result": "搜索『黄金 美联储 金价 今晚』及 11-25 晚间最新报道：今晚有全新重大事件——北京时间 21:30 公布的美国 10 月核心 PCE 物价指数同比 +3.3%（预期 3.2%、前值 3.1%），创 2023 年 11 月以来最高；整体 PCE 同比 +3.8%，数据公布后金价跌幅扩大、现货与 COMEX 期金双双失守 3500。美联储 10 月纪要显示几乎所有官员认为未来数月进一步加息合适、部分官员不排除单次加息超 25bp，市场认定 12 月加息几成定局。现货白银失守 40 后跌破 39 美元（−3.5%~−4.4%）；科技股/AI 股暴跌引发流动性挤压、资金卖金补股，美元指数升至 103.925。机构面：高盛本月第二次下调金价预期（2027 年底目标 4650）、摩根大通下调至 4600；瑞银维持建设性、预测 2027 年底 5000。另有报道称美政府重新考虑将伊朗高层列为打击目标，黄金一度收复部分跌幅；美国拟对 14 个贸易伙伴加征新关税。属 PCE 数据驱动的全新事件型 + 波动型共振，与午后巡检（14:04、XAUUSD 3519.72、PCE 公布前）相比为盘后新增跌幅。",
+      "source": "WebSearch"
+    },
+    {
+      "num": 3,
+      "name": "预警判断",
+      "status": "success",
+      "duration_ms": 220,
+      "result": "日内振幅 3.39% 远超 1.5% 阈值 + 今晚核心 PCE 超预期这一全新重大事件 → 波动＋事件双命中，触发预警（alert_triggered=true）。邮件发送失败：qq-mail connector 显示 connected/bound/enabled 三真但精确名检索回落 agent-mail、直接调用报 not found in deferred tools index（索引未装载）；agent-mail GetMe 返回 not_bound（未开通）——双通道均不可用，BUG-006 复发。HTML 底稿已落 .workbuddy/outbox/mail-2026-11-25-inspection_pm.html 待人工补发，email_sent:false，状态 partial。"
+    }
+  ],
+  "summary_stats": {
+    "total_steps": 3,
+    "success_steps": 3,
+    "failed_steps": 0,
+    "total_duration_ms": 5750,
+    "alert_triggered": true
+  }
+}
