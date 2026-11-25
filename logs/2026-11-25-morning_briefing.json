@@ -56,5 +56,21 @@
     "total_duration_ms": 240000,
     "email_sent": false,
     "git_pushed": true
+  },
+  "buglog_verification": {
+    "written_at": "2026-11-25 11:36 CST（全部写入动作之后测量）",
+    "index_bytes": 97834,
+    "index_sha1": "7f310e1b62b950127e133c88bbab869825ae25ce",
+    "grep_date_count": 7,
+    "grep_bug034_count": 3,
+    "bugs_dir_file_count": 34,
+    "new_bug_file": "bugs/2026-11-25-fffd-gate-gap.md",
+    "new_bug_file_bytes": 2856,
+    "stats": {
+      "open": 17,
+      "fixed": 17,
+      "total": 34
+    },
+    "idempotent_guard": "脚本先检测 index.md 是否已含 ## 2026-11-25，存在即 SKIP"
   }
 }
