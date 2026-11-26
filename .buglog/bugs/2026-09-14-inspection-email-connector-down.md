@@ -256,3 +256,10 @@ reported_at: 2026-09-14T22:05:00
 - **执行路径**：ToolSearch 传 `tool_names`（精确名）**一次命中** `mcp__qq-mail__SendMessage`／`GetMe`，未回落 agent-mail 命名空间 → `GetMe` 返回正常（scope 含 `mail:send`、日配额 2000）→ `SendMessage` 带 `body_format:HTML`＋`skip_confirmation:true` 一次成功返回 `queued:true` → `ListMessages(dir=sent)` 于 **11:03:57 CST** 确认落库（`msg_Y43_jSyMRnHKOuJzoTV59y8vFMoDLCQVRwR1UrPw87wXwA`，snippet 与产物首屏一致）。
 - **「精确名检索 + 按名调用验证」两步法第 N 次完整执行、本次零失败**；邮件 HTML 规格 14 055 字符 / 19 078 字节 / 105 行 / maxline 477，零 `%%`、零 `width:100%` CSS 写法（改用 `width="100%"` 属性，从根上规避 BUG-017 家族）。
 - **不构成修复证据**：本 bug 历史上「连续正常」已被多次证伪（最长 10/16-10/18 三日正常后第 4 日复发；11/12-11/14 三日正常后 11/15 复发）。当前新序列连续正常 1 日，severity 维持 major，观察窗继续。
+
+## 2026-11-26（周四）
+
+- **正常**。`ToolSearch` 以精确名 `mcp__qq-mail__SendMessage` 一次命中（未回落 agent-mail），
+  `DeferExecuteTool` 携 `skip_confirmation: true` 首次调用即 `queued: true`，未出现 42801 确认链路。
+- `ListMessages(dir=sent)` 回读 `created_at` 2026-11-26T02:52:57Z（10:52:57 CST），主题与 snippet 头部一致。
+- 形态序列：正常(11-24)→未注册(11-25)→**正常(11-26)**，隔日抖动第 4 次出现，不构成修复证据，severity 维持 major。

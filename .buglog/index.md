@@ -1,6 +1,6 @@
 # Buglog 索引
 
-Open: 17 | Fixed: 17 | Total: 34
+Open: 18 | Fixed: 17 | Total: 35
 
 | ID | Title | Severity | Status |
 |---|---|---|---|
@@ -450,6 +450,7 @@ Open: 17 | Fixed: 17 | Total: 34
 | BUG-032 | 维持 open。本期邮件未发出，转抄环节不存在，无一致性校验可做；底稿与实发本应同源的问题依旧，最短路径仍是「让发信工具直接吃本地底稿」，而 qq-mail 的 `SendMessage` 只吃内联 body，结构上做不到 |
 | BUG-033 | 维持 open，**本期第二次未调用**：`query.py` 依赖 `requests` 缺失、`pip install requests` 因本地索引不可用而失败，且缺依赖时脚本 `exit 0`（静默降级）。本期取数仍走「新浪实时接口 + WebSearch 交叉验证」，logs step1 的 `source` 已如实写明「未假装调用」 |
 | BUG-034 | **新增、open（minor）**：`check_briefing.py` 的 `walk()` 只校验 ASCII 引号/反引号/字面 `**` 与 `%%`，**不校验 U+FFFD 与控制字符**；本期构建脚本的长中文文案里出现过一处 U+FFFD（「盘中最低」的「低」被替换），靠人工回读源码发现、成稿前已修正，产物未受影响。建议在 `walk()` 内补 `\ufffd` 与控制字符断言 |
+| BUG-035 | **新增、open（minor）**：`check_briefing.py` 不校验繁简混用。本期 `news[5].explain` 手写文案出现「別」（应为「别」），`check_briefing.py` 报 `errors: 0`、build 脚本的 `walk()`／`%%` 门禁／U+FFFD 断言全部通过，字形维度零拦截，靠人工回读底稿发现后 `sed` 修正（追加提交 cd8aa50）。与 BUG-034 同属「字形层面没有自动化门禁」，建议合并补一个字符集门禁（常用繁体字黑名单，或 `opencc t2s` 不一致即报错；按 BUG-033 教训不建议引入第三方依赖） | minor | open |
 
 ### 本期 buglog 复核凭据（2026-11-25）
 
@@ -457,3 +458,26 @@ Open: 17 | Fixed: 17 | Total: 34
 - 计数取自本文件表头（写入后重读）：Open 17 / Fixed 17 / Total 34（Open 16→17、Total 33→34；无 fixed 变动）
 - 幂等守卫：本脚本先检测 `## 2026-11-25` 是否已存在，存在即整体 SKIP
 - 完整性：`bugs/` 目录 33 → **34** 个文件
+
+---
+
+## 2026-11-26（周四）观察更新
+
+| ID | 本期结论 |
+|---|---|
+| BUG-003 | 延迟约 **108 分钟**（会话首次 `date` 实测 10:48:23，标称 09:00），近 8 期序列 `…/53/153/12/148/108`。**今日为交易日且盘中有双向行情**（隔夜 PCE 后砸到 3426.64、今晨拉回并冲高 3607.02），09:00-10:46 之间错过的最大区间约 56 美元 → **危害 2 档**。未达 360 分钟标注门槛，按建议 ⑬ 不在顶部标延迟 |
+| BUG-006 | **正常**。`ToolSearch` 精确名 `mcp__qq-mail__SendMessage` 一次命中（未回落 agent-mail），`DeferExecuteTool` 携 `skip_confirmation: true` 首次调用即 `queued: true`，未出现 42801；`ListMessages(dir=sent)` 回读 `created_at` 10:52:57 CST 一致。形态序列：正常(11-24)→未注册(11-25)→**正常(11-26)**，隔日抖动第 4 次，不构成修复证据 |
+| BUG-012 | 今日 `logs/2026-11-26-*` 仅早报一条，14:00/22:00 巡检未到点，不判缺跑；11-25 两条巡检均正常，连续零产出交易日数 = 0，不升级不降级 |
+| BUG-013 | **第 37 次连续命中**（9/26 起），hook 再次把自动化提示词全文透传为「bug 报告」→ 判误判、未按字面建档。附带弱提示两条属正常返工：`build_20261126.py` 编辑 3 次（`labels[0]` 断言位置、`advice` 209→190 字、繁简修正另立 BUG-035）、`mail_20261126.py` 编辑 2 次（日期与导语替换） |
+| BUG-030 | 本期**第五次手工规避**：仍手抄 `if ev["index"] - 1 < 0: continue`，另加 `assert len(events) == 30`、`events[-1]["index"] == 29`、逐条 `labels[ev["index"]] == ev["date"]`。`lib_chart.shift_chart()` 仍未落地 |
+| BUG-032 | 维持 open。本期邮件发出，但**未做全文回读逐字比对**：19 179 字节正文二次转抄成本高于收益，只以 `snippet` 与底稿开头比对（一致）作轻量证据 → 相比 11-22 的全文比对是降级而非改善 |
+| BUG-033 | 维持 open，**本期第三次实测仍未成功**：`query.py` 报「需要安装 requests」后 `exit 0`，`import requests` 仍 ImportError。取数改走新浪实时接口＋东财 push2＋WebSearch，logs step1 已如实写明「未假装调用」 |
+| BUG-034 | 维持 open。本期 `build_20261126.py` 已内置 `assert "\ufffd" not in raw`（局部规避第 1 次、产物零 U+FFFD），但 `check_briefing.py` 的 `walk()` 仍未补 → 约束只存在于单个脚本里 |
+| BUG-035 | **新增、open（minor）**：`check_briefing.py` 不校验繁简混用。本期手写文案出现「別」（应为「别」），三道门禁全过、靠人工回读底稿发现，`sed` 修正后追加提交 cd8aa50。建议与 BUG-034 合并为「字符集门禁」 |
+
+### 本期 buglog 复核凭据（2026-11-26）
+
+- **有新增 bug**：`bugs/2026-11-26-traditional-chars-gate-gap.md`（BUG-035，open，minor）
+- 计数取自本文件表头（写入后重读）：Open 18 / Fixed 17 / Total 35（Open 17→18、Total 34→35；无 fixed 变动）
+- 幂等守卫：本脚本先检测 `## 2026-11-26` 是否已存在，存在即整体 SKIP
+- 完整性：`bugs/` 目录 34 → **35** 个文件

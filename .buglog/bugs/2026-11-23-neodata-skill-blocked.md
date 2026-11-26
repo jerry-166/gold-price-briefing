@@ -54,3 +54,10 @@ ERROR: No matching distribution found for requests
 
 如实记录为「未调用成功」，`logs/2026-11-23-morning_briefing.json` 的 `step1.source` 已写明
 「脚本就位且 token 存在，但运行缺 requests 依赖、本地 pip 源不可用，install 失败 → 改走实时接口 + 搜索，未假装调用」。
+
+## 2026-11-26（周四）
+
+- 维持 open，**本期第三次实测仍未调用成功**：`query.py "伦敦金现货价格XAUUSD最新价"` 输出「需要安装 requests」后 `exit 0`；
+  `python -c "import requests"` 仍 ImportError。
+- 本期取数改走「新浪实时接口 hf_XAU/gds_AU9999/gds_AUTD ＋ 东方财富 push2 ＋ WebSearch 交叉验证」，
+  logs step1 的 `source` 已如实写明「未假装调用」。

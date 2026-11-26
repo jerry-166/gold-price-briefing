@@ -41,3 +41,9 @@ if e["index"] - 1 < 0:
 把「图表平移」提炼成 `scripts/lib_chart.py` 的 `shift_chart(prev, new_date, value, event)`：
 内部完成切片、索引重排、孤儿事件过滤、`labels[-1] == 今日` 断言。日更脚本只传参数，
 不再手抄这段逻辑——否则每期仍有一次踩坑概率。
+
+## 2026-11-26（周四）
+
+- 本期**第五次手工规避**：`build_20261126.py` 仍手抄 `if ev["index"] - 1 < 0: continue`，
+  并沿用 `assert labels[ev["index"]] == ev["date"]` 逐条比对兜底，另加 `assert len(events) == 30`、`events[-1]["index"] == 29`。
+- 建议的 `lib_chart.shift_chart()` 仍未落地，第 5 次记账。
