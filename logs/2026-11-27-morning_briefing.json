@@ -62,5 +62,28 @@
     "口径：11-26 真实收盘 3566.26（媒体 3566.60），「昨晨快照 vs 真实收盘」第 6 次修法完成——昨日 777.0 是 10:46 快照，按收盘折算 769.3，差 7.7 元/克，chart 11-26 点已回填。个别快讯把 3588.40（11-25 收盘）误标为 11-26 收盘，已在 prices[3].source 写明。",
     "返工两处：①check 首轮 pairs 只 4 组（plan.price 写成「积存金约 X-Y 元/克」不匹配正则）→ 改为「约 X-Y 元/克，积存金口径同此」后 5 组通过；②mail 脚本首版 wrap_outside_tags 按字符数硬切，把 style 属性切断（「fo」+换行+「nt-size」），改为标签内感知断行、limit 1500 后 maxline 596 未被触发。",
     "图表：labels 10-29…11-27 共 30 点，events 整体 −1、丢弃滚出的 10-28 与孤儿，逐条校验 labels[idx]==date 通过。"
-  ]
+  ],
+  "buglog_verification": {
+    "date": "2026-11-27",
+    "new_bugs": [
+      "BUG-036 (fixed/minor)",
+      "BUG-037 (open/minor)"
+    ],
+    "index_bytes": 105635,
+    "index_sha1": "e6237d024b4fdeb81d8f7efc07a88630a96bd76e",
+    "index_date_occurrences": 9,
+    "bugs_file_count": 37,
+    "new_files": {
+      "2026-11-27-wrap-tag-cut.md": [
+        2003,
+        "35308be078b7cee8f3b119dfaa92ed41b1478d6c"
+      ],
+      "2026-11-27-price-pair-regex-gap.md": [
+        1797,
+        "370c21ade20e9989b7f432bcce5981decae2e884"
+      ]
+    },
+    "counts": "Open 19 / Fixed 18 / Total 37",
+    "note": "BUG-003/006/012/013 四条观察更新仅写入 index.md（与 11-17 同口径，index-only），未改四个 bug 文件正文；bugs/ 目录 35→37"
+  }
 }
