@@ -2,6 +2,12 @@
   "logs": [
     {
       "date": "2026-11-27",
+      "type": "inspection_noon",
+      "status": "no_action",
+      "summary": "午后巡检（14:00 任务 14:10 触发）：XAUUSD $3644.08 距早报 +0.53%、较昨收 +2.18%、振幅 3.04% 但主涨段早报已覆盖，午后无新增波动与全新突发，静默不触发预警。"
+    },
+    {
+      "date": "2026-11-27",
       "type": "morning_briefing",
       "status": "success",
       "summary": "六环节全部成功：伦敦金 3625.0 +1.65%、AU9999 776.8 +1.43%，邮件 skip_confirmation 直发一次 queued。"
